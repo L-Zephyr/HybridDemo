@@ -10,6 +10,15 @@ import UIKit
 
 class WebContainer: UIWebView {
     
+    // MARK: - Public
+    
+    public func load(url: String) {
+        let request = URLRequest(url: URL(string: url)!)
+        self.loadRequest(request)
+    }
+    
+    // MARK: - Private
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.delegate = self

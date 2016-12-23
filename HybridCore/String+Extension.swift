@@ -9,7 +9,8 @@
 import Foundation
 
 extension String {
-    public func md5() -> String {
+    
+    internal func md5() -> String {
         let str = self.cString(using: String.Encoding.utf8)
         let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)

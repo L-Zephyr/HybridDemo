@@ -19,15 +19,13 @@ class ViewController: UIViewController {
         
         // load local resouce
         TimeLogger.sharedLogger.startTimeLog()
-        let localPath = Bundle.main.path(forResource: "main", ofType: "html")
-        web.loadRequest(URLRequest(url: URL(string: localPath!)!))
+        
+        let remoteUrl = "http://baidu.com/main.html"
+        web.load(url: remoteUrl)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
-

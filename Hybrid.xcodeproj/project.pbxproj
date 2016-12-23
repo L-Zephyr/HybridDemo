@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11F1D81E02843A006F26FD /* SecondViewController.swift */; };
+		BB11F1DB1E02843A006F26FD /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB11F1D91E02843A006F26FD /* SecondViewController.xib */; };
+		BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1828431E03D2380077F433 /* HTTPMock.swift */; };
 		BB1DD2BE1DFCE92B00B6C00E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */; };
 		BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2BF1DFCE92B00B6C00E /* ViewController.swift */; };
 		BB1DD2C31DFCE92B00B6C00E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C11DFCE92B00B6C00E /* Main.storyboard */; };
@@ -14,13 +17,22 @@
 		BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C61DFCE92B00B6C00E /* LaunchScreen.storyboard */; };
 		BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */; };
 		BB1DD2DF1DFCE97F00B6C00E /* WebContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2DE1DFCE97F00B6C00E /* WebContainer.swift */; };
-		BB1DD2E41DFCEB8C00B6C00E /* global.css in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2E11DFCEB8C00B6C00E /* global.css */; };
-		BB1DD2E51DFCEB8C00B6C00E /* global.js in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2E21DFCEB8C00B6C00E /* global.js */; };
-		BB1DD2E61DFCEB8C00B6C00E /* main.html in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2E31DFCEB8C00B6C00E /* main.html */; };
 		BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */; };
 		BB1DD2EC1DFD57C000B6C00E /* FileInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2EB1DFD57C000B6C00E /* FileInterceptor.swift */; };
 		BB1DD2EF1DFD8D1D00B6C00E /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2EE1DFD8D1D00B6C00E /* CacheManager.swift */; };
 		BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */; };
+		BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2F81DFED79900B6C00E /* Util.swift */; };
+		BB2D56DC1E0047E000098738 /* HybridResource in Resources */ = {isa = PBXBuildFile; fileRef = BB2D56DB1E0047E000098738 /* HybridResource */; };
+		BB2D56DE1E004CCB00098738 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D56DD1E004CCB00098738 /* Config.swift */; };
+		BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D570E1E027A6200098738 /* VersionManager.swift */; };
+		BB98E7D31E038B120021D9E1 /* VersionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */; };
+		BB98E7D51E03C07A0021D9E1 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D41E03C07A0021D9E1 /* DBHelper.swift */; };
+		BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */; };
+		BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29B9F1E09466B004F1C75 /* WebAppFileItem.swift */; };
+		BBE29BA21E0AC4F7004F1C75 /* DBHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */; };
+		BBE29BA41E0BC96C004F1C75 /* WebAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29BA31E0BC96C004F1C75 /* WebAppInfo.swift */; };
+		DC62629D43CF03E5AF473C60 /* Pods_Hybrid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72DD68026FA84DA37140D7 /* Pods_Hybrid.framework */; };
+		F32F7C94C058DB028081B6F1 /* Pods_HybridTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B8150592778DD3F750D1FC /* Pods_HybridTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +46,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00938F07D44EF7C086C77E85 /* Pods-Hybrid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hybrid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hybrid/Pods-Hybrid.release.xcconfig"; sourceTree = "<group>"; };
+		536D04849E264D0ADB29AB5A /* Pods-HybridTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HybridTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HybridTests/Pods-HybridTests.debug.xcconfig"; sourceTree = "<group>"; };
+		704393D811BB63CC691868CD /* Pods-Hybrid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hybrid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hybrid/Pods-Hybrid.debug.xcconfig"; sourceTree = "<group>"; };
+		8A72DD68026FA84DA37140D7 /* Pods_Hybrid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hybrid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8B8150592778DD3F750D1FC /* Pods_HybridTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HybridTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB11F1D81E02843A006F26FD /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		BB11F1D91E02843A006F26FD /* SecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
+		BB1828431E03D2380077F433 /* HTTPMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMock.swift; sourceTree = "<group>"; };
+		BB1828471E03F2D70077F433 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		BB1DD2BA1DFCE92B00B6C00E /* Hybrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hybrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB1DD2BF1DFCE92B00B6C00E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,14 +66,22 @@
 		BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridTests.swift; sourceTree = "<group>"; };
 		BB1DD2D41DFCE92B00B6C00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB1DD2DE1DFCE97F00B6C00E /* WebContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContainer.swift; sourceTree = "<group>"; };
-		BB1DD2E11DFCEB8C00B6C00E /* global.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = global.css; sourceTree = "<group>"; };
-		BB1DD2E21DFCEB8C00B6C00E /* global.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = global.js; sourceTree = "<group>"; };
-		BB1DD2E31DFCEB8C00B6C00E /* main.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = main.html; sourceTree = "<group>"; };
 		BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLogger.swift; sourceTree = "<group>"; };
 		BB1DD2EB1DFD57C000B6C00E /* FileInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInterceptor.swift; sourceTree = "<group>"; };
 		BB1DD2EE1DFD8D1D00B6C00E /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		BB1DD2F31DFD9B2B00B6C00E /* Hybrid-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hybrid-Bridging-Header.h"; sourceTree = "<group>"; };
+		BB1DD2F81DFED79900B6C00E /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		BB2D56DB1E0047E000098738 /* HybridResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HybridResource; sourceTree = "<group>"; };
+		BB2D56DD1E004CCB00098738 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		BB2D570E1E027A6200098738 /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
+		BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManagerTests.swift; sourceTree = "<group>"; };
+		BB98E7D41E03C07A0021D9E1 /* DBHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
+		BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		BBE29B9F1E09466B004F1C75 /* WebAppFileItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebAppFileItem.swift; sourceTree = "<group>"; };
+		BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHelperTests.swift; sourceTree = "<group>"; };
+		BBE29BA31E0BC96C004F1C75 /* WebAppInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebAppInfo.swift; sourceTree = "<group>"; };
+		CD7AB05FBDC1989DEEBC6076 /* Pods-HybridTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HybridTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HybridTests/Pods-HybridTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */,
+				DC62629D43CF03E5AF473C60 /* Pods_Hybrid.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,20 +98,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32F7C94C058DB028081B6F1 /* Pods_HybridTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB1828451E03D23F0077F433 /* HTTPMock */ = {
+			isa = PBXGroup;
+			children = (
+				BB1828431E03D2380077F433 /* HTTPMock.swift */,
+			);
+			name = HTTPMock;
+			sourceTree = "<group>";
+		};
+		BB1828461E03F2D70077F433 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */,
+				BB1828471E03F2D70077F433 /* libsqlite3.0.tbd */,
+				8A72DD68026FA84DA37140D7 /* Pods_Hybrid.framework */,
+				B8B8150592778DD3F750D1FC /* Pods_HybridTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BB1DD2B11DFCE92B00B6C00E = {
 			isa = PBXGroup;
 			children = (
-				BB1DD2E01DFCEA1B00B6C00E /* HybridResource */,
 				BB1DD2DD1DFCE95100B6C00E /* HybridCore */,
 				BB1DD2BC1DFCE92B00B6C00E /* Hybrid */,
 				BB1DD2D11DFCE92B00B6C00E /* HybridTests */,
 				BB1DD2BB1DFCE92B00B6C00E /* Products */,
+				BB1828461E03F2D70077F433 /* Frameworks */,
+				E807A599C9844CAD1FAED2A8 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,10 +149,14 @@
 			isa = PBXGroup;
 			children = (
 				BB1DD2E71DFCF3D100B6C00E /* Helper */,
+				BB1828451E03D23F0077F433 /* HTTPMock */,
 				BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */,
 				BB1DD2BF1DFCE92B00B6C00E /* ViewController.swift */,
 				BB1DD2C11DFCE92B00B6C00E /* Main.storyboard */,
+				BB11F1D81E02843A006F26FD /* SecondViewController.swift */,
+				BB11F1D91E02843A006F26FD /* SecondViewController.xib */,
 				BB1DD2C41DFCE92B00B6C00E /* Assets.xcassets */,
+				BB2D56DB1E0047E000098738 /* HybridResource */,
 				BB1DD2C61DFCE92B00B6C00E /* LaunchScreen.storyboard */,
 				BB1DD2C91DFCE92B00B6C00E /* Info.plist */,
 			);
@@ -111,6 +167,8 @@
 			isa = PBXGroup;
 			children = (
 				BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */,
+				BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */,
+				BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */,
 				BB1DD2D41DFCE92B00B6C00E /* Info.plist */,
 			);
 			path = HybridTests;
@@ -123,18 +181,10 @@
 				BB1DD2ED1DFD8D0C00B6C00E /* CacheManager */,
 				BB1DD2EA1DFD57A500B6C00E /* Interceptor */,
 				BB1DD2DE1DFCE97F00B6C00E /* WebContainer.swift */,
+				BB2D56DD1E004CCB00098738 /* Config.swift */,
+				BB2D570E1E027A6200098738 /* VersionManager.swift */,
 			);
 			path = HybridCore;
-			sourceTree = "<group>";
-		};
-		BB1DD2E01DFCEA1B00B6C00E /* HybridResource */ = {
-			isa = PBXGroup;
-			children = (
-				BB1DD2E11DFCEB8C00B6C00E /* global.css */,
-				BB1DD2E21DFCEB8C00B6C00E /* global.js */,
-				BB1DD2E31DFCEB8C00B6C00E /* main.html */,
-			);
-			path = HybridResource;
 			sourceTree = "<group>";
 		};
 		BB1DD2E71DFCF3D100B6C00E /* Helper */ = {
@@ -157,6 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				BB1DD2EE1DFD8D1D00B6C00E /* CacheManager.swift */,
+				BBE29B9F1E09466B004F1C75 /* WebAppFileItem.swift */,
+				BBE29BA31E0BC96C004F1C75 /* WebAppInfo.swift */,
 			);
 			path = CacheManager;
 			sourceTree = "<group>";
@@ -164,10 +216,23 @@
 		BB1DD2F01DFD987B00B6C00E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				BB1DD2F81DFED79900B6C00E /* Util.swift */,
 				BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */,
 				BB1DD2F31DFD9B2B00B6C00E /* Hybrid-Bridging-Header.h */,
+				BB98E7D41E03C07A0021D9E1 /* DBHelper.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		E807A599C9844CAD1FAED2A8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				704393D811BB63CC691868CD /* Pods-Hybrid.debug.xcconfig */,
+				00938F07D44EF7C086C77E85 /* Pods-Hybrid.release.xcconfig */,
+				536D04849E264D0ADB29AB5A /* Pods-HybridTests.debug.xcconfig */,
+				CD7AB05FBDC1989DEEBC6076 /* Pods-HybridTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,10 +242,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB1DD2D71DFCE92B00B6C00E /* Build configuration list for PBXNativeTarget "Hybrid" */;
 			buildPhases = (
+				E7AEA31D6C48866D81304873 /* [CP] Check Pods Manifest.lock */,
 				BB1DD2B61DFCE92B00B6C00E /* Sources */,
 				BB1DD2B71DFCE92B00B6C00E /* Frameworks */,
 				BB1DD2B81DFCE92B00B6C00E /* Resources */,
 				BB1DD2F71DFDA04C00B6C00E /* ShellScript */,
+				BB2D57101E027C1300098738 /* ShellScript */,
+				60DC8CF04424C61CF1DC2366 /* [CP] Embed Pods Frameworks */,
+				551445A745232A182C7811F2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -195,9 +264,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB1DD2DA1DFCE92B00B6C00E /* Build configuration list for PBXNativeTarget "HybridTests" */;
 			buildPhases = (
+				ED7F17D42495B751022288B4 /* [CP] Check Pods Manifest.lock */,
 				BB1DD2CA1DFCE92B00B6C00E /* Sources */,
 				BB1DD2CB1DFCE92B00B6C00E /* Frameworks */,
 				BB1DD2CC1DFCE92B00B6C00E /* Resources */,
+				9B338827BD4F2EF701C014C2 /* [CP] Embed Pods Frameworks */,
+				4A38DBF2AE7B39DF3BA9D637 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,12 +329,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB2D56DC1E0047E000098738 /* HybridResource in Resources */,
 				BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */,
-				BB1DD2E51DFCEB8C00B6C00E /* global.js in Resources */,
 				BB1DD2C51DFCE92B00B6C00E /* Assets.xcassets in Resources */,
-				BB1DD2E61DFCEB8C00B6C00E /* main.html in Resources */,
-				BB1DD2E41DFCEB8C00B6C00E /* global.css in Resources */,
 				BB1DD2C31DFCE92B00B6C00E /* Main.storyboard in Resources */,
+				BB11F1DB1E02843A006F26FD /* SecondViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +347,66 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4A38DBF2AE7B39DF3BA9D637 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HybridTests/Pods-HybridTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		551445A745232A182C7811F2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hybrid/Pods-Hybrid-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		60DC8CF04424C61CF1DC2366 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hybrid/Pods-Hybrid-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B338827BD4F2EF701C014C2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HybridTests/Pods-HybridTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BB1DD2F71DFDA04C00B6C00E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -289,6 +420,49 @@
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
+		BB2D57101E027C1300098738 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		E7AEA31D6C48866D81304873 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ED7F17D42495B751022288B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -296,12 +470,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */,
+				BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */,
 				BB1DD2DF1DFCE97F00B6C00E /* WebContainer.swift in Sources */,
 				BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */,
+				BB2D56DE1E004CCB00098738 /* Config.swift in Sources */,
 				BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */,
+				BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */,
 				BB1DD2EC1DFD57C000B6C00E /* FileInterceptor.swift in Sources */,
+				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,
+				BB98E7D51E03C07A0021D9E1 /* DBHelper.swift in Sources */,
+				BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */,
 				BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */,
 				BB1DD2EF1DFD8D1D00B6C00E /* CacheManager.swift in Sources */,
+				BBE29BA41E0BC96C004F1C75 /* WebAppInfo.swift in Sources */,
 				BB1DD2BE1DFCE92B00B6C00E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,7 +492,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB98E7D31E038B120021D9E1 /* VersionManagerTests.swift in Sources */,
 				BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */,
+				BBE29BA21E0AC4F7004F1C75 /* DBHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,12 +621,13 @@
 		};
 		BB1DD2D81DFCE92B00B6C00E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 704393D811BB63CC691868CD /* Pods-Hybrid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = WQJ84ABJFE;
 				INFOPLIST_FILE = Hybrid/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LZephyr.Hybrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -454,12 +639,13 @@
 		};
 		BB1DD2D91DFCE92B00B6C00E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00938F07D44EF7C086C77E85 /* Pods-Hybrid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = WQJ84ABJFE;
 				INFOPLIST_FILE = Hybrid/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LZephyr.Hybrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -470,6 +656,7 @@
 		};
 		BB1DD2DB1DFCE92B00B6C00E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 536D04849E264D0ADB29AB5A /* Pods-HybridTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -485,6 +672,7 @@
 		};
 		BB1DD2DC1DFCE92B00B6C00E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD7AB05FBDC1989DEEBC6076 /* Pods-HybridTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -517,6 +705,7 @@
 				BB1DD2D91DFCE92B00B6C00E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB1DD2DA1DFCE92B00B6C00E /* Build configuration list for PBXNativeTarget "HybridTests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +714,7 @@
 				BB1DD2DC1DFCE92B00B6C00E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

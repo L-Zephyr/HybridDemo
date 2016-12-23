@@ -1,0 +1,14 @@
+disabled_rules:
+  - line_length
+  - empty_count
+  - file_length
+  - function_body_length
+  - function_parameter_count
+  - todo
+  - type_body_length
+  - trailing_whitespace
+  - variable_name
+  - cyclomatic_complexity
+  - force_cast
+
+force_try: warning

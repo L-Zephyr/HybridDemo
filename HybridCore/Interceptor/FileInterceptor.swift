@@ -9,7 +9,16 @@
 import UIKit
 import Foundation
 
+/*
+ 拦截浏览器中对静态资源的请求，优先用本地资源进行响应
+ */
+
 class FileInterceptor: URLProtocol {
+    
+    fileprivate var session: URLSession? = nil
+    fileprivate var fileHandler: FileHandle? = nil
+    fileprivate var filename: String = ""
+    fileprivate var downloadTask: URLSessionTask? = nil
     
     // 1.判断哪些请求可以被该拦截器处理
     // 拦截来自浏览器的http/https请求
@@ -17,7 +26,10 @@ class FileInterceptor: URLProtocol {
         guard let userAgent = request.allHTTPHeaderFields?["User-Agent"] else {
             return false
         }
-        guard userAgent.hasPrefix("Mozilla") else {
+        guard userAgent.hasPrefix("Mozilla") else { // 只拦截浏览器的请求
+            return false
+        }
+        guard let ext = request.url?.pathExtension, Config.cacheTypeWhiteList.contains(ext), !Config.cacheTypeBlackList.contains(ext) else {
             return false
         }
         
@@ -29,7 +41,7 @@ class FileInterceptor: URLProtocol {
         return false
     }
     
-    // 2.过滤之后获得要处理的请求(修改Header)
+    // 2.处理请求对象
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         return request
     }
@@ -41,20 +53,65 @@ class FileInterceptor: URLProtocol {
     
     // 4.开始网络请求,完成后将结果回调给client
     override func startLoading() {
-        var request = self.request
-        // 优先使用本地缓存进行响应
-        if let remoteUrl = request.url?.absoluteString, let localUrl = CacheManager.shared.localFile(withPath: remoteUrl) {
-            request.url = URL(string: localUrl)
+        guard let remoteUrl = self.request.url else {
+            self.client?.urlProtocol(self, didFailWithError: Errors.httpRequestError)
+            return
+        }
+        
+        filename = remoteUrl.absoluteString.md5()
+        // 命中本地缓存
+        if let cacheData = CacheManager.shared.localCacheData(withRemoteUrl: remoteUrl.absoluteString) {
+            let httpResponse = HTTPURLResponse(url: remoteUrl, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: [:])
+            self.client?.urlProtocol(self, didReceive: httpResponse!, cacheStoragePolicy: URLCache.StoragePolicy.notAllowed)
+            self.client?.urlProtocol(self, didLoad: cacheData)
+            self.client?.urlProtocolDidFinishLoading(self)
+        } else { // 否则走网络请求
+            if session == nil {
+                session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+            }
+            
+            FileManager.default.createFile(atPath: Util.tempPath + filename, contents: nil, attributes: nil)
+            fileHandler = FileHandle(forWritingAtPath: Util.tempPath + filename)
+            
+            let task = session?.dataTask(with: request)
+            task?.resume()
         }
     }
     
     // 5.终止网络请求
     override func stopLoading() {
-        
+        self.client?.urlProtocolDidFinishLoading(self)
+        self.downloadTask?.cancel()
     }
 }
 
-// TODO: - 先这样写，之后考虑将网络请求封装成独立的组件
-extension FileInterceptor: URLSessionDelegate {
+// TODO: - 先这样写，考虑将网络请求封装成独立的组件
+
+extension FileInterceptor: URLSessionDataDelegate {
     
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: URLCache.StoragePolicy.notAllowed)
+        completionHandler(URLSession.ResponseDisposition.allow)
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        self.fileHandler?.write(data)
+        self.client?.urlProtocol(self, didLoad: data)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if error == nil {
+            self.fileHandler?.closeFile()
+            self.fileHandler = nil
+            CacheManager.shared.saveFile(withPath: Util.tempPath + self.filename)
+            self.client?.urlProtocolDidFinishLoading(self)
+        } else {
+            do {
+                try FileManager.default.removeItem(atPath: Util.tempPath + self.filename)
+            } catch {
+                print(error)
+            }
+            self.client?.urlProtocol(self, didFailWithError: error!)
+        }
+    }
 }
