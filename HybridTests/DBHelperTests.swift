@@ -1,5 +1,5 @@
 //
-//  DBHelperTests.swift
+//  CacheManagerTests.swift
 //  Hybrid
 //
 //  Created by LZephyr on 2016/12/21.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Hybrid
 
-class DBHelperTests: XCTestCase {
+class CacheManagerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -38,16 +38,16 @@ class DBHelperTests: XCTestCase {
     // insert test
     func testFilesTableInsert() {
         let item = createFileItem(withIndex: 1)
-        XCTAssert(DBHelper.shared.insert(fileItem: item), "insert item to files table fail")
+        XCTAssert(CacheManager.shared.insert(fileItem: item), "insert item to files table fail")
     }
     
     // select test
     func testFilesTableSelect() {
         let item = createFileItem(withIndex: 1)
         
-        XCTAssert(DBHelper.shared.insert(fileItem: item), "insert item fali")
+        XCTAssert(CacheManager.shared.insert(fileItem: item), "insert item fali")
         
-        let resultItems = DBHelper.shared.selectFileItem(withKey: item.key)
+        let resultItems = CacheManager.shared.selectFileItem(withKey: item.key)
         XCTAssert(resultItems.count != 0, "select from files table fail")
         
         let resultItem = resultItems[0]
@@ -62,10 +62,10 @@ class DBHelperTests: XCTestCase {
         let item1 = createFileItem(withIndex: 1)
         let item2 = createFileItem(withIndex: 2)
         
-        XCTAssert(DBHelper.shared.insert(fileItem: item1))
-        XCTAssert(DBHelper.shared.insert(fileItem: item2))
+        XCTAssert(CacheManager.shared.insert(fileItem: item1))
+        XCTAssert(CacheManager.shared.insert(fileItem: item2))
         
-        let items = DBHelper.shared.selectAllFileItems()
+        let items = CacheManager.shared.selectAllFileItems()
         
         XCTAssert(items.count == 2, "select all fail \(items.count)")
         
@@ -79,12 +79,12 @@ class DBHelperTests: XCTestCase {
         let item1 = createFileItem(withIndex: 1)
         let item2 = createFileItem(withIndex: 2)
         
-        XCTAssert(DBHelper.shared.insert(fileItem: item1))
-        XCTAssert(DBHelper.shared.insert(fileItem: item2))
+        XCTAssert(CacheManager.shared.insert(fileItem: item1))
+        XCTAssert(CacheManager.shared.insert(fileItem: item2))
         
-        XCTAssert(DBHelper.shared.deleteFileItem(forKey: item1.key), "delete fail")
+        XCTAssert(CacheManager.shared.deleteFileItem(forKey: item1.key), "delete fail")
         
-        let items = DBHelper.shared.selectAllFileItems()
+        let items = CacheManager.shared.selectAllFileItems()
         
         XCTAssert(items.contains(item2), "delete wrong data")
         XCTAssert(!items.contains(item1), "delete wrong data")
@@ -103,14 +103,14 @@ class DBHelperTests: XCTestCase {
     
     func testInfoTableInsert() {
         let info = createWebappInfo(withIndex: 1)
-        XCTAssert(DBHelper.shared.updateWebappInfo(info), "insert webapp info fail")
+        XCTAssert(CacheManager.shared.updateWebappInfo(info), "insert webapp info fail")
     }
     
     func testInfoTableSelect() {
         let info = createWebappInfo(withIndex: 1)
-        XCTAssert(DBHelper.shared.updateWebappInfo(info), "insert webapp info fail")
+        XCTAssert(CacheManager.shared.updateWebappInfo(info), "insert webapp info fail")
         
-        guard let selectInfo = DBHelper.shared.webappInfo() else {
+        guard let selectInfo = CacheManager.shared.webappInfo() else {
             XCTAssert(false)
             return
         }

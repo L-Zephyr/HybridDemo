@@ -53,6 +53,8 @@ class CacheManager {
     
     // MARK: - Private
     
+    internal let queue: DispatchQueue = DispatchQueue(label: "Hybrid.com.database")
+    
     /// 资源包缓存位置
     fileprivate var packageCachePath: String = "" {
         didSet {
@@ -117,6 +119,7 @@ class CacheManager {
     init() {
         defer {
             cachePath = Util.appSpportPath + "/HybridCache/"
+            databaseInitialize() // 初始化数据库
             checkWebAppInfo()
         }
     }
@@ -124,8 +127,7 @@ class CacheManager {
     /// 启动时检查本地信息
     fileprivate func checkWebAppInfo() {
         // 如果不存在webapp的信息则尝试从本地读取
-        print("\(DBHelper.shared.webappInfo())")
-        if DBHelper.shared.webappInfo() == nil {
+        if self.webappInfo() == nil {
             guard let resUrl = Bundle.main.resourceURL else {
                 return
             }
@@ -157,7 +159,7 @@ class CacheManager {
                         // TODO: md5校验
                     }
                 }
-                DBHelper.shared.updateWebappInfo(webapp)
+                self.updateWebappInfo(webapp)
                 VersionManager.shared.loadVersionInfo()
             } catch {
                 print(error)

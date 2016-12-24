@@ -1,5 +1,5 @@
 //
-//  DBHelper.swift
+//  CacheManager.swift
 //  Hybrid
 //
 //  Created by LZephyr on 2016/12/16.
@@ -36,12 +36,14 @@ fileprivate struct WebAppInfoTable {
     static let Size: String = "size"                      // 资源包总大小
 }
 
-class DBHelper {
-    static let shared = DBHelper()
+extension CacheManager {
+        
+    // 数据库文件位置
+    fileprivate var sqlPath: String {
+        return self.cachePath + "cache.db"
+    }
     
-    // MARK : - Private
-    
-    init() {
+    internal func databaseInitialize() {
         if FileManager.default.fileExists(atPath: sqlPath) == false {
             if FileManager.default.createFile(atPath: sqlPath, contents: nil, attributes: nil) == false {
                 print("创建数据库文件失败")
@@ -49,9 +51,6 @@ class DBHelper {
         }
         createTable()
     }
-    
-    fileprivate let sqlPath: String = CacheManager.shared.cachePath + "cache.db" // 数据库文件位置
-    fileprivate let queue: DispatchQueue = DispatchQueue(label: "Hybrid.com.database")
     
     fileprivate func createTable() {
         _ = query { (database) -> Bool in
@@ -94,7 +93,7 @@ class DBHelper {
 
 // MARK: - WebAppFilesTable
 
-extension DBHelper {
+extension CacheManager {
     
     /// 插入一条WebappFile记录，已存在则更新数据
     internal func insert(fileItem item: WebAppFileItem) -> Bool {
@@ -220,7 +219,7 @@ extension DBHelper {
 
 // MARK: - WebAppInfoTable
 
-extension DBHelper {
+extension CacheManager {
     
     /// 获取webapp信息
     internal func webappInfo() -> WebAppInfo? {
@@ -283,16 +282,16 @@ extension DBHelper {
 
 // MARK: - WebAppResourceTable
 
-extension DBHelper {
+extension CacheManager {
     
 }
 
 // MARK: - Helper
 
-extension DBHelper {
+extension CacheManager {
     fileprivate func query(_ block: (_ database: OpaquePointer?) -> Bool) -> Bool {
         var result: Bool = true
-        queue.sync {
+        self.queue.sync {
             var database: OpaquePointer? = nil
             if sqlite3_open(sqlPath, &database) != SQLITE_OK {
                 print("打开数据库失败: \(String(cString: sqlite3_errmsg(database)))")

@@ -26,7 +26,7 @@
 		BB2D56DE1E004CCB00098738 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D56DD1E004CCB00098738 /* Config.swift */; };
 		BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D570E1E027A6200098738 /* VersionManager.swift */; };
 		BB98E7D31E038B120021D9E1 /* VersionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */; };
-		BB98E7D51E03C07A0021D9E1 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D41E03C07A0021D9E1 /* DBHelper.swift */; };
+		BB98E7D51E03C07A0021D9E1 /* CacheManager+DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D41E03C07A0021D9E1 /* CacheManager+DBHelper.swift */; };
 		BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */; };
 		BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29B9F1E09466B004F1C75 /* WebAppFileItem.swift */; };
 		BBE29BA21E0AC4F7004F1C75 /* DBHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */; };
@@ -76,7 +76,7 @@
 		BB2D56DD1E004CCB00098738 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		BB2D570E1E027A6200098738 /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
 		BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManagerTests.swift; sourceTree = "<group>"; };
-		BB98E7D41E03C07A0021D9E1 /* DBHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
+		BB98E7D41E03C07A0021D9E1 /* CacheManager+DBHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CacheManager+DBHelper.swift"; sourceTree = "<group>"; };
 		BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		BBE29B9F1E09466B004F1C75 /* WebAppFileItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebAppFileItem.swift; sourceTree = "<group>"; };
 		BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHelperTests.swift; sourceTree = "<group>"; };
@@ -216,10 +216,10 @@
 		BB1DD2F01DFD987B00B6C00E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				BB1DD2F31DFD9B2B00B6C00E /* Hybrid-Bridging-Header.h */,
 				BB1DD2F81DFED79900B6C00E /* Util.swift */,
 				BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */,
-				BB1DD2F31DFD9B2B00B6C00E /* Hybrid-Bridging-Header.h */,
-				BB98E7D41E03C07A0021D9E1 /* DBHelper.swift */,
+				BB98E7D41E03C07A0021D9E1 /* CacheManager+DBHelper.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -479,7 +479,7 @@
 				BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */,
 				BB1DD2EC1DFD57C000B6C00E /* FileInterceptor.swift in Sources */,
 				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,
-				BB98E7D51E03C07A0021D9E1 /* DBHelper.swift in Sources */,
+				BB98E7D51E03C07A0021D9E1 /* CacheManager+DBHelper.swift in Sources */,
 				BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */,
 				BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */,
 				BB1DD2EF1DFD8D1D00B6C00E /* CacheManager.swift in Sources */,

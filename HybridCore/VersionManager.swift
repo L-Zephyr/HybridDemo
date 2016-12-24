@@ -22,7 +22,7 @@ class VersionManager {
     
     /// 加载版本信息
     internal func loadVersionInfo() {
-        currentVersion = DBHelper.shared.webappInfo()?.currentVersion
+        currentVersion = CacheManager.shared.webappInfo()?.currentVersion
     }
     
     // MARK: - Private
