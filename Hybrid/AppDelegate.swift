@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Config.webRoot = "HybridResource"
+        Config.serverAddress = "localhost:3000"
+        Config.logLevel = .Verbose
         return true
     }
 

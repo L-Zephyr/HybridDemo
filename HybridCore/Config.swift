@@ -30,4 +30,11 @@ class Config {
     
     /// 资源包更新完毕立即生效, 默认为下次启动时生效
     static var updateWhenFinishDownload: Bool = false
+    
+    /// 日志等级
+    static var logLevel: LoggerLevel = .Info {
+        didSet {
+            LogLevel = logLevel
+        }
+    }
 }

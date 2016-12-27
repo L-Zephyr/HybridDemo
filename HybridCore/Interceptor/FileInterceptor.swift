@@ -34,7 +34,7 @@ class FileInterceptor: URLProtocol {
         }
         
         if let scheme = request.url?.scheme, scheme.uppercased() == "HTTP" || scheme.uppercased() == "HTTPS" {
-            print("拦截\(scheme) \((request.url!.absoluteString as NSString).lastPathComponent)")
+            LogVerbose("拦截请求: \(request.url!.absoluteString)")
             return true
         }
         
@@ -60,12 +60,14 @@ class FileInterceptor: URLProtocol {
         
         filename = remoteUrl.absoluteString.md5()
         // 命中本地缓存
-        if let cacheData = CacheManager.shared.localCacheData(withRemoteUrl: remoteUrl.absoluteString) {
+        if let cacheData = CacheManager.shared.localCacheData(withRemoteUrl: remoteUrl) {
+            LogVerbose("请求\(remoteUrl.absoluteString)命中本地缓存")
             let httpResponse = HTTPURLResponse(url: remoteUrl, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: [:])
             self.client?.urlProtocol(self, didReceive: httpResponse!, cacheStoragePolicy: URLCache.StoragePolicy.notAllowed)
             self.client?.urlProtocol(self, didLoad: cacheData)
             self.client?.urlProtocolDidFinishLoading(self)
         } else { // 否则走网络请求
+            LogVerbose("请求\(remoteUrl.absoluteString)未命中缓存，继续网络请求")
             if session == nil {
                 session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
             }
@@ -103,13 +105,16 @@ extension FileInterceptor: URLSessionDataDelegate {
         if error == nil {
             self.fileHandler?.closeFile()
             self.fileHandler = nil
-            CacheManager.shared.saveFile(withPath: Util.tempPath + self.filename)
+            
+            if let url = task.currentRequest?.url {
+                CacheManager.shared.saveFile(atTmpPath: Util.tempPath + self.filename, forRemoteUrl: url)
+            }
             self.client?.urlProtocolDidFinishLoading(self)
         } else {
             do {
                 try FileManager.default.removeItem(atPath: Util.tempPath + self.filename)
             } catch {
-                print(error)
+                logError("\(error)")
             }
             self.client?.urlProtocol(self, didFailWithError: error!)
         }

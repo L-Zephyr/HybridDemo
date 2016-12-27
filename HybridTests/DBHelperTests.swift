@@ -14,6 +14,11 @@ class CacheManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        let dbpath = Config.cachePath + "/cache.db"
+        if FileManager.default.fileExists(atPath: dbpath) {
+            try? FileManager.default.removeItem(atPath: dbpath)
+        }
+        CacheManager.shared.databaseInitialize()
     }
     
     override func tearDown() {
@@ -47,14 +52,13 @@ class CacheManagerTests: XCTestCase {
         
         XCTAssert(CacheManager.shared.insert(fileItem: item), "insert item fali")
         
-        let resultItems = CacheManager.shared.selectFileItem(withKey: item.key)
-        XCTAssert(resultItems.count != 0, "select from files table fail")
+        let resultItem = CacheManager.shared.selectFileItem(forKey: item.key)
+        XCTAssert(resultItem != nil, "select from files table fail")
         
-        let resultItem = resultItems[0]
-        XCTAssert(resultItem.key == item.key, "select wrong data")
-        XCTAssert(resultItem.fullUrl == item.fullUrl, "select wrong data")
-        XCTAssert(resultItem.localPath == item.localPath, "select wrong data")
-        XCTAssert(resultItem.size == item.size, "select wrong data")
+        XCTAssert(resultItem!.key == item.key, "select wrong data")
+        XCTAssert(resultItem!.fullUrl == item.fullUrl, "select wrong data")
+        XCTAssert(resultItem!.localPath == item.localPath, "select wrong data")
+        XCTAssert(resultItem!.size == item.size, "select wrong data")
     }
     
     // select all test

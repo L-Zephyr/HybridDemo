@@ -23,4 +23,29 @@ extension String {
         result.deinitialize()
         return (hash as String)
     }
+    
+    /// 获取相对于path的相对路径，path不能带有scheme
+    internal func relativePath(toPath path: String) -> String {
+        var components = self.components(separatedBy: "/").flatMap { (component) -> String? in
+            return component.isEmpty ? nil : component
+        }
+        let anchorComponents = path.components(separatedBy: "/").flatMap { (component) -> String? in
+            return component.isEmpty ? nil : component
+        }
+        
+        let from = components.count - anchorComponents.count
+        
+        if from <= 0 {
+            return ""
+        }
+        
+        components.removeSubrange(0..<(components.count - from))
+        let relativePath = "/" + components.joined(separator: "/")
+        
+        return relativePath
+    }
+    
+    internal func urlEncoding() -> String? {
+        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+    }
 }

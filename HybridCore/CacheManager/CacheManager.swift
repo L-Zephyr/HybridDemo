@@ -28,8 +28,8 @@ class CacheManager {
     var cachePath: String = "" {
         didSet {
             Util.createDirectoryIfNotExist(withPath: cachePath)
-            packageCachePath = cachePath + "/Packages"
-            packageCachePath = cachePath + "/Resources"
+            packageCachePath = cachePath + "Packages/"
+            resourceCachePath = cachePath + "Resources/"
         }
     }
     
@@ -41,14 +41,60 @@ class CacheManager {
     // MARK: - Public Method
     
     /// 获取文件的本地缓存,nil表示本地缓存不存在
-    public func localCacheData(withRemoteUrl remoteUrl: String) -> Data? {
-
+    /// - Parameter remoteUrl: 文件的url，根据url查找本地缓存
+    /// - Returns: 查找成功直接返回文件数据，失败则返回nil
+    public func localCacheData(withRemoteUrl remoteUrl: URL) -> Data? {
+        guard let host = remoteUrl.host else {
+            return nil
+        }
+        let key = host + remoteUrl.path
+        if let fileItem = self.selectFileItem(forKey: key.md5()) {
+            if FileManager.default.fileExists(atPath: fileItem.localPath) {
+                do {
+                    guard let url = URL(string: fileItem.localPath) else {
+                        return nil
+                    }
+                    let fileData = try Data(contentsOf: url)
+                    return fileData
+                } catch {
+                    logError("\(error)")
+                }
+            }
+        }
+        
         return nil
     }
     
     /// 将文件保存到本地
-    public func saveFile(withPath path: String) {
+    /// - Parameter tmpPath:   文件临时储存的位置
+    /// - Parameter remoteUrl: 文件的url
+    public func saveFile(atTmpPath tmpPath: String, forRemoteUrl remoteUrl: URL) {
+        guard let host = remoteUrl.host else {
+            return
+        }
+        guard let filename = tmpPath.components(separatedBy: "/").last else {
+            return
+        }
+        let cachePath = packageCachePath + filename
         
+        // 1. 在数据库中创建索引
+        let key = host + remoteUrl.path
+        var fileItem = WebAppFileItem()
+        fileItem.key = key.md5()
+        fileItem.fullUrl = remoteUrl.absoluteString
+        fileItem.localPath = cachePath
+        if self.insert(fileItem: fileItem) == false {
+            return
+        }
+        // TODO: 暂时不处理size
+        
+        // 2. 将文件从临时位置移动到缓存文件夹
+        do {
+            try FileManager.default.moveItem(atPath: tmpPath, toPath: cachePath)
+            try FileManager.default.removeItem(atPath: tmpPath)
+        } catch {
+            logError("\(error)")
+        }
     }
     
     // MARK: - Private
@@ -70,37 +116,32 @@ class CacheManager {
     }
     
     /// 将资源包文件解压到临时文件夹
-    fileprivate func unzipPackage(withPath path: String) -> Bool {
+    fileprivate func unzipPackage(withPath path: String, toPath: String) -> Bool {
         if FileManager.default.fileExists(atPath: path) {
-            // 临时文件夹
-            guard let tmpUrl = self.cachePathUrl?.appendingPathComponent("webapp.tmp") else {
-                return false
-            }
-            
             let zip = ZipArchive()
-            if !zip.unzipOpenFile(path) || !zip.unzipFile(to: tmpUrl.path, overWrite: true) {
-                print("资源包解压失败")
+            if !zip.unzipOpenFile(path) || !zip.unzipFile(to: toPath, overWrite: true) {
+                logError("资源包解压失败")
                 return false
             }
         } else {
-            print("资源包不存在")
+            logError("资源包不存在")
             return false
         }
         return true
     }
     
     /// 遍历文件夹并生成索引
-    fileprivate func generateFilesIndex(withUrl url: URL) {
+    fileprivate func generateFilesIndex(inPath path: String) {
         var isDir: ObjCBool = ObjCBool(true)
-        if url.isFileURL && FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) {
+        if FileManager.default.fileExists(atPath: path, isDirectory: &isDir), let encodePath = path.urlEncoding(), let url = URL(string: encodePath) {
             if isDir.boolValue == false {
                 return
             }
             
-            let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.nameKey, .isDirectoryKey], options: .skipsHiddenFiles, errorHandler: nil)
+            let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.pathKey, .isDirectoryKey], options: .skipsHiddenFiles, errorHandler: nil)
             
             while let file = enumerator?.nextObject() as? URL {
-                guard let resValues = try? file.resourceValues(forKeys: [.nameKey, .isDirectoryKey]), let name = resValues.name, let isDirectory = resValues.isDirectory else {
+                guard let resValues = try? file.resourceValues(forKeys: [.pathKey, .isDirectoryKey]), let path = resValues.path, let isDirectory = resValues.isDirectory else {
                     return
                 }
                 
@@ -108,10 +149,14 @@ class CacheManager {
                     continue
                 }
                 
-                let key = Config.serverAddress ?? "" + name
+                let relativePath = path.relativePath(toPath: packageCachePath)
+                let key = Config.serverAddress ?? "" + relativePath
                 
                 var fileItem = WebAppFileItem()
                 fileItem.key = key.md5()
+                fileItem.localPath = path
+                // TODO: size 暂时先不加
+                self.insert(fileItem: fileItem)
             }
         }
     }
@@ -128,14 +173,14 @@ class CacheManager {
     fileprivate func checkWebAppInfo() {
         // 如果不存在webapp的信息则尝试从本地读取
         if self.webappInfo() == nil {
-            guard let resUrl = Bundle.main.resourceURL else {
+            guard let webRoot = Config.webRoot, let resUrl = Bundle.main.resourceURL?.appendingPathComponent(webRoot) else {
                 return
             }
             let configFileUrl = resUrl.appendingPathComponent("webapp_info.json")
             let packageUrl = resUrl.appendingPathComponent("webapp.zip")
             
             if FileManager.default.fileExists(atPath: configFileUrl.path) == false {
-                print("未找到配置文件webapp_info.json")
+                logError("未找到配置文件webapp_info.json")
                 return
             }
             
@@ -160,14 +205,20 @@ class CacheManager {
                     }
                 }
                 self.updateWebappInfo(webapp)
-                VersionManager.shared.loadVersionInfo()
             } catch {
-                print(error)
+                logError("\(error)")
             }
             
             // 解析离线资源包
-            if unzipPackage(withPath: packageUrl.path) {
-                
+            if let tmpUrl = self.cachePathUrl?.appendingPathComponent("webapp.tmp"), unzipPackage(withPath: packageUrl.path, toPath: tmpUrl.path) {
+                do {
+                    try FileManager.default.removeItem(atPath: packageCachePath)
+                    try FileManager.default.moveItem(atPath: tmpUrl.path, toPath: packageCachePath)
+                    generateFilesIndex(inPath: packageCachePath)
+                    
+                } catch {
+                    logError("\(error)")
+                }
             }
         }
     }
