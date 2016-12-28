@@ -11,7 +11,7 @@ import UIKit
 internal struct WebAppFileItem {
     var key: String = ""
     var fullUrl: String = ""
-    var localPath: String = ""
+    var localRelativePath: String = ""
     var size: String = ""
 }
 
@@ -23,7 +23,7 @@ extension WebAppFileItem: Equatable {
         if lhs.fullUrl != rhs.fullUrl {
             return false
         }
-        if lhs.localPath != rhs.localPath {
+        if lhs.localRelativePath != rhs.localRelativePath {
             return false
         }
         if lhs.size != rhs.size {

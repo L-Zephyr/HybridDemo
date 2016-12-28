@@ -49,11 +49,10 @@ class CacheManager {
         }
         let key = host + remoteUrl.path
         if let fileItem = self.selectFileItem(forKey: key.md5()) {
-            if FileManager.default.fileExists(atPath: fileItem.localPath) {
+            let fullPath = cachePath + fileItem.localRelativePath
+            if FileManager.default.fileExists(atPath: fullPath) {
                 do {
-                    guard let url = URL(string: fileItem.localPath) else {
-                        return nil
-                    }
+                    let url = URL(fileURLWithPath: fullPath)
                     let fileData = try Data(contentsOf: url)
                     return fileData
                 } catch {
@@ -75,14 +74,14 @@ class CacheManager {
         guard let filename = tmpPath.components(separatedBy: "/").last else {
             return
         }
-        let cachePath = packageCachePath + filename
+        let fullPath = packageCachePath + filename
         
         // 1. 在数据库中创建索引
         let key = host + remoteUrl.path
         var fileItem = WebAppFileItem()
         fileItem.key = key.md5()
         fileItem.fullUrl = remoteUrl.absoluteString
-        fileItem.localPath = cachePath
+        fileItem.localRelativePath = fullPath.relativePath(toPath: cachePath)
         if self.insert(fileItem: fileItem) == false {
             return
         }
@@ -90,11 +89,39 @@ class CacheManager {
         
         // 2. 将文件从临时位置移动到缓存文件夹
         do {
-            try FileManager.default.moveItem(atPath: tmpPath, toPath: cachePath)
-            try FileManager.default.removeItem(atPath: tmpPath)
+            if FileManager.default.fileExists(atPath: fullPath) {
+                try FileManager.default.removeItem(atPath: fullPath)
+            }
+            try FileManager.default.moveItem(atPath: tmpPath, toPath: fullPath)
+            
+            if FileManager.default.fileExists(atPath: tmpPath) {
+                try FileManager.default.removeItem(atPath: tmpPath)
+            }
         } catch {
             logError("\(error)")
         }
+    }
+    
+    /// 解析并更新资源压缩包
+    /// - Parameter path 压缩包路径
+    @discardableResult internal func unzipWebappPackage(atPath path: String) -> Bool {
+        if let tmpUrl = self.cachePathUrl?.appendingPathComponent("webapp.tmp"), unzipPackage(withPath: path, toPath: tmpUrl.path) {
+            do {
+                try FileManager.default.removeItem(atPath: packageCachePath)
+                try FileManager.default.moveItem(atPath: tmpUrl.path, toPath: packageCachePath)
+                if generateFilesIndex(inPath: packageCachePath) == false {
+                    return false
+                }
+                
+            } catch {
+                logError("\(error)")
+                return false
+            }
+        } else {
+            logError("压缩包解压失败")
+            return false
+        }
+        return true
     }
     
     // MARK: - Private
@@ -131,34 +158,39 @@ class CacheManager {
     }
     
     /// 遍历文件夹并生成索引
-    fileprivate func generateFilesIndex(inPath path: String) {
+    fileprivate func generateFilesIndex(inPath path: String) -> Bool {
         var isDir: ObjCBool = ObjCBool(true)
         if FileManager.default.fileExists(atPath: path, isDirectory: &isDir), let encodePath = path.urlEncoding(), let url = URL(string: encodePath) {
             if isDir.boolValue == false {
-                return
+                return false
             }
             
-            let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.pathKey, .isDirectoryKey], options: .skipsHiddenFiles, errorHandler: nil)
+            let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: .skipsHiddenFiles, errorHandler: nil)
             
-            while let file = enumerator?.nextObject() as? URL {
-                guard let resValues = try? file.resourceValues(forKeys: [.pathKey, .isDirectoryKey]), let path = resValues.path, let isDirectory = resValues.isDirectory else {
-                    return
+            while let fileUrl = enumerator?.nextObject() as? URL {
+                guard let resValues = try? fileUrl.resourceValues(forKeys: [.isDirectoryKey]), let isDirectory = resValues.isDirectory else {
+                    return false
                 }
                 
                 if isDirectory {
                     continue
                 }
                 
-                let relativePath = path.relativePath(toPath: packageCachePath)
-                let key = Config.serverAddress ?? "" + relativePath
+                let fullPath = fileUrl.resolvingSymlinksInPath().path
+                let relativePath = fullPath.relativePath(toPath: packageCachePath)
+                let key = (HybridConfig.serverAddress?.addressWithoutPort() ?? "") + relativePath
+                LogVerbose("插入文件索引,key为\(key)")
                 
                 var fileItem = WebAppFileItem()
                 fileItem.key = key.md5()
-                fileItem.localPath = path
+                fileItem.localRelativePath = fullPath.relativePath(toPath: cachePath)
                 // TODO: size 暂时先不加
-                self.insert(fileItem: fileItem)
+                if self.insert(fileItem: fileItem) == false {
+                    return false
+                }
             }
         }
+        return true
     }
     
     init() {
@@ -173,7 +205,7 @@ class CacheManager {
     fileprivate func checkWebAppInfo() {
         // 如果不存在webapp的信息则尝试从本地读取
         if self.webappInfo() == nil {
-            guard let webRoot = Config.webRoot, let resUrl = Bundle.main.resourceURL?.appendingPathComponent(webRoot) else {
+            guard let webRoot = HybridConfig.webRoot, let resUrl = Bundle.main.resourceURL?.appendingPathComponent(webRoot) else {
                 return
             }
             let configFileUrl = resUrl.appendingPathComponent("webapp_info.json")
@@ -210,16 +242,7 @@ class CacheManager {
             }
             
             // 解析离线资源包
-            if let tmpUrl = self.cachePathUrl?.appendingPathComponent("webapp.tmp"), unzipPackage(withPath: packageUrl.path, toPath: tmpUrl.path) {
-                do {
-                    try FileManager.default.removeItem(atPath: packageCachePath)
-                    try FileManager.default.moveItem(atPath: tmpUrl.path, toPath: packageCachePath)
-                    generateFilesIndex(inPath: packageCachePath)
-                    
-                } catch {
-                    logError("\(error)")
-                }
-            }
+            unzipWebappPackage(atPath: packageUrl.path)
         }
     }
     

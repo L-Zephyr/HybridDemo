@@ -14,7 +14,7 @@ class CacheManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let dbpath = Config.cachePath + "/cache.db"
+        let dbpath = HybridConfig.cachePath + "/cache.db"
         if FileManager.default.fileExists(atPath: dbpath) {
             try? FileManager.default.removeItem(atPath: dbpath)
         }
@@ -57,7 +57,7 @@ class CacheManagerTests: XCTestCase {
         
         XCTAssert(resultItem!.key == item.key, "select wrong data")
         XCTAssert(resultItem!.fullUrl == item.fullUrl, "select wrong data")
-        XCTAssert(resultItem!.localPath == item.localPath, "select wrong data")
+        XCTAssert(resultItem!.localRelativePath == item.localRelativePath, "select wrong data")
         XCTAssert(resultItem!.size == item.size, "select wrong data")
     }
     
@@ -98,7 +98,7 @@ class CacheManagerTests: XCTestCase {
         var item = WebAppFileItem()
         item.key = "key\(index)"
         item.fullUrl = "fullurl\(index)"
-        item.localPath = "localpath\(index)"
+        item.localRelativePath = "localpath\(index)"
         item.size = "size\(index)"
         return item
     }

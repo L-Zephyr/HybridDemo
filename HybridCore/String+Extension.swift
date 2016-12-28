@@ -45,7 +45,23 @@ extension String {
         return relativePath
     }
     
+    /// 返回url encode后的值
     internal func urlEncoding() -> String? {
         return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
     }
+    
+    /// 格式化服务器地址，去掉端口号
+    internal func addressWithoutPort() -> String {
+        let components = self.components(separatedBy: ":")
+        if components.count > 1 {
+            return components[0]
+        } else {
+            return self
+        }
+    }
+    
+//    /// 是否为资源类型
+//    internal func isResourceType() -> Bool {
+//        
+//    }
 }

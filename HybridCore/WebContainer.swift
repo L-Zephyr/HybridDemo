@@ -50,12 +50,10 @@ extension WebContainer: UIWebViewDelegate {
     }
     
     func webViewDidStartLoad(_ webView: UIWebView) {
-        print("web start load")
         TimeLogger.sharedLogger.logTime()
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        print("web finish load")
         TimeLogger.sharedLogger.logTime()
     }
     

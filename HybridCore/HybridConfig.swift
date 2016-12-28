@@ -1,5 +1,5 @@
 //
-//  Config.swift
+//  HybridConfig.swift
 //  Hybrid
 //
 //  Created by LZephyr on 2016/12/13.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Config {
+class HybridConfig {
     /// 打包在bundle中包含离线资源的目录
     static var webRoot: String? = nil
     

@@ -11,18 +11,22 @@ import UIKit
 class HTTPMock: URLProtocol {
     
     // MARK: - Public 
+    
+    /// 将请求url映射到本地的文件
     static public func map(url: String, toLocalFile filePath: String) {
         URLProtocol.registerClass(HTTPMock.self)
         HTTPMock.localFileMaps[url] = filePath
         
     }
     
+    /// 将对某一域名的所有请求映射到本地文件夹
     static public func map(domain: String, toLocalDir dir: String) {
         URLProtocol.registerClass(HTTPMock.self)
         HTTPMock.localDirMaps[domain] = dir
     }
     
-    static public func remoteMap(withUrl url: String) {
+    /// 取消对url的映射
+    static public func removeMap(withUrl url: String) {
         if HTTPMock.localFileMaps.keys.contains(url) {
             HTTPMock.localFileMaps.removeValue(forKey: url)
             URLProtocol.unregisterClass(HTTPMock.self)

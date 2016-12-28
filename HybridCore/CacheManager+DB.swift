@@ -31,7 +31,7 @@ fileprivate struct WebAppInfoTable {
     static let Name: String = "name"                      // webapp的名字
     static let CurrentVersion: String = "current_version" // 当前版本号
     static let LatestVersion: String = "latest_version"   // 最新版本号
-    static let RemoteUrl: String = "remote_url"           // 资源包下载路径
+    static let RemoteUrl: String = "remote_url"           // 最新资源包下载路径
     static let LocalPath: String = "local_path"           // 资源包本地路径
     static let Size: String = "size"                      // 资源包总大小
 }
@@ -120,7 +120,7 @@ extension CacheManager {
 //                result = false
 //            }
             
-            let insert = "insert or replace into \(WebAppFilesTable.TableName) values ('\(item.key)','\(item.fullUrl)','\(item.localPath)','\(item.size)');"
+            let insert = "insert or replace into \(WebAppFilesTable.TableName) values ('\(item.key)','\(item.fullUrl)','\(item.localRelativePath)','\(item.size)');"
             if sqlite3_exec(database, insert, nil, nil, nil) != SQLITE_OK {
                 logError("insert fail: \(String(cString: sqlite3_errmsg(database)))")
                 return false
@@ -151,6 +151,7 @@ extension CacheManager {
         let result = query({ (database) -> Bool in
             let select = "select * from \(WebAppFilesTable.TableName) where \(WebAppFilesTable.Key)=\"\(key)\""
             var stat: OpaquePointer? = nil
+            var result = false
             
             if sqlite3_prepare_v2(database, select, -1, &stat, nil) == SQLITE_OK {
                 if sqlite3_step(stat) == SQLITE_ROW {
@@ -161,18 +162,18 @@ extension CacheManager {
                         item.fullUrl = String(cString: fullUrl)
                     }
                     if let localPath = sqlite3_column_text(stat, 2) {
-                        item.localPath = String(cString: localPath)
+                        item.localRelativePath = String(cString: localPath)
                     }
                     if let size = sqlite3_column_text(stat, 3) {
                         item.size = String(cString: size)
                     }
+                    result = true
                 }
                 sqlite3_finalize(stat)
             } else {
                 logError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
-                return false
             }
-            return true
+            return result
         })
         
         if result {
@@ -200,7 +201,7 @@ extension CacheManager {
                         item.fullUrl = String(cString: fullUrl)
                     }
                     if let localPath = sqlite3_column_text(stat, 2) {
-                        item.localPath = String(cString: localPath)
+                        item.localRelativePath = String(cString: localPath)
                     }
                     if let size = sqlite3_column_text(stat, 3) {
                         item.size = String(cString: size)
@@ -229,7 +230,7 @@ extension CacheManager {
         let result = query { (database) -> Bool in
             let select = "select * from \(WebAppInfoTable.TableName)"
             var stat: OpaquePointer? = nil
-            var result = true
+            var result = false
             
             if sqlite3_prepare_v2(database, select, -1, &stat, nil) == SQLITE_OK {
                 if sqlite3_step(stat) == SQLITE_ROW {
@@ -251,13 +252,11 @@ extension CacheManager {
                     if let size = sqlite3_column_text(stat, 5) {
                         webapp.size = String(cString: size)
                     }
-                } else {
-                    result = false
+                    result = true
                 }
                 sqlite3_finalize(stat)
             } else {
                 logError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
-                result = false
             }
             return result
         }

@@ -29,7 +29,7 @@ class FileInterceptor: URLProtocol {
         guard userAgent.hasPrefix("Mozilla") else { // 只拦截浏览器的请求
             return false
         }
-        guard let ext = request.url?.pathExtension, Config.cacheTypeWhiteList.contains(ext), !Config.cacheTypeBlackList.contains(ext) else {
+        guard let ext = request.url?.pathExtension, HybridConfig.cacheTypeWhiteList.contains(ext), !HybridConfig.cacheTypeBlackList.contains(ext) else {
             return false
         }
         
@@ -87,8 +87,6 @@ class FileInterceptor: URLProtocol {
     }
 }
 
-// TODO: - 先这样写，考虑将网络请求封装成独立的组件
-
 extension FileInterceptor: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
@@ -106,13 +104,17 @@ extension FileInterceptor: URLSessionDataDelegate {
             self.fileHandler?.closeFile()
             self.fileHandler = nil
             
+            // TODO: 增加协议控制资源是否应该被缓存
             if let url = task.currentRequest?.url {
                 CacheManager.shared.saveFile(atTmpPath: Util.tempPath + self.filename, forRemoteUrl: url)
             }
             self.client?.urlProtocolDidFinishLoading(self)
         } else {
+            logError("网络请求失败: \(error)")
             do {
-                try FileManager.default.removeItem(atPath: Util.tempPath + self.filename)
+                if FileManager.default.fileExists(atPath: Util.tempPath + self.filename) {
+                    try FileManager.default.removeItem(atPath: Util.tempPath + self.filename)
+                }
             } catch {
                 logError("\(error)")
             }
