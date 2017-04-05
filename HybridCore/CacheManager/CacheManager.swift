@@ -44,6 +44,8 @@ class CacheManager {
     /// - Parameter remoteUrl: 文件的url，根据url查找本地缓存
     /// - Returns: 查找成功直接返回文件数据，失败则返回nil
     public func localCacheData(withRemoteUrl remoteUrl: URL) -> Data? {
+        return nil
+        
         guard let host = remoteUrl.host else {
             return nil
         }
@@ -112,7 +114,6 @@ class CacheManager {
                 if generateFilesIndex(inPath: packageCachePath) == false {
                     return false
                 }
-                
             } catch {
                 logError("\(error)")
                 return false

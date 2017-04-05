@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JavaScriptCore
 
 class WebContainer: UIWebView {
     
@@ -18,6 +19,8 @@ class WebContainer: UIWebView {
     }
     
     // MARK: - Private
+    
+    fileprivate var jsContext: JSContext? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,6 +57,17 @@ extension WebContainer: UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
+        jsContext = webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
+        
+//        if let jsContext = jsContext {
+//            let model = JSBridgeModel()
+//            jsContext.setObject(model, forKeyedSubscript: "jsBridge" as (NSCopying & NSObjectProtocol)!)
+//            
+//            jsContext.exceptionHandler = { (context, value) in
+//                logError("JSContext error \(value)")
+//            }
+//        }
+
         TimeLogger.sharedLogger.logTime()
     }
     

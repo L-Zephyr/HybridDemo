@@ -1,12 +1,17 @@
 PODS:
+  - GCDWebServer (3.3.3):
+    - GCDWebServer/Core (= 3.3.3)
+  - GCDWebServer/Core (3.3.3)
   - ZipArchive (1.3.0)
 
 DEPENDENCIES:
+  - GCDWebServer (~> 3.0)
   - ZipArchive (~> 1.3.0)
 
 SPEC CHECKSUMS:
+  GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
   ZipArchive: c8bd32d0b8f1ada4ac967b72ceca8130d680adc5
 
-PODFILE CHECKSUM: d75af40d0cb8ee25f19d1d52951abd5f2d0f14aa
+PODFILE CHECKSUM: b9d7e6e662454a8c224dd14ba7877a28b073810a
 
 COCOAPODS: 1.1.1
