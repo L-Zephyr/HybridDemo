@@ -25,13 +25,14 @@
 		BB2D56DC1E0047E000098738 /* HybridResource in Resources */ = {isa = PBXBuildFile; fileRef = BB2D56DB1E0047E000098738 /* HybridResource */; };
 		BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D56DD1E004CCB00098738 /* HybridConfig.swift */; };
 		BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D570E1E027A6200098738 /* VersionManager.swift */; };
+		BB37ABC91E96642B00D9D7BA /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginManager.swift */; };
+		BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABD01E96869500D9D7BA /* PluginInstance.m */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
 		BB7B15C21E94946F00BBD5E8 /* RJBObjectConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15BA1E94946F00BBD5E8 /* RJBObjectConvertor.m */; };
-		BB7B15C31E94946F00BBD5E8 /* RJBUIWebViewBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15BC1E94946F00BBD5E8 /* RJBUIWebViewBridge.m */; };
-		BB7B15C41E94946F00BBD5E8 /* RJBWKWebViewBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15BE1E94946F00BBD5E8 /* RJBWKWebViewBridge.m */; };
 		BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15C51E94978500BBD5E8 /* WebView.swift */; };
+		BB7B15C81E949B7A00BBD5E8 /* Hybrid.js in Resources */ = {isa = PBXBuildFile; fileRef = BB7B15C71E949B7A00BBD5E8 /* Hybrid.js */; };
 		BB92EABF1E10EBE3001AB56E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */; };
 		BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92EAC01E1219D1001AB56E /* Logger.swift */; };
 		BB98E7D31E038B120021D9E1 /* VersionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */; };
@@ -85,6 +86,9 @@
 		BB2D56DB1E0047E000098738 /* HybridResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HybridResource; sourceTree = "<group>"; };
 		BB2D56DD1E004CCB00098738 /* HybridConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HybridConfig.swift; sourceTree = "<group>"; };
 		BB2D570E1E027A6200098738 /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
+		BB37ABC81E96642B00D9D7BA /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
+		BB37ABCF1E96869500D9D7BA /* PluginInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginInstance.h; sourceTree = "<group>"; };
+		BB37ABD01E96869500D9D7BA /* PluginInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginInstance.m; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -93,11 +97,8 @@
 		BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RJBCommons.m; sourceTree = "<group>"; };
 		BB7B15B91E94946F00BBD5E8 /* RJBObjectConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBObjectConvertor.h; sourceTree = "<group>"; };
 		BB7B15BA1E94946F00BBD5E8 /* RJBObjectConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RJBObjectConvertor.m; sourceTree = "<group>"; };
-		BB7B15BB1E94946F00BBD5E8 /* RJBUIWebViewBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBUIWebViewBridge.h; sourceTree = "<group>"; };
-		BB7B15BC1E94946F00BBD5E8 /* RJBUIWebViewBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RJBUIWebViewBridge.m; sourceTree = "<group>"; };
-		BB7B15BD1E94946F00BBD5E8 /* RJBWKWebViewBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBWKWebViewBridge.h; sourceTree = "<group>"; };
-		BB7B15BE1E94946F00BBD5E8 /* RJBWKWebViewBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RJBWKWebViewBridge.m; sourceTree = "<group>"; };
 		BB7B15C51E94978500BBD5E8 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		BB7B15C71E949B7A00BBD5E8 /* Hybrid.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Hybrid.js; sourceTree = "<group>"; };
 		BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		BB92EAC01E1219D1001AB56E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManagerTests.swift; sourceTree = "<group>"; };
@@ -207,7 +208,9 @@
 		BB1DD2DD1DFCE95100B6C00E /* HybridCore */ = {
 			isa = PBXGroup;
 			children = (
+				BB7B15C71E949B7A00BBD5E8 /* Hybrid.js */,
 				BB7B15B21E94946F00BBD5E8 /* Bridge */,
+				BB37ABC51E96388100D9D7BA /* Plugin */,
 				BB1DD2F01DFD987B00B6C00E /* Utils */,
 				BB1DD2ED1DFD8D0C00B6C00E /* CacheManager */,
 				BB1DD2EA1DFD57A500B6C00E /* Interceptor */,
@@ -257,6 +260,16 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		BB37ABC51E96388100D9D7BA /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				BB37ABC81E96642B00D9D7BA /* PluginManager.swift */,
+				BB37ABCF1E96869500D9D7BA /* PluginInstance.h */,
+				BB37ABD01E96869500D9D7BA /* PluginInstance.m */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
 		BB7B15B21E94946F00BBD5E8 /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,10 +281,6 @@
 				BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */,
 				BB7B15B91E94946F00BBD5E8 /* RJBObjectConvertor.h */,
 				BB7B15BA1E94946F00BBD5E8 /* RJBObjectConvertor.m */,
-				BB7B15BB1E94946F00BBD5E8 /* RJBUIWebViewBridge.h */,
-				BB7B15BC1E94946F00BBD5E8 /* RJBUIWebViewBridge.m */,
-				BB7B15BD1E94946F00BBD5E8 /* RJBWKWebViewBridge.h */,
-				BB7B15BE1E94946F00BBD5E8 /* RJBWKWebViewBridge.m */,
 			);
 			path = Bridge;
 			sourceTree = "<group>";
@@ -383,6 +392,7 @@
 			files = (
 				BB2D56DC1E0047E000098738 /* HybridResource in Resources */,
 				BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */,
+				BB7B15C81E949B7A00BBD5E8 /* Hybrid.js in Resources */,
 				BB1DD2C51DFCE92B00B6C00E /* Assets.xcassets in Resources */,
 				BB1DD2C31DFCE92B00B6C00E /* Main.storyboard in Resources */,
 				BB11F1DB1E02843A006F26FD /* SecondViewController.xib in Resources */,
@@ -525,6 +535,7 @@
 				BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */,
 				BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */,
 				BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */,
+				BB37ABC91E96642B00D9D7BA /* PluginManager.swift in Sources */,
 				BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */,
 				BB1DD2DF1DFCE97F00B6C00E /* WebContainer.swift in Sources */,
 				BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */,
@@ -537,12 +548,11 @@
 				BB98E7D51E03C07A0021D9E1 /* CacheManager+DB.swift in Sources */,
 				BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */,
 				BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */,
+				BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */,
 				BB7B15C21E94946F00BBD5E8 /* RJBObjectConvertor.m in Sources */,
 				BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */,
 				BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */,
 				BB1DD2EF1DFD8D1D00B6C00E /* CacheManager.swift in Sources */,
-				BB7B15C31E94946F00BBD5E8 /* RJBUIWebViewBridge.m in Sources */,
-				BB7B15C41E94946F00BBD5E8 /* RJBWKWebViewBridge.m in Sources */,
 				BBE29BA41E0BC96C004F1C75 /* WebAppInfo.swift in Sources */,
 				BB1DD2BE1DFCE92B00B6C00E /* AppDelegate.swift in Sources */,
 			);

@@ -11,42 +11,112 @@
 #import "RJBObjectConvertor.h"
 #import "RJBCommand.h"
 #import <objc/runtime.h>
-#import "RJBUIWebViewBridge.h"
-#import "RJBWKWebViewBridge.h"
+#import "Hybrid-Swift.h"
 
-@interface ReflectJavascriptBridge() <UIWebViewDelegate>
+@interface ReflectJavascriptBridge() <UIWebViewDelegate, WKScriptMessageHandler, WKNavigationDelegate>
 
 @property (nonatomic) NSMutableDictionary<NSString *, id> *reflectObjects;
 @property (nonatomic) NSMutableDictionary<NSString *, id> *waitingObjects; // wait for bridge
 @property (nonatomic) NSMutableDictionary<NSString *, id> *bridgedBlocks;
 @property (nonatomic) NSMutableArray<RJBCommand *> *commands;
+
+@property (nonatomic, weak) WKWebView *webView;
+@property (nonatomic) id<WKNavigationDelegate> delegate;
 @property (nonatomic) BOOL injectJsFinished;
 
 @end
 
 @implementation ReflectJavascriptBridge
 
-+ (ReflectJavascriptBridge *)bridge:(id)webView delegate:(id)delegate {
-    if ([webView isKindOfClass:[UIWebView class]]) {
-        return [[RJBUIWebViewBridge alloc] initWithWebView:webView delegate:delegate];
-    } else if ([webView isKindOfClass:[WKWebView class]]) {
-        return [[RJBWKWebViewBridge alloc] initWithWebView:webView delegate:delegate];
-    } else {
-        NSLog(@"[RJB]: webView should be `UIWebView` or `WKWebView`");
-        return nil;
-    }
+//+ (ReflectJavascriptBridge *)bridge:(id)webView delegate:(id)delegate {
+//    if ([webView isKindOfClass:[UIWebView class]]) {
+//        return [[RJBUIWebViewBridge alloc] initWithWebView:webView delegate:delegate];
+//    } else if ([webView isKindOfClass:[WKWebView class]]) {
+//        return [[RJBWKWebViewBridge alloc] initWithWebView:webView delegate:delegate];
+//    } else {
+//        NSLog(@"[RJB]: webView should be `UIWebView` or `WKWebView`");
+//        return nil;
+//    }
+//}
+
++ (ReflectJavascriptBridge *)bridge:(WKWebView *)webView delegate:(id<WKNavigationDelegate>)delegate {
+//    if ([webView isKindOfClass:[UIWebView class]]) {
+//        return [[RJBUIWebViewBridge alloc] initWithWebView:webView delegate:delegate];
+//    } else if ([webView isKindOfClass:[WKWebView class]]) {
+//        return [[RJBWKWebViewBridge alloc] initWithWebView:webView delegate:delegate];
+//    } else {
+//        NSLog(@"[RJB]: webView should be `UIWebView` or `WKWebView`");
+//        return nil;
+//    }
+    return [[ReflectJavascriptBridge alloc] initWithWebView:webView delegate:delegate];
 }
 
 + (ReflectJavascriptBridge *)bridge:(id)webView {
     return [ReflectJavascriptBridge bridge:webView delegate:nil];
 }
 
+- (instancetype)initWithWebView:(WKWebView *)webView delegate:(id<WKNavigationDelegate>)delegate {
+    self = [super init];
+    if (self) {
+        _webView = webView;
+        _delegate = delegate;
+        _webView.navigationDelegate = self;
+        
+        [[PluginManager shared] registerPluginWithBridge:self]; // 将插件加载到JS环境中
+    }
+    return self;
+}
+
 - (void)callJs:(NSString *)js completionHandler:(void (^)(id, NSError *))handler {
-    NSLog(@"[RJB]: implement `callJs:completionHandler:` in subclass");
+    [_webView evaluateJavaScript:js completionHandler:handler];
 }
 
 - (void)callJsMethod:(NSString *)methodName withArgs:(NSArray *)args completionHandler:(void (^)(id, NSError *))handler {
-    NSLog(@"[RJB]: implement `callJsMethod:withArgs:completionHandler:` in subclass");
+    if (!self.injectJsFinished) {
+        NSLog(@"[RJB]: javascript initialize not complete!");
+        if (handler != nil) {
+            handler(nil, [NSError errorWithDomain:@"javascript initialize not complete!" code:0 userInfo:nil]);
+        }
+    }
+    
+    NSMutableString *paramStr = [NSMutableString string];
+    for (id param in args) {
+        if ([param isKindOfClass:[NSString class]]) {
+            [paramStr appendFormat:@"\"%@\",", (NSString *)param];
+        } else if ([param isKindOfClass:[NSNumber class]]) {
+            NSNumber *number = (NSNumber *)param;
+            [paramStr appendFormat:@"%@,", number];
+        }
+    }
+    
+    NSString *js = nil;
+    if (paramStr.length > 0) {
+        NSString *param = [paramStr substringToIndex:paramStr.length - 1]; // delete the last comma
+        js = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.checkAndCall(\"%@\",[%@]);", methodName, param];
+    } else {
+        js = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.checkAndCall(\"%@\");", methodName];
+    }
+    
+    [_webView evaluateJavaScript:js completionHandler:handler];
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if ([navigationAction.request.URL.scheme isEqualToString:RJBScheme]) {
+        if ([navigationAction.request.URL.host isEqualToString:RJBInjectJs]) {
+            [self injectJs];
+        } else if ([navigationAction.request.URL.host isEqualToString:RJBReadyForMessage]) {
+            [self fetchQueueingCommands];
+        }
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+    
+    if ([_delegate respondsToSelector:@selector(webView:decidePolicyForNavigationAction:decisionHandler:)]) {
+        [_delegate webView:webView decidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
 }
 
 #pragma mark - Private method
@@ -104,7 +174,9 @@
     }
     
     for (RJBCommand *command in _commands) {
-        [command execWithInstance:_reflectObjects[command.identifier] bridge:self];
+//        [command execWithInstance:_reflectObjects[command.identifier] bridge:self];
+        id instance = [[PluginManager shared] instanceWithIdentifier:command.identifier bridge:self];
+        [command execWithInstance:instance bridge:self];
     }
     // TODO: 执行结束清空commands, 暂时先同步执行
     [_commands removeAllObjects];
@@ -144,6 +216,12 @@
     return self;
 }
 
+#pragma mark - WKScriptMessageHandler
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    
+}
+
 #pragma mark - Subscript
 
 - (id)objectForKeyedSubscript:(id)key {
@@ -165,6 +243,14 @@
     } else {
         _waitingObjects[aKey] = object;
     }
+}
+
+- (void)register:(id)object forKey:(NSString *)key {
+    [self setObject:object forKeyedSubscript:key];
+}
+
+- (id)objectForKey:(NSString *)key {
+    return [self objectForKeyedSubscript:key];
 }
 
 @end

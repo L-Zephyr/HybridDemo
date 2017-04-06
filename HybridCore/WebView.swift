@@ -12,13 +12,22 @@ class WebView: WKWebView {
 
     // MARK: - Public
     
-    public func register(obj: Any?) {
-        if let plugin = obj as? PluginExport {
-            
-        }
+    init() {
+        super.init(frame: CGRect.zero, configuration: WKWebViewConfiguration())
+        bridge = ReflectJavascriptBridge(self, delegate: self)
+    }
+    
+    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
+        super.init(frame: frame, configuration: configuration)
+        bridge = ReflectJavascriptBridge(self, delegate: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Private
     
+    fileprivate var bridge: ReflectJavascriptBridge?
     
 }

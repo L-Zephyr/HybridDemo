@@ -23,7 +23,10 @@ static NSString *const RJBBlockClassName = @"_NativeBlock_";
 static BOOL rjb_logEnable = YES;
 
 @protocol PluginExport <NSObject>
-// empty protocol
+
+@optional
+- (void)setup; // 实现该方法以完成插件的初始化
+
 @end
 
 // the js code to inject

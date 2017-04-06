@@ -54,4 +54,8 @@
 
 - (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)aKey;
 
+- (void)register:(id)object forKey:(NSString *)key;
+
+- (id)objectForKey:(NSString *)key;
+
 @end
