@@ -19,7 +19,7 @@ internal class PluginManager: NSObject {
     ///
     /// - Returns: 包含所有插件的数组
     public func loadPlugins() -> [PluginInstance] {
-        if (!autoLoadFinished) {
+        if !autoLoadFinished {
             autoLoadPlugin()
         }
         

@@ -24,6 +24,11 @@
     return [convertor toJs];
 }
 
++ (NSString *)convertClass:(Class)cls identifier:(NSString *)identifier {
+    RJBObjectConvertor *convertor = [[RJBObjectConvertor alloc] initWithClass:cls identifier:identifier];
+    return [convertor toJs];
+}
+
 - (instancetype)initWithObject:(id<PluginExport>)object idenetifier:(NSString *)identifier {
     self = [super init];
     if (self) {
@@ -37,15 +42,30 @@
     return self;
 }
 
+- (instancetype)initWithClass:(Class)cls identifier:(NSString *)identifier {
+    self = [super init];
+    if (self) {
+        _js = [[NSMutableString alloc] init];
+        [self convertClassToJs:cls identifier:identifier];
+    }
+    return self;
+}
+
+#pragma mark - Convertor
+
 // 将实例对象转换成JS
 - (void)convertObjectToJs:(id)object identifier:(NSString *)identifier {
+    [self convertClassToJs:object_getClass(object) identifier:identifier];
+}
+
+- (void)convertClassToJs:(Class)cls identifier:(NSString *)identifier {
     _exportMethodMaps = [[NSMutableDictionary alloc] init];
     [_js appendString:@"{"];
     
     // find out all protocol that inherited from `PluginExport`
     NSMutableArray<Protocol *> *exportProtocols = [NSMutableArray array];
     unsigned int outCount = 0;
-    Protocol * __unsafe_unretained *protos = class_copyProtocolList(object_getClass(object), &outCount);
+    Protocol * __unsafe_unretained *protos = class_copyProtocolList(cls, &outCount);
     for (unsigned int index = 0; index < outCount; ++index) {
         Protocol *proto = protos[index];
         if (protocol_conformsToProtocol(proto, objc_getProtocol("PluginExport"))) {
@@ -56,7 +76,7 @@
     NSArray<NSDictionary *> *methodInfos = [self fetchMethodInfosFromProtocols:exportProtocols];
     
     NSMutableDictionary *methodMaps = [NSMutableDictionary dictionary]; // jsName -> nativeName
-    NSString *clsName = [NSString stringWithUTF8String:class_getName(object_getClass(object))];
+    NSString *clsName = [NSString stringWithUTF8String:class_getName(cls)];
     [_js appendFormat:@"className:\"%@\",", clsName];
     [_js appendFormat:@"identifier:\"%@\",", identifier];
     

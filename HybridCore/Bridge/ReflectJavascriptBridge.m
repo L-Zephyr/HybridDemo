@@ -208,7 +208,8 @@
             
             typeof(self) weakSelf = self;
             [_plugins enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, PluginInstance * _Nonnull obj, BOOL * _Nonnull stop) {
-                [weakSelf callJs:obj.bridgedJS completionHandler:^(id result, NSError *error) {
+                NSString *js = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.addObject(%@,\"%@\");", obj.bridgedJs, obj.pluginName];
+                [weakSelf callJs:js completionHandler:^(id result, NSError *error) {
                     if (error) {
                         RJBLog(@"[RJB]: bridge %@ error: %@", key, error);
                     }
@@ -221,7 +222,7 @@
 }
 
 - (void)dealloc {
-    [[PluginManager shared] unregisterPluginWithBridge:self];
+    
 }
 
 #pragma mark - Initialize

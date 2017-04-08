@@ -52,9 +52,10 @@
     return self;
 }
 
-- (instancetype)initWithClass:(Class)pluginClass bridgedJs:(NSString *)js {
+- (instancetype)initWithClass:(Class)pluginClass pluginName:(NSString *)name bridgedJs:(NSString *)js {
     self = [self initWithClass:pluginClass];
     if (self) {
+        _pluginName = name;
         _bridgedJs = js;
     }
     return self;
@@ -80,7 +81,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    PluginInstance *copy = [[[self class] allocWithZone:zone] initWithClass:_pluginClass bridgedJs:_bridgedJs];
+    PluginInstance *copy = [[[self class] allocWithZone:zone] initWithClass:_pluginClass pluginName:_pluginName  bridgedJs:_bridgedJs];
     return copy;
 }
 
