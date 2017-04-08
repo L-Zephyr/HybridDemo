@@ -19,7 +19,7 @@
 
 @implementation RJBObjectConvertor
 
-+ (NSString *)convertToJs:(id)object identifier:(NSString *)identifier {
++ (NSString *)convertObject:(id)object identifier:(NSString *)identifier {
     RJBObjectConvertor *convertor = [[RJBObjectConvertor alloc] initWithObject:object idenetifier:identifier];
     return [convertor toJs];
 }
@@ -29,16 +29,16 @@
     if (self) {
         _js = [[NSMutableString alloc] init];
         if ([object conformsToProtocol:objc_getProtocol("PluginExport")]) {
-            [self convertObject:object identifier:identifier];
+            [self convertObjectToJs:object identifier:identifier];
         } else if ([object isKindOfClass:NSClassFromString(@"NSBlock")]) {
-            [self convertBlock:object identifier:identifier];
+            [self convertBlockToJs:object identifier:identifier];
         }
     }
     return self;
 }
 
 // 将实例对象转换成JS
-- (void)convertObject:(id)object identifier:(NSString *)identifier {
+- (void)convertObjectToJs:(id)object identifier:(NSString *)identifier {
     _exportMethodMaps = [[NSMutableDictionary alloc] init];
     [_js appendString:@"{"];
     
@@ -88,7 +88,7 @@
 }
 
 // 将block转换成JS
-- (void)convertBlock:(id)block identifier:(NSString *)identifier {
+- (void)convertBlockToJs:(id)block identifier:(NSString *)identifier {
     [_js appendString:@"function(){"];
     
     NSString *sign = [NSString stringWithUTF8String:RJB_signatureForBlock(block)];

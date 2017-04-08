@@ -18,6 +18,15 @@
  @param identifier 实例对象的名称
  @return           描述一个JS对象的JS代码
  */
-+ (NSString *)convertToJs:(id)object identifier:(NSString *)identifier;
++ (NSString *)convertObject:(id)object identifier:(NSString *)identifier;
+
+/**
+ 将一个Native类转换成js描述
+
+ @param cls        实现了`PluginExport`的类
+ @param identifier 插件名
+ @return           返回js代码
+ */
++ (NSString *)convertClass:(Class)cls identifier:(NSString *)identifier;
 
 @end

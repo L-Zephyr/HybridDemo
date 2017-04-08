@@ -12,6 +12,7 @@
 #import "RJBCommand.h"
 #import <objc/runtime.h>
 #import "Hybrid-Swift.h"
+#import "PluginInstance.h"
 
 @interface ReflectJavascriptBridge() <UIWebViewDelegate, WKScriptMessageHandler, WKNavigationDelegate>
 
@@ -19,6 +20,8 @@
 @property (nonatomic) NSMutableDictionary<NSString *, id> *waitingObjects; // wait for bridge
 @property (nonatomic) NSMutableDictionary<NSString *, id> *bridgedBlocks;
 @property (nonatomic) NSMutableArray<RJBCommand *> *commands;
+
+@property (nonatomic) NSMutableDictionary<NSString *, PluginInstance *> *plugins;
 
 @property (nonatomic, weak) WKWebView *webView;
 @property (nonatomic) id<WKNavigationDelegate> delegate;
@@ -62,7 +65,12 @@
         _delegate = delegate;
         _webView.navigationDelegate = self;
         
-        [[PluginManager shared] registerPluginWithBridge:self]; // 将插件加载到JS环境中
+//        [[PluginManager shared] registerPluginWithBridge:self]; // 将插件加载到JS环境中
+        _plugins = [NSMutableDictionary dictionary];
+        NSArray<PluginInstance *> *list = [[PluginManager shared] loadPlugins];
+        for (PluginInstance *instance in list) {
+            _plugins[instance.pluginName] = instance;
+        }
     }
     return self;
 }
@@ -98,6 +106,10 @@
     }
     
     [_webView evaluateJavaScript:js completionHandler:handler];
+}
+
+- (void)setLogEnable:(BOOL)logEnable {
+    rjb_logEnable = logEnable;
 }
 
 #pragma mark - WKNavigationDelegate
@@ -140,7 +152,7 @@
  @return       一段描述JS对象的JS代码
  */
 - (NSString *)convertNativeObjectToJs:(id)object identifier:(NSString *)identifier {
-    NSString *jsObject = [RJBObjectConvertor convertToJs:object identifier:identifier];
+    NSString *jsObject = [RJBObjectConvertor convertObject:object identifier:identifier];
     return jsObject;
 }
 
@@ -175,8 +187,8 @@
     
     for (RJBCommand *command in _commands) {
 //        [command execWithInstance:_reflectObjects[command.identifier] bridge:self];
-        id instance = [[PluginManager shared] instanceWithIdentifier:command.identifier bridge:self];
-        [command execWithInstance:instance bridge:self];
+//        id instance = [[PluginManager shared] instanceWithIdentifier:command.identifier bridge:self];
+        [command execWithInstance:_plugins[command.identifier].instance bridge:self];
     }
     // TODO: 执行结束清空commands, 暂时先同步执行
     [_commands removeAllObjects];
@@ -189,18 +201,27 @@
     [self callJs:ReflectJavascriptBridgeInjectedJS() completionHandler:^(id result, NSError *error) {
         if (!error) {
             _injectJsFinished = YES;
-            [_waitingObjects enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id<PluginExport>  _Nonnull obj, BOOL * _Nonnull stop) {
-                [self setObject:obj forKeyedSubscript:key];
+//            [_waitingObjects enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id<PluginExport>  _Nonnull obj, BOOL * _Nonnull stop) {
+//                [self setObject:obj forKeyedSubscript:key];
+//            }];
+//            [_waitingObjects removeAllObjects];
+            
+            typeof(self) weakSelf = self;
+            [_plugins enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, PluginInstance * _Nonnull obj, BOOL * _Nonnull stop) {
+                [weakSelf callJs:obj.bridgedJS completionHandler:^(id result, NSError *error) {
+                    if (error) {
+                        RJBLog(@"[RJB]: bridge %@ error: %@", key, error);
+                    }
+                }];
             }];
-            [_waitingObjects removeAllObjects];
         } else {
             NSLog(@"[RJB]: inject js code fail: %@", error);
         }
     }];
 }
 
-- (void)setLogEnable:(BOOL)logEnable {
-    rjb_logEnable = logEnable;
+- (void)dealloc {
+    [[PluginManager shared] unregisterPluginWithBridge:self];
 }
 
 #pragma mark - Initialize

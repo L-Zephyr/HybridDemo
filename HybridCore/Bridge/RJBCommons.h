@@ -26,6 +26,7 @@ static BOOL rjb_logEnable = YES;
 
 @optional
 - (void)setup; // 实现该方法以完成插件的初始化
++ (NSString *)pluginName; // 实现该方法以自定义插件名称，默认名称为插件的类名
 
 @end
 

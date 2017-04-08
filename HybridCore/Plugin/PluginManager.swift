@@ -10,35 +10,42 @@ import UIKit
 
 internal class PluginManager: NSObject {
     
+    // MARK: - Public
+    
     /// 单例对象
     public static let shared = PluginManager()
     
-    /// 将所有插件加载到Bridge中
+    /// 加载并返回所有插件
     ///
-    /// - Parameter bridge: WebView对应的Bridge
-    public func registerPlugin(bridge: ReflectJavascriptBridge) {
+    /// - Returns: 包含所有插件的数组
+    public func loadPlugins() -> [PluginInstance] {
+        if (!autoLoadFinished) {
+            autoLoadPlugin()
+        }
         
-    }
-    
-    /// 注销Bridge中的插件，在WebView销毁时调用
-    ///
-    /// - Parameter bridge: WebView对应的Bridge
-    public func unregisterPlugin(bridge: ReflectJavascriptBridge) {
-        
-    }
-    
-    /// 获取Native的对象实例
-    ///
-    /// - Parameters:
-    ///   - identifier: 对象唯一标识
-    ///   - bridge:     对象实例所属的bridge
-    /// - Returns:      返回Native的对象实例
-    public func instance(identifier: String, bridge: ReflectJavascriptBridge) -> AnyObject? {
-        return nil
+        return basePlugins.map({ (instance) -> PluginInstance in
+            return instance.copy() as! PluginInstance
+        })
     }
     
     // MARK: - Private
     
-    /// 插件类列表
-    fileprivate var pluginClasses: [AnyClass] = []
+    /// 插件列表
+    fileprivate var basePlugins: [PluginInstance] = []
+    
+    /// 所有插件已加载完毕
+    fileprivate var autoLoadFinished = false
+    
+    /// 自动加载所有插件
+    fileprivate func autoLoadPlugin() {
+        var count: UInt32 = 0
+        if let classList = objc_copyClassList(&count) {
+            for index in 0..<numericCast(count) {
+                if let cls = classList[index], class_conformsToProtocol(cls, PluginExport.self) {
+                    basePlugins.append(PluginInstance(with: cls))
+                }
+            }
+        }
+        autoLoadFinished = true
+    }
 }
