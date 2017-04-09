@@ -33,9 +33,9 @@
         
         // 获取插件名字
         SEL nameSel = @selector(pluginName);
-        if (class_respondsToSelector(_pluginClass, nameSel)) {
+        if (class_respondsToSelector(object_getClass(_pluginClass), nameSel)) {
             NSMethodSignature *sign = [_pluginClass methodSignatureForSelector:nameSel];
-            if (strcmp([sign methodReturnType], "@")) {
+            if (strcmp([sign methodReturnType], "@") == 0) {
                 NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sign];
                 invocation.target = _pluginClass;
                 invocation.selector = nameSel;
@@ -46,7 +46,8 @@
                 _pluginName = (NSString *)ret;
             }
         } else {
-            _pluginName = [NSString stringWithUTF8String:class_getName(_pluginClass)];
+            NSString *clsName = [NSString stringWithUTF8String:class_getName(_pluginClass)];
+            _pluginName = [[clsName componentsSeparatedByString:@"."] lastObject];
         }
     }
     return self;
@@ -70,6 +71,7 @@
     }
     
     return _instance;
+    return nil;
 }
 
 - (NSString *)bridgedJs {

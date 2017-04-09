@@ -1,5 +1,5 @@
 //
-//  PluginManager.swift
+//  PluginLoader.swift
 //  Hybrid
 //
 //  Created by LZephyr on 2017/4/6.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-internal class PluginManager: NSObject {
+internal class PluginLoader: NSObject {
     
     // MARK: - Public
     
     /// 单例对象
-    public static let shared = PluginManager()
+    public static let shared = PluginLoader()
     
     /// 加载并返回所有插件
     ///

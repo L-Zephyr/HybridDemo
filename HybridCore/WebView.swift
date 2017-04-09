@@ -12,14 +12,19 @@ class WebView: WKWebView {
 
     // MARK: - Public
     
+    public func load(url: String) {
+        let request = URLRequest(url: URL(string: url)!)
+        self.load(request)
+    }
+    
     init() {
         super.init(frame: CGRect.zero, configuration: WKWebViewConfiguration())
-        bridge = ReflectJavascriptBridge(self, delegate: self)
+        bridge = ReflectJavascriptBridge(self)
     }
     
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
-        bridge = ReflectJavascriptBridge(self, delegate: self)
+        bridge = ReflectJavascriptBridge(self)
     }
     
     required init?(coder: NSCoder) {

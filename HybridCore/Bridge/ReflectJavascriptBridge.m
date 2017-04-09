@@ -65,9 +65,8 @@
         _delegate = delegate;
         _webView.navigationDelegate = self;
         
-//        [[PluginManager shared] registerPluginWithBridge:self]; // 将插件加载到JS环境中
         _plugins = [NSMutableDictionary dictionary];
-        NSArray<PluginInstance *> *list = [[PluginManager shared] loadPlugins];
+        NSArray<PluginInstance *> *list = [[PluginLoader shared] loadPlugins];
         for (PluginInstance *instance in list) {
             _plugins[instance.pluginName] = instance;
         }
@@ -187,7 +186,7 @@
     
     for (RJBCommand *command in _commands) {
 //        [command execWithInstance:_reflectObjects[command.identifier] bridge:self];
-//        id instance = [[PluginManager shared] instanceWithIdentifier:command.identifier bridge:self];
+//        id instance = [[PluginLoader shared] instanceWithIdentifier:command.identifier bridge:self];
         [command execWithInstance:_plugins[command.identifier].instance bridge:self];
     }
     // TODO: 执行结束清空commands, 暂时先同步执行

@@ -25,8 +25,9 @@
 		BB2D56DC1E0047E000098738 /* HybridResource in Resources */ = {isa = PBXBuildFile; fileRef = BB2D56DB1E0047E000098738 /* HybridResource */; };
 		BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D56DD1E004CCB00098738 /* HybridConfig.swift */; };
 		BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D570E1E027A6200098738 /* VersionManager.swift */; };
-		BB37ABC91E96642B00D9D7BA /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginManager.swift */; };
+		BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */; };
 		BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABD01E96869500D9D7BA /* PluginInstance.m */; };
+		BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB3311E9A4FD900139919 /* NativePlugin.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
@@ -86,9 +87,10 @@
 		BB2D56DB1E0047E000098738 /* HybridResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HybridResource; sourceTree = "<group>"; };
 		BB2D56DD1E004CCB00098738 /* HybridConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HybridConfig.swift; sourceTree = "<group>"; };
 		BB2D570E1E027A6200098738 /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
-		BB37ABC81E96642B00D9D7BA /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
+		BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginLoader.swift; sourceTree = "<group>"; };
 		BB37ABCF1E96869500D9D7BA /* PluginInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginInstance.h; sourceTree = "<group>"; };
 		BB37ABD01E96869500D9D7BA /* PluginInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginInstance.m; sourceTree = "<group>"; };
+		BB3AB3311E9A4FD900139919 /* NativePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlugin.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		BB1DD2BC1DFCE92B00B6C00E /* HybridDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BB3AB3331E9A4FE600139919 /* Plugin */,
 				BB1DD2E71DFCF3D100B6C00E /* Helper */,
 				BB1828451E03D23F0077F433 /* HTTPMock */,
 				BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */,
@@ -263,11 +266,19 @@
 		BB37ABC51E96388100D9D7BA /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				BB37ABC81E96642B00D9D7BA /* PluginManager.swift */,
+				BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */,
 				BB37ABCF1E96869500D9D7BA /* PluginInstance.h */,
 				BB37ABD01E96869500D9D7BA /* PluginInstance.m */,
 			);
 			path = Plugin;
+			sourceTree = "<group>";
+		};
+		BB3AB3331E9A4FE600139919 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				BB3AB3311E9A4FD900139919 /* NativePlugin.swift */,
+			);
+			name = Plugin;
 			sourceTree = "<group>";
 		};
 		BB7B15B21E94946F00BBD5E8 /* Bridge */ = {
@@ -535,7 +546,7 @@
 				BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */,
 				BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */,
 				BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */,
-				BB37ABC91E96642B00D9D7BA /* PluginManager.swift in Sources */,
+				BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */,
 				BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */,
 				BB1DD2DF1DFCE97F00B6C00E /* WebContainer.swift in Sources */,
 				BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */,
@@ -543,6 +554,7 @@
 				BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */,
 				BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */,
 				BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */,
+				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,
 				BB1DD2EC1DFD57C000B6C00E /* FileInterceptor.swift in Sources */,
 				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,
 				BB98E7D51E03C07A0021D9E1 /* CacheManager+DB.swift in Sources */,
