@@ -884,7 +884,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HybridCore/Bridge/ReflectJavascriptBridge.m"
@@ -936,7 +936,7 @@
                   moduleName = "Hybrid"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lzephyr/Desktop/%E6%AF%95%E8%AE%BE/Hybrid/HybridCore/Bridge/ReflectJavascriptBridge.m"
-                  timestampString = "513435810.857974"
+                  timestampString = "513436890.363548"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "187"
@@ -951,7 +951,7 @@
                   moduleName = "Hybrid"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lzephyr/Desktop/%E6%AF%95%E8%AE%BE/Hybrid/HybridCore/Bridge/ReflectJavascriptBridge.m"
-                  timestampString = "513435810.860094"
+                  timestampString = "513436890.365997"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "187"
@@ -1012,7 +1012,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HybridCore/Bridge/ReflectJavascriptBridge.m"
@@ -1023,6 +1023,38 @@
             endingLineNumber = "210"
             landmarkName = "-injectJs"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[ReflectJavascriptBridge injectJs]_block_invoke"
+                  moduleName = "Hybrid"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lzephyr/Desktop/%E6%AF%95%E8%AE%BE/Hybrid/HybridCore/Bridge/ReflectJavascriptBridge.m"
+                  timestampString = "513435918.31089"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "146">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[ReflectJavascriptBridge injectJs]_block_invoke_2"
+                  moduleName = "Hybrid"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lzephyr/Desktop/%E6%AF%95%E8%AE%BE/Hybrid/HybridCore/Bridge/ReflectJavascriptBridge.m"
+                  timestampString = "513435918.312168"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1044,7 +1076,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HybridCore/Plugin/PluginInstance.m"
@@ -1112,12 +1144,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HybridCore/WebView.swift"
-            timestampString = "513431286.758319"
+            timestampString = "513436111.644117"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "load(url:)"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "init(frame:configuration:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1176,6 +1208,22 @@
             startingLineNumber = "58"
             endingLineNumber = "58"
             landmarkName = "+bridge:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HybridCore/Plugin/PluginInstance.m"
+            timestampString = "513436536.897971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-initWithClass:pluginName:bridgedJs:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -82,7 +82,12 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    PluginInstance *copy = [[[self class] allocWithZone:zone] initWithClass:_pluginClass pluginName:_pluginName  bridgedJs:_bridgedJs];
+    PluginInstance *copy = [[[self class] allocWithZone:zone] init];
+    copy->_pluginName = [_pluginName copy];
+    copy->_pluginClass = _pluginClass;
+    copy->_instance = nil;
+    copy->_isInitialized = NO;
+    copy->_bridgedJs = [[self bridgedJs] copy];
     return copy;
 }
 
