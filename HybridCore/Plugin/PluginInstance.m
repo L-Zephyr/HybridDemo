@@ -71,7 +71,6 @@
     }
     
     return _instance;
-    return nil;
 }
 
 - (NSString *)bridgedJs {
