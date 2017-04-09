@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         // load local resouce
         TimeLogger.sharedLogger.startTimeLog()
         
-        let remoteUrl = "http://localhost:3000/main.html"
+        let remoteUrl = "http://localhost:3000/main2.html"
         web.load(url: remoteUrl)
     }
 

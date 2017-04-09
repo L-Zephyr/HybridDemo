@@ -65,6 +65,11 @@
         _delegate = delegate;
         _webView.navigationDelegate = self;
         
+        _reflectObjects = [NSMutableDictionary dictionary];
+        _waitingObjects = [NSMutableDictionary dictionary];
+        _bridgedBlocks = [NSMutableDictionary dictionary];
+        _commands = [NSMutableArray array];
+        
         _plugins = [NSMutableDictionary dictionary];
         NSArray<PluginInstance *> *list = [[PluginLoader shared] loadPlugins];
         for (PluginInstance *instance in list) {
@@ -222,19 +227,6 @@
 
 - (void)dealloc {
     
-}
-
-#pragma mark - Initialize
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _reflectObjects = [NSMutableDictionary dictionary];
-        _waitingObjects = [NSMutableDictionary dictionary];
-        _bridgedBlocks = [NSMutableDictionary dictionary];
-        _commands = [NSMutableArray array];
-    }
-    return self;
 }
 
 #pragma mark - WKScriptMessageHandler

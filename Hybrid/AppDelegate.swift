@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         HybridConfig.serverAddress = "localhost:3000"
         HybridConfig.logLevel = .Verbose
         
-        VersionManager.shared.checkUpdate()
+//        VersionManager.shared.checkUpdate()
         
         return true
     }
