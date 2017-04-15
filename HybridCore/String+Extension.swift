@@ -59,9 +59,4 @@ extension String {
             return self
         }
     }
-    
-//    /// 是否为资源类型
-//    internal func isResourceType() -> Bool {
-//        
-//    }
 }

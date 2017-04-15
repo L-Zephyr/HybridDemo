@@ -64,7 +64,7 @@ extension WebContainer: UIWebViewDelegate {
 //            jsContext.setObject(model, forKeyedSubscript: "jsBridge" as (NSCopying & NSObjectProtocol)!)
 //            
 //            jsContext.exceptionHandler = { (context, value) in
-//                logError("JSContext error \(value)")
+//                LogError("JSContext error \(value)")
 //            }
 //        }
 

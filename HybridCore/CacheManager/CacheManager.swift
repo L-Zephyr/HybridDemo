@@ -58,7 +58,7 @@ class CacheManager {
                     let fileData = try Data(contentsOf: url)
                     return fileData
                 } catch {
-                    logError("\(error)")
+                    LogError("\(error)")
                 }
             }
         }
@@ -100,7 +100,7 @@ class CacheManager {
                 try FileManager.default.removeItem(atPath: tmpPath)
             }
         } catch {
-            logError("\(error)")
+            LogError("\(error)")
         }
     }
     
@@ -115,11 +115,11 @@ class CacheManager {
                     return false
                 }
             } catch {
-                logError("\(error)")
+                LogError("\(error)")
                 return false
             }
         } else {
-            logError("压缩包解压失败")
+            LogError("压缩包解压失败")
             return false
         }
         return true
@@ -148,11 +148,11 @@ class CacheManager {
         if FileManager.default.fileExists(atPath: path) {
             let zip = ZipArchive()
             if !zip.unzipOpenFile(path) || !zip.unzipFile(to: toPath, overWrite: true) {
-                logError("资源包解压失败")
+                LogError("资源包解压失败")
                 return false
             }
         } else {
-            logError("资源包不存在")
+            LogError("资源包不存在")
             return false
         }
         return true
@@ -213,7 +213,7 @@ class CacheManager {
             let packageUrl = resUrl.appendingPathComponent("webapp.zip")
             
             if FileManager.default.fileExists(atPath: configFileUrl.path) == false {
-                logError("未找到配置文件webapp_info.json")
+                LogError("未找到配置文件webapp_info.json")
                 return
             }
             
@@ -239,7 +239,7 @@ class CacheManager {
                 }
                 self.updateWebappInfo(webapp)
             } catch {
-                logError("\(error)")
+                LogError("\(error)")
             }
             
             // 解析离线资源包

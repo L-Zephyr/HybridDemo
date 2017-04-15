@@ -21,7 +21,7 @@ class VersionManager {
         }
         
         guard let webapp = webapp else {
-            logError("读取webapp数据失败")
+            LogError("读取webapp数据失败")
             return
         }
         
@@ -61,7 +61,7 @@ class VersionManager {
                             }
                             self?.updateWebappInfo()
                             
-                            logInfo("当前版本:\(self?.webapp?.currentVersion ?? ""), 最新版本: \(self?.webapp?.latestVersion ?? "")")
+                            LogInfo("当前版本:\(self?.webapp?.currentVersion ?? ""), 最新版本: \(self?.webapp?.latestVersion ?? "")")
                             
                             // 有更新则下载最新的资源包
                             if let currVer = self?.webapp?.currentVersion, let latestVer = self?.webapp?.latestVersion, currVer < latestVer {
@@ -70,10 +70,10 @@ class VersionManager {
                             }
                         }
                     } catch {
-                        logError("json解析错误:\(error)")
+                        LogError("json解析错误:\(error)")
                     }
                 } else {
-                    logError("网络请求错误: \(error)")
+                    LogError("网络请求错误: \(error)")
                 }
             }
             requestTask?.resume()
@@ -93,11 +93,11 @@ class VersionManager {
                         if CacheManager.shared.unzipWebappPackage(atPath: fileUrl.path) {
                             self?.webapp?.currentVersion = self?.webapp?.latestVersion ?? ""
                             self?.updateWebappInfo()
-                            logInfo("资源包更新完成，当前版本: \(self?.webapp?.currentVersion ?? "")")
+                            LogInfo("资源包更新完成，当前版本: \(self?.webapp?.currentVersion ?? "")")
                         }
                     }
                 } else {
-                    logError("资源包下载失败: \(error)")
+                    LogError("资源包下载失败: \(error)")
                 }
             }
             downloadTask?.resume()

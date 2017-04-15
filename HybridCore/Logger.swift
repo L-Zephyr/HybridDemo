@@ -28,19 +28,19 @@ internal func LogVerbose(_ log: String) {
     }
 }
 
-internal func logInfo(_ log: String){
+internal func LogInfo(_ log: String) {
     if LogLevel.rawValue <= LoggerLevel.Info.rawValue {
         printLog(withLevel: .Info, log: log)
     }
 }
 
-internal func logWarning(_ log: String) {
+internal func LogWarning(_ log: String) {
     if LogLevel.rawValue <= LoggerLevel.Warning.rawValue {
         printLog(withLevel: .Warning, log: log)
     }
 }
 
-internal func logError(_ log: String) {
+internal func LogError(_ log: String) {
     if LogLevel.rawValue <= LoggerLevel.Error.rawValue {
         printLog(withLevel: .Error, log: log)
     }

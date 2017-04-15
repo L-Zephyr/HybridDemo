@@ -46,7 +46,7 @@ extension CacheManager {
     internal func databaseInitialize() {
         if FileManager.default.fileExists(atPath: sqlPath) == false {
             if FileManager.default.createFile(atPath: sqlPath, contents: nil, attributes: nil) == false {
-                logError("创建数据库文件失败")
+                LogError("创建数据库文件失败")
             }
         }
         createTable()
@@ -74,15 +74,15 @@ extension CacheManager {
                 "\(WebAppInfoTable.Size) text);"
             
             if sqlite3_exec(database, createFilesTable, nil, nil, nil) != SQLITE_OK {
-                logError("创建表\(WebAppFilesTable.TableName)失败:\(String(cString: sqlite3_errmsg(database)))")
+                LogError("创建表\(WebAppFilesTable.TableName)失败:\(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             if sqlite3_exec(database, createResourceTable, nil, nil, nil) != SQLITE_OK {
-                logError("创建表\(WebAppResourceTable.TableName)失败:\(String(cString: sqlite3_errmsg(database)))")
+                LogError("创建表\(WebAppResourceTable.TableName)失败:\(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             if sqlite3_exec(database, createInfoTable, nil, nil, nil) != SQLITE_OK {
-                logError("创建表\(WebAppInfoTable.TableName)失败:\(String(cString: sqlite3_errmsg(database)))")
+                LogError("创建表\(WebAppInfoTable.TableName)失败:\(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             
@@ -122,7 +122,7 @@ extension CacheManager {
             
             let insert = "insert or replace into \(WebAppFilesTable.TableName) values ('\(item.key)','\(item.fullUrl)','\(item.localRelativePath)','\(item.size)');"
             if sqlite3_exec(database, insert, nil, nil, nil) != SQLITE_OK {
-                logError("insert fail: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("insert fail: \(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             
@@ -136,7 +136,7 @@ extension CacheManager {
             let delete = "delete from \(WebAppFilesTable.TableName) where \(WebAppFilesTable.Key)='\(key)';"
             
             if sqlite3_exec(database, delete, nil, nil, nil) != SQLITE_OK {
-                logError("delete fail: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("delete fail: \(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             
@@ -171,7 +171,7 @@ extension CacheManager {
                 }
                 sqlite3_finalize(stat)
             } else {
-                logError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
             }
             return result
         })
@@ -210,7 +210,7 @@ extension CacheManager {
                 }
                 sqlite3_finalize(stat)
             } else {
-                logError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             return true
@@ -256,7 +256,7 @@ extension CacheManager {
                 }
                 sqlite3_finalize(stat)
             } else {
-                logError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("prepare fail: \(String(cString: sqlite3_errmsg(database)))")
             }
             return result
         }
@@ -273,7 +273,7 @@ extension CacheManager {
         return query({ (database) -> Bool in
             let insert = "insert or replace into \(WebAppInfoTable.TableName) values ('\(info.name)','\(info.currentVersion)','\(info.latestVersion)','\(info.remoteUrl)','\(info.localPath)','\(info.size)');"
             if sqlite3_exec(database, insert, nil, nil, nil) != SQLITE_OK {
-                logError("insert fail: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("insert fail: \(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             return true
@@ -295,7 +295,7 @@ extension CacheManager {
         self.queue.sync {
             var database: OpaquePointer? = nil
             if sqlite3_open(sqlPath, &database) != SQLITE_OK {
-                logError("打开数据库失败: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("打开数据库失败: \(String(cString: sqlite3_errmsg(database)))")
                 result = false
                 return
             }
@@ -303,7 +303,7 @@ extension CacheManager {
             result = block(database)
             
             if sqlite3_close(database) != SQLITE_OK {
-                logError("关闭数据库失败: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("关闭数据库失败: \(String(cString: sqlite3_errmsg(database)))")
             }
         }
         return result

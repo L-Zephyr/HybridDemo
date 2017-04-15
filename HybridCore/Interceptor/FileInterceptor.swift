@@ -110,13 +110,13 @@ extension FileInterceptor: URLSessionDataDelegate {
             }
             self.client?.urlProtocolDidFinishLoading(self)
         } else {
-            logError("网络请求失败: \(error)")
+            LogError("网络请求失败: \(error)")
             do {
                 if FileManager.default.fileExists(atPath: Util.tempPath + self.filename) {
                     try FileManager.default.removeItem(atPath: Util.tempPath + self.filename)
                 }
             } catch {
-                logError("\(error)")
+                LogError("\(error)")
             }
             self.client?.urlProtocol(self, didFailWithError: error!)
         }
