@@ -162,7 +162,7 @@
 }
 
 - (NSString *)jsMethodBodyWithName:(NSString *)methodName returnType:(NSString *)returnType {
-    return [NSString stringWithFormat:@"window.ReflectJavascriptBridge.sendCommand(this, \"%@\", Array.from(arguments),'%@');", methodName, returnType];
+    return [NSString stringWithFormat:@"window.ReflectJavascriptBridge.sendCommand(this, \"%@\", Array.prototype.slice.call(arguments),'%@');", methodName, returnType];
 }
 
 /**

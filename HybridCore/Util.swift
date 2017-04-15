@@ -74,4 +74,20 @@ class Util {
         
         return nil
     }
+    
+    /// url是否指向一个文件夹
+    class func isFolder(url: URL) -> Bool {
+        var isDir: ObjCBool = false
+        if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) {
+            if isDir.boolValue {
+                return true
+            }
+        }
+        return false
+    }
+    
+    /// 判断url是否指向一个zip文件
+    class func isZip(url: URL) -> Bool {
+        return url.lastPathComponent.hasSuffix(".zip")
+    }
 }
