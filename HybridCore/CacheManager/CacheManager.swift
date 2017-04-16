@@ -196,7 +196,7 @@ class CacheManager {
     
     init() {
         defer {
-            cachePath = Util.appSpportPath + "/HybridCache/"
+//            cachePath = Util.appSpportPath + "/HybridCache/"
             databaseInitialize() // 初始化数据库
             checkWebAppInfo()
         }

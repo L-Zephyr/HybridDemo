@@ -10,6 +10,9 @@ import Foundation
 
 extension String {
     
+    /// 获取字符串的md5值
+    ///
+    /// - Returns: 字符串的md5
     internal func md5() -> String {
         let str = self.cString(using: String.Encoding.utf8)
         let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))

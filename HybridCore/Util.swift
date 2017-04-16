@@ -14,22 +14,41 @@ enum Errors: Error {
 }
 
 class Util {
-    
     /// 获取Application Support文件夹路径
-    class var appSpportPath: String {
+    class var appSpportPath: URL? {
         guard let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.applicationSupportDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first else {
-            return ""
+            return nil
         }
         
         if FileManager.default.fileExists(atPath: path) == false {
             do {
                 try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
             } catch {
-                print("error occured when create \(path) error: \(error)")
+                LogError("error occured when create \(path) error: \(error)")
             }
         }
         
-        return path
+        return URL(fileURLWithPath: path)
+    }
+    
+    /// 获取'Application Support/Hybrid'路径
+    class var rootPath: URL? {
+        if let url = appSpportPath?.appendingPathComponent("Hybrid") {
+            if Util.createDirectoryIfNotExist(withPath: url.path) {
+                return url
+            }
+        }
+        return nil
+    }
+    
+    /// 获取'Application Support/Hybrid/webapp'路径
+    class var webappPath: URL? {
+        if let url = appSpportPath?.appendingPathComponent("Hybrid").appendingPathComponent("webapp") {
+            if Util.createDirectoryIfNotExist(withPath: url.path) {
+                return url
+            }
+        }
+        return nil
     }
     
     /// 获取临时文件夹
@@ -37,24 +56,35 @@ class Util {
         return NSTemporaryDirectory()
     }
     
-    /// 如果文件夹不存在则创建文件夹
-    class func createDirectoryIfNotExist(withPath path: String) {
+    
+    /// 创建文件夹
+    ///
+    /// - Parameter path: 文件夹路径
+    /// - Returns: 是否创建成功
+    class func createDirectoryIfNotExist(withPath path: String) -> Bool {
         if FileManager.default.fileExists(atPath: path) == false {
             do {
                 try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
             } catch {
-                print("create dir error \(error)")
+                LogError("Create directory at '\(path)' failed: \(error)")
+                return false
             }
         }
+        return true
     }
     
-    /// 如果文件不存在则创建
-    class func createFileIfNotExist(withPath path: String) {
+    /// 创建文件
+    ///
+    /// - Parameter path: 文件路径
+    /// - Returns: 是否创建成功
+    class func createFileIfNotExist(withPath path: String) -> Bool {
         if FileManager.default.fileExists(atPath: path) == false {
             if FileManager.default.createFile(atPath: path, contents: nil, attributes: nil) == false {
-                print("create \(path) error")
+                LogError("Create file at '\(path)' failed")
+                return false
             }
         }
+        return true
     }
     
     /// 读取一个json配置文件
@@ -88,6 +118,22 @@ class Util {
     
     /// 判断url是否指向一个zip文件
     class func isZip(url: URL) -> Bool {
-        return url.lastPathComponent.hasSuffix(".zip")
+        return url.isFileURL && url.lastPathComponent.hasSuffix(".zip")
+    }
+}
+
+internal extension URL {
+    
+    /// 获取相对路径，只对本地文件URL有效
+    ///
+    /// - Parameter baseUrl: 基准URL
+    /// - Returns:           返回相对于baseUrl的url
+    func relatedTo(_ baseUrl: URL?) -> URL? {
+        guard let baseUrl = baseUrl else {
+            return nil
+        }
+        
+        let relatedPath = self.path.substring(from: baseUrl.path.endIndex)
+        return URL(fileURLWithPath: relatedPath)
     }
 }

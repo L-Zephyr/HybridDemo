@@ -26,6 +26,7 @@
 		BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */; };
 		BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABD01E96869500D9D7BA /* PluginInstance.m */; };
 		BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB3311E9A4FD900139919 /* NativePlugin.swift */; };
+		BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
@@ -87,6 +88,7 @@
 		BB37ABCF1E96869500D9D7BA /* PluginInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginInstance.h; sourceTree = "<group>"; };
 		BB37ABD01E96869500D9D7BA /* PluginInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginInstance.m; sourceTree = "<group>"; };
 		BB3AB3311E9A4FD900139919 /* NativePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlugin.swift; sourceTree = "<group>"; };
+		BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				BB98E7D41E03C07A0021D9E1 /* CacheManager+DB.swift */,
 				BBE29B9F1E09466B004F1C75 /* WebAppFileItem.swift */,
 				BBE29BA31E0BC96C004F1C75 /* WebAppInfo.swift */,
+				BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */,
 			);
 			path = CacheManager;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */,
 				BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */,
 				BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */,
+				BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */,
 				BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */,
 				BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */,
 				BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */,

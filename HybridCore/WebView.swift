@@ -55,15 +55,15 @@ class WebView: WKWebView {
         }
     }
     
-    // TODO: 资源包解压后将相应信息缓存在本地
-    
     /// 通过URL加载资源
     ///
     /// - Parameter url: 资源URL，支持网络资源、本地资源压缩包、本地文件夹
     public func load(url: URL) {
         if url.isFileURL {
             if Util.isZip(url: url) { // 指向一个本地的资源压缩包
-                
+                if let localPath = ResourceManager.shared.localPath(with: url) {
+                    load(url: localPath)
+                }
             } else if Util.isFolder(url: url) { // 指向一个本地的文件夹
                 // 读取webapp_info.json文件
                 let infoUrl = url.appendingPathComponent("webapp_info.json")
