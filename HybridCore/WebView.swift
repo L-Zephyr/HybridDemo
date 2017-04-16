@@ -44,7 +44,7 @@ class WebView: WKWebView {
             }
             
             let relatePath = URL.path.substring(from: readAccessURL.path.endIndex)
-            var urlConponment = URLComponents(string: WebView.server.serverURL.absoluteString)
+            var urlConponment = URLComponents(string: "http://127.0.0.1")
             urlConponment?.port = Int(port)
             urlConponment?.path = relatePath
             if let url = urlConponment?.url {

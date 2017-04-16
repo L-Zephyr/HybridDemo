@@ -16,9 +16,7 @@
 		BB1DD2C51DFCE92B00B6C00E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C41DFCE92B00B6C00E /* Assets.xcassets */; };
 		BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C61DFCE92B00B6C00E /* LaunchScreen.storyboard */; };
 		BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */; };
-		BB1DD2DF1DFCE97F00B6C00E /* WebContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2DE1DFCE97F00B6C00E /* WebContainer.swift */; };
 		BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */; };
-		BB1DD2EC1DFD57C000B6C00E /* FileInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2EB1DFD57C000B6C00E /* FileInterceptor.swift */; };
 		BB1DD2EF1DFD8D1D00B6C00E /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2EE1DFD8D1D00B6C00E /* CacheManager.swift */; };
 		BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */; };
 		BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2F81DFED79900B6C00E /* Util.swift */; };
@@ -77,9 +75,7 @@
 		BB1DD2CE1DFCE92B00B6C00E /* HybridTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HybridTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridTests.swift; sourceTree = "<group>"; };
 		BB1DD2D41DFCE92B00B6C00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB1DD2DE1DFCE97F00B6C00E /* WebContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContainer.swift; sourceTree = "<group>"; };
 		BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLogger.swift; sourceTree = "<group>"; };
-		BB1DD2EB1DFD57C000B6C00E /* FileInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInterceptor.swift; sourceTree = "<group>"; };
 		BB1DD2EE1DFD8D1D00B6C00E /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		BB1DD2F31DFD9B2B00B6C00E /* Hybrid-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hybrid-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -216,9 +212,7 @@
 				BB37ABC51E96388100D9D7BA /* Plugin */,
 				BB1DD2F01DFD987B00B6C00E /* Utils */,
 				BB1DD2ED1DFD8D0C00B6C00E /* CacheManager */,
-				BB1DD2EA1DFD57A500B6C00E /* Interceptor */,
 				BB7B15C51E94978500BBD5E8 /* WebView.swift */,
-				BB1DD2DE1DFCE97F00B6C00E /* WebContainer.swift */,
 				BB2D56DD1E004CCB00098738 /* HybridConfig.swift */,
 				BB2D570E1E027A6200098738 /* VersionManager.swift */,
 				BB92EAC01E1219D1001AB56E /* Logger.swift */,
@@ -232,14 +226,6 @@
 				BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */,
 			);
 			name = Helper;
-			sourceTree = "<group>";
-		};
-		BB1DD2EA1DFD57A500B6C00E /* Interceptor */ = {
-			isa = PBXGroup;
-			children = (
-				BB1DD2EB1DFD57C000B6C00E /* FileInterceptor.swift */,
-			);
-			path = Interceptor;
 			sourceTree = "<group>";
 		};
 		BB1DD2ED1DFD8D0C00B6C00E /* CacheManager */ = {
@@ -548,14 +534,12 @@
 				BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */,
 				BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */,
 				BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */,
-				BB1DD2DF1DFCE97F00B6C00E /* WebContainer.swift in Sources */,
 				BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */,
 				BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */,
 				BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */,
 				BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */,
 				BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */,
 				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,
-				BB1DD2EC1DFD57C000B6C00E /* FileInterceptor.swift in Sources */,
 				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,
 				BB98E7D51E03C07A0021D9E1 /* CacheManager+DB.swift in Sources */,
 				BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */,
