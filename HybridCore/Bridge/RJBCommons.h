@@ -15,6 +15,9 @@
 
 #define RJBLog(...) if(rjb_logEnable) NSLog(__VA_ARGS__);
 
+/// Native给JS的回调
+typedef void (^RJBCallback)(NSArray *params);
+
 static NSString *const RJBScheme = @"reflectjavascriptbridge";
 static NSString *const RJBReadyForMessage = @"_ReadyForCommands_";
 static NSString *const RJBInjectJs = @"_InjectJs_";

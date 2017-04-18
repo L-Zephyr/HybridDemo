@@ -56,6 +56,8 @@
     NSMethodSignature *sign = nil;
     NSInteger paramOffset;
     
+    NSMutableArray<RJBCallback> *argBlocks = [[NSMutableArray alloc] init];
+    
     if ([_className isEqualToString:@"NSBlock"]) {
         sign = [NSMethodSignature signatureWithObjCTypes:RJB_signatureForBlock(instance)];
         invocation = [NSInvocation invocationWithMethodSignature:sign];
@@ -104,9 +106,15 @@
                 return;
             }
         } else if ([arg isKindOfClass:[NSNumber class]]) {
-            if (RJB_isClass(type)) {
-                NSString *param = [NSString stringWithFormat:@"%@", (NSString *)arg];
-                [invocation setArgument:&param atIndex:paramIndex];
+            if (RJB_isClass(type)) { // 这里肯定是block类型, arg为js的callbackId
+                __weak typeof(self) weakSelf = self;
+                RJBCallback block = ^(NSArray *params) {
+                    __strong typeof(self) strongSelf = weakSelf;
+                    [strongSelf callbackToJs:bridge callbackId:arg params:params];
+                };
+                [argBlocks addObject:block]; // 防止block被释放
+                
+                [invocation setArgument:&block atIndex:paramIndex];
             } else if (RJB_isInteger(type)) {
                 long long param = [(NSNumber *)arg longLongValue];
                 [invocation setArgument:&param atIndex:paramIndex];
@@ -151,10 +159,28 @@
             value = [NSString stringWithFormat:@"%lld", ret];
         }
         
-        // 将返回值回调给JS
-        NSString *callbackJs = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.callback(\"%@\",%@);", _callbackId, value];
-        [bridge callJs:callbackJs completionHandler:nil];
+        if (_callbackId) {
+            [self callbackToJs:bridge callbackId:_callbackId params:@[value]];
+        }
     }
+}
+
+// 调用JS环境中的回调方法
+- (void)callbackToJs:(ReflectJavascriptBridge *)bridge callbackId:(NSString *)callbackId params:(NSArray *)params {
+    NSMutableString *value = [@"[" mutableCopy];
+    for (id param in params) {
+        if ([param isKindOfClass:[NSString class]]) {
+            [value appendFormat:@"\"%@\"", param];
+        } else if ([param isKindOfClass:[NSNumber class]]) {
+            [value appendFormat:@"%@", param];
+        } else {
+            // TODO: log warning: `RJBCallback`的参数只支持`NSString`和`NSNumber`
+        }
+    }
+    [value appendString:@"]"];
+    
+    NSString *callbackJs = [NSString stringWithFormat:@"window.Hybrid.callback(\"%@\",%@);", callbackId, value];
+    [bridge callJs:callbackJs completionHandler:nil];
 }
 
 - (instancetype)initWithClass:(NSString *)className

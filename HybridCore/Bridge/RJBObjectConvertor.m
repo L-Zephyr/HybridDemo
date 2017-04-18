@@ -73,6 +73,7 @@
         }
     }
     
+    // 获取所有bridge到js中的方法
     NSArray<NSDictionary *> *methodInfos = [self fetchMethodInfosFromProtocols:exportProtocols];
     
     NSMutableDictionary *methodMaps = [NSMutableDictionary dictionary]; // jsName -> nativeName
@@ -84,7 +85,7 @@
     for (NSDictionary *nativeMethodInfo in methodInfos) {
         NSString *nativeMethodName = nativeMethodInfo[@"name"];
         NSDictionary *jsMethodInfo = [self convertNativeMethodToJs:nativeMethodName];
-        NSString *returnType = nativeMethodInfo[@"returnType"];
+        NSMethodSignature *sign = nativeMethodInfo[@"signature"];
         NSString *jsMethodName = jsMethodInfo[@"name"];
         NSString *jsMethodParam = jsMethodInfo[@"paramStr"];
         
@@ -93,7 +94,7 @@
             jsMethodName = _exportMethodMaps[nativeMethodName];
         }
         
-        NSString *jsMethodBody = [self jsMethodBodyWithName:jsMethodName returnType:returnType];
+        NSString *jsMethodBody = [self jsMethodBodyWithName:jsMethodName signature:sign];
         
         [_js appendFormat:@"%@:function(%@){%@},", jsMethodName, jsMethodParam, jsMethodBody];
         [methodMaps setObject:nativeMethodName forKey:jsMethodName];
@@ -111,10 +112,11 @@
 - (void)convertBlockToJs:(id)block identifier:(NSString *)identifier {
     [_js appendString:@"function(){"];
     
-    NSString *sign = [NSString stringWithUTF8String:RJB_signatureForBlock(block)];
-    NSString *returnType = [sign substringWithRange:NSMakeRange(0, 1)];
+    NSMethodSignature *sign = [NSMethodSignature signatureWithObjCTypes:RJB_signatureForBlock(block)];
+    NSString *returnType = [[NSString stringWithUTF8String:sign.methodReturnType] substringToIndex:1];
+    
     NSString *blockInfo = [NSString stringWithFormat:@"{identifier: \"%@\", className: \"NSBlock\"}", identifier];
-    NSString *jsBody = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.sendCommand(%@, null, Array.from(arguments), \"%@\");", blockInfo, returnType];
+    NSString *jsBody = [NSString stringWithFormat:@"window.Hybrid.sendCommand(%@, null, %ld, Array.from(arguments), \"%@\");", blockInfo, sign.numberOfArguments - 1, returnType];
     [_js appendString:jsBody];
     
     [_js appendString:@"}"];
@@ -130,7 +132,7 @@
  获取协议中定义的所有方法的名称和返回值类型
 
  @param protoList 包含Protocol的数组
- @return          方法信息数组，包含两个key: name和returnType
+ @return          方法信息数组，包含两个key: name和signature
  */
 - (NSArray<NSDictionary *> *)fetchMethodInfosFromProtocols:(NSArray<Protocol *> *)protoList {
     NSMutableArray<NSDictionary *> *methods = [NSMutableArray array];
@@ -145,7 +147,7 @@
             for (int desIndex = 0; desIndex < count; ++desIndex) {
                 struct objc_method_description des = desList[desIndex];
                 NSString *methodName = [NSString stringWithUTF8String:sel_getName(des.name)];
-                NSString *returnType = [[NSString stringWithUTF8String:des.types] substringWithRange:NSMakeRange(0, 1)];
+                NSMethodSignature *sign = [NSMethodSignature signatureWithObjCTypes:des.types];
                 if ([methodName containsString:@"__JS_EXPORT_AS__"]) {
                     NSArray *arr = [methodName componentsSeparatedByString:@"__JS_EXPORT_AS__"];
                     if (arr.count == 2) { // first: original name, last: exported name
@@ -153,7 +155,7 @@
                         continue;
                     }
                 }
-                [methods addObject:@{@"name": methodName, @"returnType": returnType}];
+                [methods addObject:@{@"name": methodName, @"signature": sign}];
             }
             free(desList);
         }
@@ -161,8 +163,9 @@
     return [methods copy];
 }
 
-- (NSString *)jsMethodBodyWithName:(NSString *)methodName returnType:(NSString *)returnType {
-    return [NSString stringWithFormat:@"window.ReflectJavascriptBridge.sendCommand(this, \"%@\", Array.prototype.slice.call(arguments),'%@');", methodName, returnType];
+- (NSString *)jsMethodBodyWithName:(NSString *)methodName signature:(NSMethodSignature *)sign {
+    NSString *retType = [[NSString stringWithUTF8String:sign.methodReturnType] substringToIndex:1];
+    return [NSString stringWithFormat:@"window.Hybrid.sendCommand(this, \"%@\", %ld,  Array.prototype.slice.call(arguments),'%@');", methodName, sign.numberOfArguments - 2, retType];
 }
 
 /**

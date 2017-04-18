@@ -50,12 +50,18 @@ var app = {
 	add: function() {
 		var num1 = document.getElementById("left").value;
 		var num2 = document.getElementById("right").value;
-		Hybrid.nativeObject.addB(num1, num2, function(retValue) {
-			var p = document.createElement("p")
-			p.value = "result is " + retValue;
-			document.getElementById("addButton").insertBefore(p);
+		Hybrid.alert.add(1, 2, function(retValue) {
+			// var p = document.createElement("p")
+			// p.value = "result is " + retValue;
+			// document.getElementById("addButton").insertBefore(p);
+      Hybrid.alert.showAlertWithMessage("result is " + retValue)
 		})
-	}
+	},
+  doCallback: function() {
+    Hybrid.alert.doCallback(function(args) {
+      Hybrid.alert.showAlertWithMessage("js " + args[0])
+    })
+  }
 }
   </script>
 </head>
@@ -65,11 +71,15 @@ var app = {
   	<button onclick="app.showAlert()">call</button>
   </div>
   <div>
+    <p>Do native callback</p>
+    <button onclick="app.doCallback()">callback</button>
+  </div>
+  <div>
   	<p>Call native method with arguments and returned value</p>
   	<input type="text" id="left" />
   	<span> + </span>
   	<input type="text" id="right" />
-  	<button onclick="app.add()" class="addButton">add</button>
+  	<button onclick="app.add()" class="addButton" id="addButton">add</button>
   </div>
 </body>
 </html>

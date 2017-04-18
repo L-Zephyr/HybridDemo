@@ -104,9 +104,9 @@
     NSString *js = nil;
     if (paramStr.length > 0) {
         NSString *param = [paramStr substringToIndex:paramStr.length - 1]; // delete the last comma
-        js = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.checkAndCall(\"%@\",[%@]);", methodName, param];
+        js = [NSString stringWithFormat:@"window.Hybrid.checkAndCall(\"%@\",[%@]);", methodName, param];
     } else {
-        js = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.checkAndCall(\"%@\");", methodName];
+        js = [NSString stringWithFormat:@"window.Hybrid.checkAndCall(\"%@\");", methodName];
     }
     
     [_webView evaluateJavaScript:js completionHandler:handler];
@@ -145,7 +145,7 @@
  */
 - (void)bridgeObjectToJs:(id)obj name:(NSString *)name {
     NSString *jsObj = [self convertNativeObjectToJs:obj identifier:name];
-    NSString *js = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.addObject(%@,\"%@\");", jsObj, name];
+    NSString *js = [NSString stringWithFormat:@"window.Hybrid.addObject(%@,\"%@\");", jsObj, name];
     [self callJs:js completionHandler:nil];
 }
 
@@ -164,20 +164,22 @@
  从JS中获取待执行的command对象
  */
 - (void)fetchQueueingCommands {
-    [self callJs:@"window.ReflectJavascriptBridge.dequeueCommandQueue();" completionHandler:^(id result, NSError *error) {
+    [self callJs:@"window.Hybrid.dequeueCommandQueue();" completionHandler:^(id result, NSError *error) {
         NSString *json = (NSString *)result;
         NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
-        NSArray *commandArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-        if (commandArray != nil) {
-            for (NSDictionary *commandInfo in commandArray) {
-                RJBCommand *command = [RJBCommand commandWithDic:commandInfo];
-                if (command != nil) {
-                    [_commands addObject:command];
+        if (jsonData) {
+            NSArray *commandArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+            if (commandArray != nil) {
+                for (NSDictionary *commandInfo in commandArray) {
+                    RJBCommand *command = [RJBCommand commandWithDic:commandInfo];
+                    if (command != nil) {
+                        [_commands addObject:command];
+                    }
                 }
             }
+            
+            [self execCommands];
         }
-        
-        [self execCommands];
     }];
 }
 
@@ -212,7 +214,7 @@
             
             typeof(self) weakSelf = self;
             [_plugins enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, PluginInstance * _Nonnull obj, BOOL * _Nonnull stop) {
-                NSString *js = [NSString stringWithFormat:@"window.ReflectJavascriptBridge.addObject(%@,\"%@\");", obj.bridgedJs, obj.pluginName];
+                NSString *js = [NSString stringWithFormat:@"window.Hybrid.addObject(%@,\"%@\");", obj.bridgedJs, obj.pluginName];
                 [weakSelf callJs:js completionHandler:^(id result, NSError *error) {
                     if (error) {
                         RJBLog(@"[RJB]: bridge %@ error: %@", key, error);

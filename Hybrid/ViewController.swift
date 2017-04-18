@@ -23,15 +23,15 @@ class ViewController: UIViewController {
 //        let remoteUrl = "http://localhost:3000/main2.html"
 //        web.load(url: remoteUrl)
         
-//        if let resUrl = Bundle.main.resourceURL {
-//            let dirUrl = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("webapp")
-//            web.load(url: dirUrl)
-//        }
-        
         if let resUrl = Bundle.main.resourceURL {
-            let dirUrl = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("webapp.zip")
+            let dirUrl = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("webapp")
             web.load(url: dirUrl)
         }
+        
+//        if let resUrl = Bundle.main.resourceURL {
+//            let dirUrl = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("webapp.zip")
+//            web.load(url: dirUrl)
+//        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -100,22 +100,33 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
             return json;
         }
         
-        // 添加一条command并通知native
-        function sendCommand(objc, method, args, returnType) {
+        // 添加一条command并通知native，该函数由Native生成的JS代码调用
+        function sendCommand(objc, jsMethod, methodArgCount, args, returnType) {
+            // 将方法类型的参数替换成相应的callback ID
+            for (var i = 0; i < methodArgCount; ++i) {
+                if (typeof args[i] === 'function') {
+                    responseCallbacks[uniqueCallbackId] = args[i];
+                    args[i] = uniqueCallbackId;
+                    uniqueCallbackId++;
+                }
+            }
+            
             var command = {
                 "className": objc["className"],
                 "identifier": objc["identifier"],
                 "args": args,
                 "returnType": returnType
             };
-            if (method) {
-                command["method"] = objc.maps[method];
+            if (jsMethod) {
+                command["method"] = objc.maps[jsMethod];
             }
             
+            // 如果参数后面添加了一个function，则该function用来接收返回值
             var lastArg = args[args.length - 1];
             if (returnType != 'v' && typeof lastArg === 'function') {
                 responseCallbacks[uniqueCallbackId] = lastArg;
-                command["callbackId"] = uniqueCallbackId; ++uniqueCallbackId;
+                command["callbackId"] = uniqueCallbackId;
+                ++uniqueCallbackId;
             }
             commandQueue.push(command);
             sendReadyToNative();
