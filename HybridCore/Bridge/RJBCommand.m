@@ -82,7 +82,7 @@
         invocation.selector = selector;
     }
     
-    
+    // 设置参数
     for (NSInteger paramIndex = paramOffset; paramIndex < [sign numberOfArguments]; ++paramIndex) {
         if (_args.count <= paramIndex - paramOffset) {
             break;

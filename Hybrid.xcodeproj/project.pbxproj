@@ -26,6 +26,7 @@
 		BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */; };
 		BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABD01E96869500D9D7BA /* PluginInstance.m */; };
 		BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB3311E9A4FD900139919 /* NativePlugin.swift */; };
+		BB3CFD9A1EA5E29B003DFF06 /* HybridNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3CFD991EA5E29B003DFF06 /* HybridNavigator.m */; };
 		BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
@@ -88,6 +89,8 @@
 		BB37ABCF1E96869500D9D7BA /* PluginInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginInstance.h; sourceTree = "<group>"; };
 		BB37ABD01E96869500D9D7BA /* PluginInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginInstance.m; sourceTree = "<group>"; };
 		BB3AB3311E9A4FD900139919 /* NativePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlugin.swift; sourceTree = "<group>"; };
+		BB3CFD981EA5E29B003DFF06 /* HybridNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridNavigator.h; sourceTree = "<group>"; };
+		BB3CFD991EA5E29B003DFF06 /* HybridNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridNavigator.m; sourceTree = "<group>"; };
 		BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */,
 				BB37ABCF1E96869500D9D7BA /* PluginInstance.h */,
 				BB37ABD01E96869500D9D7BA /* PluginInstance.m */,
+				BB3CFD981EA5E29B003DFF06 /* HybridNavigator.h */,
+				BB3CFD991EA5E29B003DFF06 /* HybridNavigator.m */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -549,6 +554,7 @@
 				BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */,
 				BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */,
 				BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */,
+				BB3CFD9A1EA5E29B003DFF06 /* HybridNavigator.m in Sources */,
 				BB7B15C21E94946F00BBD5E8 /* RJBObjectConvertor.m in Sources */,
 				BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */,
 				BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */,

@@ -13,7 +13,7 @@
   </style>
   <script type="text/javascript">
 ;(function() {
-    if (window.ReflectJavascriptBridge) {
+    if (window.Hybrid) {
         return;
     }
     console.log(document);
@@ -27,8 +27,8 @@
 })();
 
 function reflectJavascriptBridgeRegisterFunction(name, func) {
-    if (window.ReflectJavascriptBridge) {
-        window.ReflectJavascriptBridge[name] = func;
+    if (window.Hybrid) {
+        window.Hybrid[name] = func;
     } else if (window.RJBRegisteredFunctions) {
         window.RJBRegisteredFunctions.push({name: name, func: func});
         console.log("push to functions");
@@ -45,12 +45,12 @@ reflectJavascriptBridgeRegisterFunction("jsFunc", function(data1, data2) {
 
 var app = {
 	showAlert: function() {
-		ReflectJavascriptBridge.alert.showAlertWithMessage("js message");
+		Hybrid.alert.showAlertWithMessage("js message");
 	},
 	add: function() {
 		var num1 = document.getElementById("left").value;
 		var num2 = document.getElementById("right").value;
-		ReflectJavascriptBridge.nativeObject.addB(num1, num2, function(retValue) {
+		Hybrid.nativeObject.addB(num1, num2, function(retValue) {
 			var p = document.createElement("p")
 			p.value = "result is " + retValue;
 			document.getElementById("addButton").insertBefore(p);

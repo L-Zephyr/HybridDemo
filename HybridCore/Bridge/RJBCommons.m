@@ -40,11 +40,11 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
     return @ReflectJSCode(
                           ;(function() {
         'use strict';
-        if (window.ReflectJavascriptBridge) {
+        if (window.Hybrid) {
             return;
         }
         
-        window.ReflectJavascriptBridge = {
+        window.Hybrid = {
         addObject: addObject,
         dequeueCommandQueue: dequeueCommandQueue,
         sendCommand: sendCommand,
@@ -63,13 +63,13 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
             var index;
             for (index in window.RJBRegisteredFunctions) {
                 var funcInfo = window.RJBRegisteredFunctions[index];
-                window.ReflectJavascriptBridge[funcInfo.name] = funcInfo.func;
+                window.Hybrid[funcInfo.name] = funcInfo.func;
             }
             delete window.RJBRegisteredFunctions;
         }
         
         function checkAndCall(methodName, args) {
-            var method = window.ReflectJavascriptBridge[methodName];
+            var method = window.Hybrid[methodName];
             if (method && typeof method === 'function') {
                 method.apply(null, args);
             }
@@ -85,7 +85,7 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
         // 用json描述一个对象，name为变量的命名
         function addObject(objc, name) {
             nativeObjects[name] = objc;
-            window.ReflectJavascriptBridge[name] = objc;
+            window.Hybrid[name] = objc;
         }
         
         // 有新的command时向native发送消息,通知native获取command
