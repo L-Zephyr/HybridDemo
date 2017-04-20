@@ -32,7 +32,7 @@ class HybridConfig {
     static var updateWhenFinishDownload: Bool = false
     
     /// 日志等级
-    static var logLevel: LoggerLevel = .Info {
+    static var logLevel: Logger.LoggerLevel = .Info {
         didSet {
             LogLevel = logLevel
         }

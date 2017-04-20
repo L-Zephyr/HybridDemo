@@ -31,26 +31,7 @@
 
 @implementation ReflectJavascriptBridge
 
-//+ (ReflectJavascriptBridge *)bridge:(id)webView delegate:(id)delegate {
-//    if ([webView isKindOfClass:[UIWebView class]]) {
-//        return [[RJBUIWebViewBridge alloc] initWithWebView:webView delegate:delegate];
-//    } else if ([webView isKindOfClass:[WKWebView class]]) {
-//        return [[RJBWKWebViewBridge alloc] initWithWebView:webView delegate:delegate];
-//    } else {
-//        NSLog(@"[RJB]: webView should be `UIWebView` or `WKWebView`");
-//        return nil;
-//    }
-//}
-
 + (ReflectJavascriptBridge *)bridge:(WKWebView *)webView delegate:(id<WKNavigationDelegate>)delegate {
-//    if ([webView isKindOfClass:[UIWebView class]]) {
-//        return [[RJBUIWebViewBridge alloc] initWithWebView:webView delegate:delegate];
-//    } else if ([webView isKindOfClass:[WKWebView class]]) {
-//        return [[RJBWKWebViewBridge alloc] initWithWebView:webView delegate:delegate];
-//    } else {
-//        NSLog(@"[RJB]: webView should be `UIWebView` or `WKWebView`");
-//        return nil;
-//    }
     return [[ReflectJavascriptBridge alloc] initWithWebView:webView delegate:delegate];
 }
 
@@ -85,7 +66,7 @@
 
 - (void)callJsMethod:(NSString *)methodName withArgs:(NSArray *)args completionHandler:(void (^)(id, NSError *))handler {
     if (!self.injectJsFinished) {
-        NSLog(@"[RJB]: javascript initialize not complete!");
+        Hybrid_LogWarning(@"Javascript initialize not complete!");
         if (handler != nil) {
             handler(nil, [NSError errorWithDomain:@"javascript initialize not complete!" code:0 userInfo:nil]);
         }
@@ -217,12 +198,12 @@
                 NSString *js = [NSString stringWithFormat:@"window.Hybrid.addObject(%@,\"%@\");", obj.bridgedJs, obj.pluginName];
                 [weakSelf callJs:js completionHandler:^(id result, NSError *error) {
                     if (error) {
-                        RJBLog(@"[RJB]: bridge %@ error: %@", key, error);
+                        Hybrid_LogError(@"Bridge %@ error: %@", key, error);
                     }
                 }];
             }];
         } else {
-            NSLog(@"[RJB]: inject js code fail: %@", error);
+            Hybrid_LogError(@"Inject js code fail: %@", error);
         }
     }];
 }
@@ -248,7 +229,7 @@
 
 - (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)aKey {
     if (![object conformsToProtocol:objc_getProtocol("PluginExport")] && ![object isKindOfClass:NSClassFromString(@"NSBlock")]) {
-        NSLog(@"[RJB]: object should be a block or confirms to PluginExport");
+        Hybrid_LogError(@"Object should be a `Block` or an class instance confirms to `PluginExport`");
         return;
     }
     

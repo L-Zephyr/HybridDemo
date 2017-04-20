@@ -9,6 +9,7 @@
 #import "RJBCommand.h"
 #import "RJBCommons.h"
 #import <objc/runtime.h>
+#import "Hybrid-Swift.h"
 
 @interface RJBCommand()
 
@@ -39,7 +40,7 @@
     // 类不存在
     Class cls = objc_getClass([clsName cStringUsingEncoding:NSUTF8StringEncoding]);
     if (cls == nil) {
-        NSLog(@"[RJB]: class `%@` not exists!", clsName);
+        Hybrid_LogError(@"Class `%@` not exists!", clsName);
         return nil;
     }
 
@@ -77,7 +78,7 @@
                 invocation = [NSInvocation invocationWithMethodSignature:sign];
                 invocation.target = [instance class];
             } else {
-                NSLog(@"[RJB]: method '%@' not implement in class '%@'", _methodName, _className);
+                Hybrid_LogError(@"Method '%@' not implement in class '%@'", _methodName, _className);
                 return;
             }
         }
@@ -102,7 +103,7 @@
                 double param = [(NSString *)arg doubleValue];
                 [invocation setArgument:&param atIndex:paramIndex];
             } else {
-                NSLog(@"[RJB]: argument not support type");
+                Hybrid_LogError(@"Argument not supported type");
                 return;
             }
         } else if ([arg isKindOfClass:[NSNumber class]]) {
@@ -125,7 +126,7 @@
                 double param = [(NSNumber *)arg doubleValue];
                 [invocation setArgument:&param atIndex:paramIndex];
             } else {
-                NSLog(@"[RJB]: argument not support type");
+                Hybrid_LogError(@"Argument not supported type");
                 return;
             }
         }
@@ -174,7 +175,7 @@
         } else if ([param isKindOfClass:[NSNumber class]]) {
             [value appendFormat:@"%@", param];
         } else {
-            // TODO: log warning: `RJBCallback`的参数只支持`NSString`和`NSNumber`
+            Hybrid_LogWarning(@"`RJBCallback`的参数只支持`NSString`和`NSNumber`类型");
         }
     }
     [value appendString:@"]"];

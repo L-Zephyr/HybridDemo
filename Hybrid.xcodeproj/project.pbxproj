@@ -28,6 +28,8 @@
 		BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB3311E9A4FD900139919 /* NativePlugin.swift */; };
 		BB3CFD9A1EA5E29B003DFF06 /* HybridNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3CFD991EA5E29B003DFF06 /* HybridNavigator.m */; };
 		BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */; };
+		BB679FEB1EA7C0D4009F664C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEA1EA7C0D4009F664C /* Router.swift */; };
+		BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEC1EA7C15D009F664C /* WebViewController.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
@@ -92,6 +94,8 @@
 		BB3CFD981EA5E29B003DFF06 /* HybridNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridNavigator.h; sourceTree = "<group>"; };
 		BB3CFD991EA5E29B003DFF06 /* HybridNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridNavigator.m; sourceTree = "<group>"; };
 		BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
+		BB679FEA1EA7C0D4009F664C /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		BB679FEC1EA7C15D009F664C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -218,8 +222,10 @@
 				BB1DD2F01DFD987B00B6C00E /* Utils */,
 				BB1DD2ED1DFD8D0C00B6C00E /* CacheManager */,
 				BB7B15C51E94978500BBD5E8 /* WebView.swift */,
+				BB679FEC1EA7C15D009F664C /* WebViewController.swift */,
 				BB2D56DD1E004CCB00098738 /* HybridConfig.swift */,
 				BB2D570E1E027A6200098738 /* VersionManager.swift */,
+				BB679FEA1EA7C0D4009F664C /* Router.swift */,
 				BB92EAC01E1219D1001AB56E /* Logger.swift */,
 			);
 			path = HybridCore;
@@ -539,6 +545,7 @@
 			files = (
 				BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */,
 				BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */,
+				BB679FEB1EA7C0D4009F664C /* Router.swift in Sources */,
 				BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */,
 				BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */,
 				BBE29BA01E09466B004F1C75 /* WebAppFileItem.swift in Sources */,
@@ -547,6 +554,7 @@
 				BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */,
 				BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */,
 				BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */,
+				BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */,
 				BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */,
 				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,
 				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,

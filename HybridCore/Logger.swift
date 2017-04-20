@@ -8,40 +8,71 @@
 
 import UIKit
 
-enum LoggerLevel: Int {
-    case Verbose = 0
-    case Info = 1
-    case Warning = 2
-    case Error = 3
+class Logger: NSObject {
+    enum LoggerLevel: Int {
+        case Verbose = 0
+        case Info = 1
+        case Warning = 2
+        case Error = 3
+    }
+    
+    public static var level: LoggerLevel = .Warning
+    
+    public class func LogVerbose(_ log: String) {
+        if LogLevel.rawValue <= LoggerLevel.Verbose.rawValue {
+            printLog(level: .Verbose, log: log)
+        }
+    }
+    
+    public class func LogInfo(_ log: String) {
+        if LogLevel.rawValue <= LoggerLevel.Info.rawValue {
+            printLog(level: .Info, log: log)
+        }
+    }
+    
+    public class func LogWarning(_ log: String) {
+        if LogLevel.rawValue <= LoggerLevel.Warning.rawValue {
+            printLog(level: .Warning, log: log)
+        }
+    }
+    
+    public class func LogError(_ log: String) {
+        if LogLevel.rawValue <= LoggerLevel.Error.rawValue {
+            printLog(level: .Error, log: log)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private class func printLog(level: LoggerLevel, log: String) {
+        let levelNames = ["Verbose", "Info", "Warning", "Error"]
+        print("[\(levelNames[level.rawValue])]: \(log)")
+    }
 }
 
-internal var LogLevel: LoggerLevel = .Warning
+// MARK: - Shortcut
 
-fileprivate func printLog(withLevel level: LoggerLevel, log: String) {
-    let levelNames = ["Verbose", "Info", "Warning", "Error"]
-    print("[\(levelNames[level.rawValue])]: \(log)")
+internal var LogLevel: Logger.LoggerLevel {
+    set(newValue) {
+        Logger.level = newValue
+    }
+    get {
+        return Logger.level
+    }
 }
 
 internal func LogVerbose(_ log: String) {
-    if LogLevel.rawValue <= LoggerLevel.Verbose.rawValue {
-        printLog(withLevel: .Verbose, log: log)
-    }
+    Logger.LogVerbose(log)
 }
 
 internal func LogInfo(_ log: String) {
-    if LogLevel.rawValue <= LoggerLevel.Info.rawValue {
-        printLog(withLevel: .Info, log: log)
-    }
+    Logger.LogInfo(log)
 }
 
 internal func LogWarning(_ log: String) {
-    if LogLevel.rawValue <= LoggerLevel.Warning.rawValue {
-        printLog(withLevel: .Warning, log: log)
-    }
+    Logger.LogWarning(log)
 }
 
 internal func LogError(_ log: String) {
-    if LogLevel.rawValue <= LoggerLevel.Error.rawValue {
-        printLog(withLevel: .Error, log: log)
-    }
+    Logger.LogError(log)
 }

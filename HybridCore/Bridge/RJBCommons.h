@@ -13,7 +13,13 @@
 @optional Selector __JS_EXPORT_AS__##PropertyName:(id)argument; @required Selector
 #endif
 
-#define RJBLog(...) if(rjb_logEnable) NSLog(__VA_ARGS__);
+#define Hybrid_LogVerbose(...) [Logger LogVerbose:[NSString stringWithFormat:__VA_ARGS__]];
+
+#define Hybrid_LogInfo(...) [Logger LogInfo:[NSString stringWithFormat:__VA_ARGS__]];
+
+#define Hybrid_LogWarning(...) [Logger LogWarning:[NSString stringWithFormat:__VA_ARGS__]];
+
+#define Hybrid_LogError(...) [Logger LogError:[NSString stringWithFormat:__VA_ARGS__]];
 
 /// Native给JS的回调
 typedef void (^RJBCallback)(NSArray *params);
