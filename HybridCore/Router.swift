@@ -88,7 +88,11 @@ class Router: NSObject {
     }
     
     public func webViewController(routeUrl: String, params: [String : Any]) -> WebViewController? {
-        return nil
+        if let webView = webView(routeUrl: routeUrl, params: params) {
+            return WebViewController(webView: webView)
+        } else {
+            return nil
+        }
     }
     
     /// 根据route_url获取一个WebView
@@ -100,16 +104,7 @@ class Router: NSObject {
     }
         
     public func webView(routeUrl: String, params: [String : Any]) -> WebView? {
-        if let routeItem = routeTable[routeUrl] {
-//            if let localPath = ResourceManager.shared.localPath(withRoute: routeUrl) { // 资源包已下载
-//                return WebView(frame: CGRect.zero, url: localPath)
-//            } else if let download = routeItem[Constant.DownloadUrl], let donwloadUrl = URL(string: download) { // 否则下载
-//                ResourceManager.shared.downloadPackage(url: donwloadUrl, success: { (desUrl) in
-//                    
-//                }, failure: { (error) in
-//                    LogError("Download package fail: \(error)")
-//                })
-//            }
+        if routeTable.keys.contains(routeUrl) {
             let webView = WebView()
             webView.load(routeUrl: routeUrl)
             return webView

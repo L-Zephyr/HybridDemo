@@ -9,11 +9,23 @@
 import UIKit
 
 class WebViewController: UIViewController {
+    
+    init(webView: WebView) {
+        super.init(nibName: nil, bundle: nil)
+        self.webView = webView
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let webView = webView {
+            self.view.addSubview(webView)
+            webView.frame = self.view.bounds
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,4 +33,7 @@ class WebViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Private
+    
+    fileprivate var webView: WebView? = nil
 }

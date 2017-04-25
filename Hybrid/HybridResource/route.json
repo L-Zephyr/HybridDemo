@@ -1,7 +1,7 @@
 [{
 	"route_url" : "/main",
 	"download_url" : "http://localhost:3000/main.zip",
-	"version" : "20170201"
+	"version" : "20170202"
 },
 {
     "route_url" : "/second",
