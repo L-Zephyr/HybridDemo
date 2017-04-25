@@ -54,25 +54,25 @@ class Router: NSObject {
     }
     
     /// 设置路由表的本地路径
-    public var routeTableUrl: String = "" {
+    public var routeFileUrl: String = "" {
         didSet {
-            if !FileManager.default.fileExists(atPath: routeTableUrl) {
-                LogError("Route file not exist at: \(routeTableUrl)")
+            if !FileManager.default.fileExists(atPath: routeFileUrl) {
+                LogError("Route file not exist at: \(routeFileUrl)")
                 routeTable = [:]
                 return
             }
             
-            if let routes = Util.loadJsonObject(fromUrl: URL(string: routeTableUrl)) as? [[String : String]] {
+            if let routes = Util.loadJsonObject(fromUrl: URL(fileURLWithPath: routeFileUrl)) as? [[String : String]] {
                 var table: [String : [String : String]] = [:]
                 for routeItem in routes {
                     if let routeUrl = routeItem[Constant.RouteUrl] { // 将route url作为key
                         table[routeUrl] = routeItem
                     } else {
-                        LogWarning("路由表:'\(routeTableUrl)'缺少'\(Constant.RouteUrl)'")
+                        LogWarning("路由表:'\(routeFileUrl)'缺少'\(Constant.RouteUrl)'")
                     }
                 }
                 routeTable = table
-                precachePackage()
+                downloadOrUpdatePackage()
             } else {
                 routeTable = [:]
             }
@@ -130,16 +130,23 @@ class Router: NSObject {
     fileprivate var routeTable: [String : [String : String]] = [:]; // 路由表
     
     /// 预缓存资源包
-    fileprivate func precachePackage() {
+    fileprivate func downloadOrUpdatePackage() {
         for (_, routeItem) in routeTable {
-            if let download = routeItem[Constant.DownloadUrl], let donwloadUrl = URL(string: download) {
+            guard let version = routeItem[Constant.Version], let routeUrl = routeItem[Constant.RouteUrl], let download = routeItem[Constant.DownloadUrl] else {
+                LogError("路由文件的信息不完整")
+                return
+            }
+            
+            // 当前为最新版
+            if let webapp = ResourceManager.shared.webapp(withRoute: routeUrl), webapp.version >= version {
+                continue
+            }
+            
+            if let donwloadUrl = URL(string: download) {
                 ResourceManager.shared.downloadPackage(url: donwloadUrl, success: nil, failure: nil)
+            } else {
+                LogError("无效的下载链接")
             }
         }
-    }
-    
-    /// 检查更新
-    fileprivate func checkUpdate() {
-        
     }
 }

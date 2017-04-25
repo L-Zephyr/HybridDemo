@@ -78,15 +78,21 @@ class WebView: WKWebView {
              if Util.isFolder(url: url) { // 指向一个本地的文件夹
                 // 读取webapp_info.json文件
                 let infoUrl = url.appendingPathComponent("webapp_info.json")
-                if FileManager.default.fileExists(atPath: infoUrl.path) {
-                    if let profile = Util.loadJsonObject(fromUrl: infoUrl) as? [String : String], let entrance = profile["entrance"] {
-                        LogVerbose("Local Web path: '\(url.path)'\nEntrance: '\(entrance)'")
-                        let entranceUrl = url.appendingPathComponent(entrance)
-                        _ = loadFileURL(entranceUrl, allowingReadAccessTo: url)
-                    }
-                } else {
+                
+                guard FileManager.default.fileExists(atPath: infoUrl.path) else {
                     LogError("Profile file `webapp_info.json` not found in \(url.path)")
                     return
+                }
+                guard let profile = Util.loadJsonObject(fromUrl: infoUrl) as? [String : String] else {
+                    return
+                }
+                
+                if let entrance = profile["entrance"] {
+                    LogVerbose("Local Web path: '\(url.path)'\nEntrance: '\(entrance)'")
+                    let entranceUrl = url.appendingPathComponent(entrance)
+                    _ = loadFileURL(entranceUrl, allowingReadAccessTo: url)
+                } else {
+                    LogError("Entrance not found in file: '\(infoUrl.path)'")
                 }
             } else { // 加载一个单独的本地文件
                 let request = URLRequest(url: url)

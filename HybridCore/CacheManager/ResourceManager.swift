@@ -85,7 +85,7 @@ internal class ResourceManager: NSObject {
     override init() {
         super.init()
         initDatabase()
-        session = URLSession(configuration: URLSessionConfiguration(), delegate: self, delegateQueue: nil)
+        session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
     }
     
     // MARK: - Private
