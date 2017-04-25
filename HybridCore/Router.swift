@@ -81,8 +81,8 @@ class Router: NSObject {
     
     /// 根据url获取一个ViewController
     ///
-    /// - Parameter url: webapp的url，唯一标示一个Hybrid页面
-    /// - Returns:       一个用于展示该页面的WebViewController实例
+    /// - Parameter routeUrl: webapp的url，唯一标示一个Hybrid页面
+    /// - Returns:            一个用于展示该页面的WebViewController实例
     public func webViewController(routeUrl: String) -> WebViewController? {
         return webViewController(routeUrl: routeUrl, params: [:])
     }
@@ -97,8 +97,8 @@ class Router: NSObject {
     
     /// 根据route_url获取一个WebView
     ///
-    /// - Parameter url: route url，唯一标识一个页面
-    /// - Returns:       用于展示该页面的WebView
+    /// - Parameter routeUrl: 路由URL，唯一标识一个页面
+    /// - Returns:            用于展示该页面的WebView
     public func webView(routeUrl: String) -> WebView? {
         return webView(routeUrl: routeUrl, params: [:])
     }

@@ -17,10 +17,11 @@ class DownloadTask: NSObject {
     /// 创建并启动一个下载任务
     ///
     /// - Parameters:
-    ///   - sourceUrl:  下载文件的URL
-    ///   - toUrl:      保存到本地的位置
-    ///   - completion: 下载完成的回调
-    /// - Returns:      下载任务DownloadTask实例
+    ///   - session:     URLSession实例
+    ///   - downloadUrl: 下载文件的URL
+    ///   - routeUrl:    该资源包的路由URL
+    ///   - completion:  下载完成的回调
+    /// - Returns:       下载任务DownloadTask实例
     public class func startDownloadTask(in session: URLSession,
                                         downloadUrl: URL,
                                         routeUrl: String,
