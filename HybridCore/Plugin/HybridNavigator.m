@@ -9,14 +9,14 @@
 #import "HybridNavigator.h"
 #import "Hybrid-Swift.h"
 
-@interface HybridNavigator()
-
-@end
-
 @implementation HybridNavigator
 
++ (NSString *)pluginName {
+    return @"navigator";
+}
+
 - (void)push:(NSString *)url params:(NSDictionary *)params {
-    WebViewController *vc = [[Router shared] webViewControllerWithUrl:url params:params];
+    WebViewController *vc = [[Router shared] webViewControllerWithRouteUrl:url params:params];
     UINavigationController *nv = [self currentNavigationController];
     if (nv) {
         [nv pushViewController:vc animated:YES];
@@ -26,16 +26,28 @@
 }
 
 - (void)present:(NSString *)url params:(NSDictionary *)params {
-    
+    WebViewController *vc = [[Router shared] webViewControllerWithRouteUrl:url params:params];
+    UIViewController *currentVC = [self currentViewController];
+    if (currentVC) {
+        if (currentVC.navigationController) {
+            [currentVC.navigationController presentViewController:vc animated:YES completion:nil];
+        } else {
+            [currentVC presentViewController:vc animated:YES completion:nil];
+        }
+        return;
+    }
+    Hybrid_LogWarning(@"Current ViewController not found");
 }
 
 - (void)pop {
-    
+    [[self currentNavigationController] popViewControllerAnimated:YES];
 }
 
 - (void)popToRoot {
-    
+    [[self currentNavigationController] popToRootViewControllerAnimated:YES];
 }
+
+#pragma mark - Private
 
 - (UIViewController *)currentViewController {
     UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;

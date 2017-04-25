@@ -30,6 +30,8 @@
 		BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */; };
 		BB679FEB1EA7C0D4009F664C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEA1EA7C0D4009F664C /* Router.swift */; };
 		BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEC1EA7C15D009F664C /* WebViewController.swift */; };
+		BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEF1EAB5C59009F664C /* DownloadTask.swift */; };
+		BB679FF21EAE09B4009F664C /* WebappItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FF11EAE09B4009F664C /* WebappItem.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
@@ -96,6 +98,8 @@
 		BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		BB679FEA1EA7C0D4009F664C /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		BB679FEC1EA7C15D009F664C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		BB679FEF1EAB5C59009F664C /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
+		BB679FF11EAE09B4009F664C /* WebappItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebappItem.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 				BBE29B9F1E09466B004F1C75 /* WebAppFileItem.swift */,
 				BBE29BA31E0BC96C004F1C75 /* WebAppInfo.swift */,
 				BB62B22D1EA34BAE00927DD0 /* ResourceManager.swift */,
+				BB679FEF1EAB5C59009F664C /* DownloadTask.swift */,
+				BB679FF11EAE09B4009F664C /* WebappItem.swift */,
 			);
 			path = CacheManager;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,
 				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,
 				BB98E7D51E03C07A0021D9E1 /* CacheManager+DB.swift in Sources */,
+				BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */,
 				BB2D570F1E027A6200098738 /* VersionManager.swift in Sources */,
 				BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */,
 				BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */,
@@ -567,6 +574,7 @@
 				BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */,
 				BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */,
 				BB1DD2EF1DFD8D1D00B6C00E /* CacheManager.swift in Sources */,
+				BB679FF21EAE09B4009F664C /* WebappItem.swift in Sources */,
 				BBE29BA41E0BC96C004F1C75 /* WebAppInfo.swift in Sources */,
 				BB1DD2BE1DFCE92B00B6C00E /* AppDelegate.swift in Sources */,
 			);

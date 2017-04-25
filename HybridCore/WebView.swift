@@ -55,20 +55,31 @@ class WebView: WKWebView {
         }
     }
     
+    /// 通过路由URL加载一个页面
+    ///
+    /// - Parameter routeUrl: 资源包的Route URL
+    public func load(routeUrl: String) {
+        if let webapp = ResourceManager.shared.webapp(withRoute: routeUrl) { // 已缓存在本地
+            load(url: URL(fileURLWithPath: webapp.localPath))
+        } else if let downloadUrl = Router.shared.downloadUrl(with: routeUrl) { // 否则下载
+            ResourceManager.shared.downloadPackage(url: downloadUrl, success: { (localPath) in
+                self.load(url: localPath)
+            }, failure: { (error) in
+                //TODO: 展示失败视图
+            })
+        }
+    }
+    
     /// 通过URL加载资源
     ///
-    /// - Parameter url: 资源URL，支持网络资源、本地资源压缩包、本地文件夹
+    /// - Parameter url: 资源URL，支持网络资源和本地文件
     public func load(url: URL) {
         if url.isFileURL {
-            if Util.isZip(url: url) { // 指向一个本地的资源压缩包
-                if let localPath = ResourceManager.shared.localPath(with: url) {
-                    load(url: localPath)
-                }
-            } else if Util.isFolder(url: url) { // 指向一个本地的文件夹
+             if Util.isFolder(url: url) { // 指向一个本地的文件夹
                 // 读取webapp_info.json文件
                 let infoUrl = url.appendingPathComponent("webapp_info.json")
                 if FileManager.default.fileExists(atPath: infoUrl.path) {
-                    if let profile = Util.loadJsonObject(fromUrl: infoUrl), let entrance = profile["entrance"] as? String {
+                    if let profile = Util.loadJsonObject(fromUrl: infoUrl) as? [String : String], let entrance = profile["entrance"] {
                         LogVerbose("Local Web path: '\(url.path)'\nEntrance: '\(entrance)'")
                         let entranceUrl = url.appendingPathComponent(entrance)
                         _ = loadFileURL(entranceUrl, allowingReadAccessTo: url)
@@ -98,9 +109,13 @@ class WebView: WKWebView {
         }
     }
     
-    init() {
-        super.init(frame: CGRect.zero, configuration: WKWebViewConfiguration())
-        bridge = ReflectJavascriptBridge(self)
+    convenience init() {
+        self.init(frame: CGRect.zero, configuration: WKWebViewConfiguration())
+    }
+    
+    convenience init(frame: CGRect, url: URL) {
+        self.init(frame: frame, configuration: WKWebViewConfiguration())
+        load(url: url)
     }
     
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {

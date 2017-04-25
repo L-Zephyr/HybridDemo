@@ -1,0 +1,5 @@
+[{
+	"route_url" : "/main",
+	"download_url" : "http://localhost:3000/webapp.zip",
+	"version" : "20170201"
+}]

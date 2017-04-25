@@ -41,7 +41,7 @@ class Util {
         return nil
     }
     
-    /// 获取'Application Support/Hybrid/webapp'路径
+    /// 获取'Application Support/Hybrid/webapp'路径, 保存资源包解压后的文件夹
     class var webappPath: URL? {
         if let url = appSpportPath?.appendingPathComponent("Hybrid").appendingPathComponent("webapp") {
             if Util.createDirectoryIfNotExist(withPath: url.path) {
@@ -87,18 +87,16 @@ class Util {
     }
     
     /// 读取一个json配置文件
-    class func loadJsonObject(fromUrl url: URL?) -> [String: Any]? {
+    class func loadJsonObject(fromUrl url: URL?) -> Any? {
         guard let url = url else {
             return nil
         }
         
         do {
             let jsonData = try Data(contentsOf: url)
-            if let info = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: Any] {
-                return info
-            }
+            return try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
         } catch {
-            print("\(error)")
+            LogError("Read json file error: \(error)")
         }
         
         return nil
