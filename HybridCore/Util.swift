@@ -13,7 +13,12 @@ enum Errors: Error {
     case httpRequestError
 }
 
-class Util {
+internal class Util {
+    
+    struct Constant {
+        static let webappInfoFile = "webapp_info.json"
+    }
+    
     /// 获取Application Support文件夹路径
     class var appSpportPath: URL? {
         guard let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.applicationSupportDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first else {
@@ -44,6 +49,16 @@ class Util {
     /// 获取'Application Support/Hybrid/webapp'路径, 保存资源包解压后的文件夹
     class var webappPath: URL? {
         if let url = appSpportPath?.appendingPathComponent("Hybrid").appendingPathComponent("webapp") {
+            if Util.createDirectoryIfNotExist(withPath: url.path) {
+                return url
+            }
+        }
+        return nil
+    }
+    
+    /// 获取'Application Support/Hybrid/temp'路径, 用于临时保存资源包
+    class var webappTempPath: URL? {
+        if let url = appSpportPath?.appendingPathComponent("Hybrid").appendingPathComponent("temp") {
             if Util.createDirectoryIfNotExist(withPath: url.path) {
                 return url
             }

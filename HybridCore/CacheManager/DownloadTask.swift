@@ -94,18 +94,36 @@ extension DownloadTask: URLSessionDownloadDelegate {
         
         let zip = ZipArchive()
         let localUrl = webappPath.appendingPathComponent(routeUrl.md5())
-        if zip.unzipOpenFile(location.path) && zip.unzipFile(to: localUrl.path, overWrite: true) {
-            // 将webapp储存到数据库
-            // FIXME: 插入数据库的时机和方式可以优化
-            let webapp = WebappItem()
-            webapp.routeUrl = routeUrl
-            webapp.localPath = localUrl.path
-            webapp.version = Router.shared.version(for: routeUrl) ?? ""
-            ResourceManager.shared.saveWebapp(webapp)
+                
+        // 已存在旧的资源包则先保存到临时文件夹, 下次启动时再更新
+        if let webapp = ResourceManager.shared.webapp(withRoute: routeUrl) {
+            guard let webappTempPath = Util.webappTempPath else {
+                callback(nil, NSError(domain: "Can not access to 'Application Support/Hybrid/temp'", code: 6003, userInfo: nil))
+                return
+            }
             
-            callback(localUrl, nil)
+            let targetPath = webappTempPath.appendingPathComponent(routeUrl.md5())
+            if zip.unzipOpenFile(location.path) && zip.unzipFile(to: targetPath.path, overWrite: true) {
+                callback(localUrl, nil)
+            } else {
+                LogError("Unzip file '\(location.path)' failed")
+                callback(nil, NSError(domain: "Unzip error", code: 6004, userInfo: nil))
+            }
         } else {
-            LogError("Unzip file '\(location.path)' failed")
+            if zip.unzipOpenFile(location.path) && zip.unzipFile(to: localUrl.path, overWrite: true) {
+                // 将webapp储存到数据库
+                // FIXME: 插入数据库的时机和方式可以优化
+                let webapp = WebappItem()
+                webapp.routeUrl = routeUrl
+                webapp.localPath = localUrl.path
+                webapp.version = Router.shared.version(for: routeUrl) ?? ""
+                ResourceManager.shared.saveWebapp(webapp)
+                
+                callback(localUrl, nil)
+            } else {
+                LogError("Unzip file '\(location.path)' failed")
+                callback(nil, NSError(domain: "Unzip error", code: 6004, userInfo: nil))
+            }
         }
     }
     

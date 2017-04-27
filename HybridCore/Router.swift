@@ -56,6 +56,8 @@ class Router: NSObject {
     /// 设置路由表的本地路径
     public var routeFileUrl: String = "" {
         didSet {
+            applyUpdate()
+            
             if !FileManager.default.fileExists(atPath: routeFileUrl) {
                 LogError("Route file not exist at: \(routeFileUrl)")
                 routeTable = [:]
@@ -72,7 +74,7 @@ class Router: NSObject {
                     }
                 }
                 routeTable = table
-                downloadOrUpdatePackage()
+                downloadPackages()
             } else {
                 routeTable = [:]
             }
@@ -125,7 +127,7 @@ class Router: NSObject {
     fileprivate var routeTable: [String : [String : String]] = [:]; // 路由表
     
     /// 预缓存资源包
-    fileprivate func downloadOrUpdatePackage() {
+    fileprivate func downloadPackages() {
         for (_, routeItem) in routeTable {
             guard let version = routeItem[Constant.Version], let routeUrl = routeItem[Constant.RouteUrl], let download = routeItem[Constant.DownloadUrl] else {
                 LogError("路由文件的信息不完整")
@@ -142,6 +144,56 @@ class Router: NSObject {
             } else {
                 LogError("无效的下载链接")
             }
+        }
+    }
+    
+    /// 应用更新包
+    fileprivate func applyUpdate() {
+        guard let tempPath = Util.webappTempPath else {
+            LogWarning("Can not access to 'Application Support/Hybrid/temp'")
+            return
+        }
+        guard let enumerator = FileManager.default.enumerator(at: tempPath, includingPropertiesForKeys: [URLResourceKey.isDirectoryKey]) else {
+            return
+        }
+        
+        for item in enumerator {
+            if let fileUrl = item as? URL, let info = try? fileUrl.resourceValues(forKeys: [URLResourceKey.isDirectoryKey]) {
+                if let isDir = info.isDirectory, isDir == true {
+                    installPackage(at: fileUrl)
+                }
+            }
+        }
+    }
+    
+    /// 将临时文件夹的资源包移动到目标文件夹中
+    fileprivate func installPackage(at tempPath: URL) {
+        guard let targetPath = Util.webappPath?.appendingPathComponent(tempPath.lastPathComponent) else {
+            LogError("Can not access to 'Application Support/Hybrid/webapp'")
+            return
+        }
+        guard let webappInfo = Util.loadJsonObject(fromUrl: tempPath.appendingPathComponent(Util.Constant.webappInfoFile)) as? [String : String] else {
+            LogError("更新包\(tempPath.lastPathComponent)中没有'\(Util.Constant.webappInfoFile)'文件")
+            return
+        }
+        
+        do {
+            if let route = webappInfo[Constant.RouteUrl], let version = webappInfo[Constant.Version] {
+                if FileManager.default.fileExists(atPath: targetPath.path) {
+                    try FileManager.default.removeItem(at: targetPath)
+                }
+                try FileManager.default.moveItem(at: tempPath, to: targetPath)
+                
+                let webapp = WebappItem()
+                webapp.routeUrl = route
+                webapp.localPath = targetPath.path
+                webapp.version = version
+                ResourceManager.shared.saveWebapp(webapp)
+            } else {
+                LogError("资源包信息不全")
+            }
+        } catch {
+            LogError("Move director failed: \(error)")
         }
     }
 }
