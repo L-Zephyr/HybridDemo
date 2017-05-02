@@ -90,7 +90,8 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
         
         // 有新的command时向native发送消息,通知native获取command
         function sendReadyToNative() {
-            iFrame.src = requestMessage;
+             iFrame.src = requestMessage;
+//            window.webkit.messageHandlers._ReadyForCommands_.postMessage(null);
         }
         
         // 该方法由native调用，返回所有的commands
@@ -102,32 +103,44 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
         
         // 添加一条command并通知native，该函数由Native生成的JS代码调用
         function sendCommand(objc, jsMethod, methodArgCount, args, returnType) {
-            // 将方法类型的参数替换成相应的callback ID
+            // 将参数转换成json
+            var argList = [];
             for (var i = 0; i < methodArgCount; ++i) {
-                if (typeof args[i] === 'function') {
-                    responseCallbacks[uniqueCallbackId] = args[i];
-                    args[i] = uniqueCallbackId;
-                    uniqueCallbackId++;
+                var arg = args[0];
+                var actualArg = {};
+                if (typeof arg === 'number') { // 数字
+                    actualArg["type"] = 0;
+                    actualArg["data"] = arg;
+                } else if (typeof arg === 'string') { // 字符串
+                    actualArg["type"] = 1;
+                    actualArg["data"] = arg;
+                } else if (typeof arg == 'object') { // 字典或数组
+                    actualArg["type"] = 2;
+                    actualArg["data"] = JSON.stringify(arg);
+                } else if (typeof arg === 'function') { // 闭包
+                    actualArg["type"] = 3;
+                    actualArg["data"] = JSON.stringify(arg);
+                    responseCallbacks[uniqueCallbackId++] = arg;
                 }
+                argList.push(actualArg);
             }
             
             var command = {
                 "className": objc["__className"],
                 "identifier": objc["__identifier"],
-                "args": args,
+                "args": argList,
                 "returnType": returnType
             };
+            // 如果是block的话没有jsMethod
             if (jsMethod) {
                 command["method"] = objc.__maps[jsMethod];
             }
-            
-            // 如果参数后面添加了一个function，则该function用来接收返回值
-            var lastArg = args[args.length - 1];
-            if (returnType != 'v' && typeof lastArg === 'function') {
-                responseCallbacks[uniqueCallbackId] = lastArg;
+            // 接收返回值
+            if (args.length > methodArgCount) {
                 command["callbackId"] = uniqueCallbackId;
-                ++uniqueCallbackId;
+                responseCallbacks[uniqueCallbackId++] = lastArg;
             }
+            
             commandQueue.push(command);
             sendReadyToNative();
         }

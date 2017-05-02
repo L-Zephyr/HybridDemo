@@ -11,6 +11,17 @@
 #import <objc/runtime.h>
 #import "Hybrid-Swift.h"
 
+#define NumberType (0)
+#define StringType (1)
+#define ObjectType (2)
+#define FunctionType (3)
+#define Type (@"type")
+#define Data (@"data")
+
+#define PARAM_ERROR() \
+    Hybrid_LogError(@"类:%@, 方法:%@, 参数类型错误", _className, _methodName);\
+    return;
+
 @interface RJBCommand()
 
 @property (nonatomic) NSString *className;
@@ -90,45 +101,60 @@
         if (_args.count <= paramIndex - paramOffset) {
             break;
         }
-        id arg = _args[paramIndex - paramOffset];
+        NSDictionary *argInfo = (NSDictionary *)_args[paramIndex - paramOffset];
         NSString *type = [NSString stringWithUTF8String:[sign getArgumentTypeAtIndex:paramIndex]]; // expected type
         
-        if ([arg isKindOfClass:[NSString class]]) {
-            if (RJB_isClass(type)) {
-                [invocation setArgument:&arg atIndex:paramIndex];
-            } else if (RJB_isInteger(type) || RJB_isUnsignedInteger(type)) {
-                long long param = [(NSString *)arg longLongValue];
-                [invocation setArgument:&param atIndex:paramIndex];
-            } else if (RJB_isFloat(type)) {
-                double param = [(NSString *)arg doubleValue];
-                [invocation setArgument:&param atIndex:paramIndex];
-            } else {
-                Hybrid_LogError(@"Argument not supported type");
-                return;
-            }
-        } else if ([arg isKindOfClass:[NSNumber class]]) {
-            if (RJB_isClass(type)) { // 这里肯定是block类型, arg为js的callbackId
-                __weak typeof(self) weakSelf = self;
-                RJBCallback block = ^(NSArray *params) {
-                    __strong typeof(self) strongSelf = weakSelf;
-                    [strongSelf callbackToJs:bridge callbackId:arg params:params];
-                };
-                [argBlocks addObject:block]; // 防止block被释放
-                
-                [invocation setArgument:&block atIndex:paramIndex];
-            } else if (RJB_isInteger(type)) {
-                long long param = [(NSNumber *)arg longLongValue];
-                [invocation setArgument:&param atIndex:paramIndex];
-            } else if (RJB_isUnsignedInteger(type)) {
-                unsigned long long param = [(NSNumber *)arg unsignedLongLongValue];
-                [invocation setArgument:&param atIndex:paramIndex];
-            } else if (RJB_isFloat(type)) {
-                double param = [(NSNumber *)arg doubleValue];
-                [invocation setArgument:&param atIndex:paramIndex];
-            } else {
-                Hybrid_LogError(@"Argument not supported type");
-                return;
-            }
+        switch ([argInfo[Type] integerValue]) {
+            case NumberType: // 数字类型
+                if (RJB_isInteger(type) || RJB_isUnsignedInteger(type)) {
+                    long long param = [argInfo[Data] longLongValue];
+                    [invocation setArgument:&param atIndex:paramIndex];
+                } else if (RJB_isFloat(type)) {
+                    double param = [argInfo[Data] doubleValue];
+                    [invocation setArgument:&param atIndex:paramIndex];
+                } else {
+                    PARAM_ERROR();
+                }
+                break;
+            case StringType: // 字符串
+                if (RJB_isClass(type)) {
+                    NSString *param = (NSString *)argInfo[Data];
+                    [invocation setArgument:&param atIndex:paramIndex];
+                } else {
+                    PARAM_ERROR();
+                }
+                break;
+            case ObjectType: // 数组或字典
+                if (RJB_isClass(type)) {
+                    NSData *jsonData = [argInfo[Data] dataUsingEncoding:NSUTF8StringEncoding];
+                    id param = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+                    // TODO: 区分array和dictionary
+                    if (param) {
+                        [invocation setArgument:&param atIndex:paramIndex];
+                    } else {
+                        PARAM_ERROR();
+                    }
+                } else {
+                    PARAM_ERROR();
+                }
+                break;
+            case FunctionType: // 闭包
+                if (RJB_isClass(type)) { // block类型
+                    NSString *callbackId = (NSString *)argInfo[Data];
+                    __weak typeof(self) weakSelf = self;
+                    RJBCallback block = ^(NSArray *params) {
+                        __strong typeof(self) strongSelf = weakSelf;
+                        [strongSelf callbackToJs:bridge callbackId:callbackId params:params];
+                    };
+                    [argBlocks addObject:block]; // 防止block被释放
+                    
+                    [invocation setArgument:&block atIndex:paramIndex];
+                } else {
+                    PARAM_ERROR();
+                }
+                break;
+            default:
+                break;
         }
     }
     
