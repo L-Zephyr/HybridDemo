@@ -101,6 +101,7 @@
         if (_args.count <= paramIndex - paramOffset) {
             break;
         }
+        
         NSDictionary *argInfo = (NSDictionary *)_args[paramIndex - paramOffset];
         NSString *type = [NSString stringWithUTF8String:[sign getArgumentTypeAtIndex:paramIndex]]; // expected type
         

@@ -90,8 +90,8 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
         
         // 有新的command时向native发送消息,通知native获取command
         function sendReadyToNative() {
-             iFrame.src = requestMessage;
-//            window.webkit.messageHandlers._ReadyForCommands_.postMessage(null);
+            iFrame.src = requestMessage;
+            // window.webkit.messageHandlers._ReadyForCommands_.postMessage(null);
         }
         
         // 该方法由native调用，返回所有的commands
@@ -105,8 +105,8 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
         function sendCommand(objc, jsMethod, methodArgCount, args, returnType) {
             // 将参数转换成json
             var argList = [];
-            for (var i = 0; i < methodArgCount; ++i) {
-                var arg = args[0];
+            for (var i = 0; i < methodArgCount && i < args.length; ++i) {
+                var arg = args[i];
                 var actualArg = {};
                 if (typeof arg === 'number') { // 数字
                     actualArg["type"] = 0;

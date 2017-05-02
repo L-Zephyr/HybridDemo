@@ -35,7 +35,6 @@
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
 		BB7B15C21E94946F00BBD5E8 /* RJBObjectConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15BA1E94946F00BBD5E8 /* RJBObjectConvertor.m */; };
 		BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15C51E94978500BBD5E8 /* WebView.swift */; };
-		BB7B15C81E949B7A00BBD5E8 /* Hybrid.js in Resources */ = {isa = PBXBuildFile; fileRef = BB7B15C71E949B7A00BBD5E8 /* Hybrid.js */; };
 		BB92EABF1E10EBE3001AB56E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */; };
 		BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92EAC01E1219D1001AB56E /* Logger.swift */; };
 		BB98E7D31E038B120021D9E1 /* VersionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */; };
@@ -102,7 +101,6 @@
 		BB7B15B91E94946F00BBD5E8 /* RJBObjectConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBObjectConvertor.h; sourceTree = "<group>"; };
 		BB7B15BA1E94946F00BBD5E8 /* RJBObjectConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RJBObjectConvertor.m; sourceTree = "<group>"; };
 		BB7B15C51E94978500BBD5E8 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		BB7B15C71E949B7A00BBD5E8 /* Hybrid.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Hybrid.js; sourceTree = "<group>"; };
 		BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		BB92EAC01E1219D1001AB56E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManagerTests.swift; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 		BB1DD2DD1DFCE95100B6C00E /* HybridCore */ = {
 			isa = PBXGroup;
 			children = (
-				BB7B15C71E949B7A00BBD5E8 /* Hybrid.js */,
 				BB7B15B21E94946F00BBD5E8 /* Bridge */,
 				BB37ABC51E96388100D9D7BA /* Plugin */,
 				BB1DD2F01DFD987B00B6C00E /* Utils */,
@@ -394,7 +391,6 @@
 			files = (
 				BB2D56DC1E0047E000098738 /* HybridResource in Resources */,
 				BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */,
-				BB7B15C81E949B7A00BBD5E8 /* Hybrid.js in Resources */,
 				BB1DD2C51DFCE92B00B6C00E /* Assets.xcassets in Resources */,
 				BB1DD2C31DFCE92B00B6C00E /* Main.storyboard in Resources */,
 				BB11F1DB1E02843A006F26FD /* SecondViewController.xib in Resources */,
