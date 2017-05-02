@@ -112,13 +112,13 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
             }
             
             var command = {
-                "className": objc["className"],
-                "identifier": objc["identifier"],
+                "className": objc["__className"],
+                "identifier": objc["__identifier"],
                 "args": args,
                 "returnType": returnType
             };
             if (jsMethod) {
-                command["method"] = objc.maps[jsMethod];
+                command["method"] = objc.__maps[jsMethod];
             }
             
             // 如果参数后面添加了一个function，则该function用来接收返回值

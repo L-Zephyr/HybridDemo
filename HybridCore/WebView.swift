@@ -104,17 +104,6 @@ class WebView: WKWebView {
         }
     }
     
-    /// 通过URL字符串加载资源
-    ///
-    /// - Parameter urlString: 资源URL，支持网络资源、本地资源压缩包、本地文件夹
-    public func load(urlString: String) {
-        if let url = URL(string: urlString) {
-            load(url: url)
-        } else {
-            LogError("Url \(urlString) is not valid")
-        }
-    }
-    
     convenience init() {
         self.init(frame: CGRect.zero, configuration: WKWebViewConfiguration())
     }

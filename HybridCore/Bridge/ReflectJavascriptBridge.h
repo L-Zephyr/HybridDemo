@@ -50,12 +50,12 @@
 - (void)callJsMethod:(NSString *)methodName withArgs:(NSArray *)args completionHandler:(void(^)(id result, NSError *error))handler;
 
 // Subscript
-- (id)objectForKeyedSubscript:(id)key;
+//- (id)objectForKeyedSubscript:(id)key;
+//
+//- (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)aKey;
+//
+//- (void)register:(id)object forKey:(NSString *)key;
 
-- (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)aKey;
-
-- (void)register:(id)object forKey:(NSString *)key;
-
-- (id)objectForKey:(NSString *)key;
+//- (id)objectForKey:(NSString *)key;
 
 @end

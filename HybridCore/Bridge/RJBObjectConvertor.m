@@ -78,8 +78,8 @@
     
     NSMutableDictionary *methodMaps = [NSMutableDictionary dictionary]; // jsName -> nativeName
     NSString *clsName = [NSString stringWithUTF8String:class_getName(cls)];
-    [_js appendFormat:@"className:\"%@\",", clsName];
-    [_js appendFormat:@"identifier:\"%@\",", identifier];
+    [_js appendFormat:@"__className:\"%@\",", clsName];
+    [_js appendFormat:@"__identifier:\"%@\",", identifier];
     
     // 添加js方法
     for (NSDictionary *nativeMethodInfo in methodInfos) {
@@ -102,7 +102,7 @@
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:methodMaps options:NSJSONWritingPrettyPrinted error:nil];
     if (data.length != 0) {
-        [_js appendFormat:@"maps:%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+        [_js appendFormat:@"__maps:%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
     }
     
     [_js appendString:@"}"];
@@ -115,8 +115,8 @@
     NSMethodSignature *sign = [NSMethodSignature signatureWithObjCTypes:RJB_signatureForBlock(block)];
     NSString *returnType = [[NSString stringWithUTF8String:sign.methodReturnType] substringToIndex:1];
     
-    NSString *blockInfo = [NSString stringWithFormat:@"{identifier: \"%@\", className: \"NSBlock\"}", identifier];
-    NSString *jsBody = [NSString stringWithFormat:@"window.Hybrid.sendCommand(%@, null, %ld, Array.from(arguments), \"%@\");", blockInfo, sign.numberOfArguments - 1, returnType];
+    NSString *blockInfo = [NSString stringWithFormat:@"{__identifier: \"%@\", __className: \"NSBlock\"}", identifier];
+    NSString *jsBody = [NSString stringWithFormat:@"window.Hybrid.sendCommand(%@, null, %ld, Array.prototype.slice.call(arguments), \"%@\");", blockInfo, sign.numberOfArguments - 1, returnType];
     [_js appendString:jsBody];
     
     [_js appendString:@"}"];

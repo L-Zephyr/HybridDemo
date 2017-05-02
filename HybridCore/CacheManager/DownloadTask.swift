@@ -11,7 +11,8 @@ import ZipArchive
 
 class DownloadTask: NSObject {
     
-    //
+    /// desUrl: 资源包解压后的的路径
+    /// error:  错误类型，成功则为nil
     typealias CompletionCallback = (_ desUrl: URL?, _ error: Error?) -> Void
     
     /// 创建并启动一个下载任务
@@ -96,7 +97,7 @@ extension DownloadTask: URLSessionDownloadDelegate {
         let localUrl = webappPath.appendingPathComponent(routeUrl.md5())
                 
         // 已存在旧的资源包则先保存到临时文件夹, 下次启动时再更新
-        if let webapp = ResourceManager.shared.webapp(withRoute: routeUrl) {
+        if ResourceManager.shared.webapp(withRoute: routeUrl) != nil {
             guard let webappTempPath = Util.webappTempPath else {
                 callback(nil, NSError(domain: "Can not access to 'Application Support/Hybrid/temp'", code: 6003, userInfo: nil))
                 return

@@ -16,11 +16,11 @@
 
 @interface ReflectJavascriptBridge() <UIWebViewDelegate, WKScriptMessageHandler, WKNavigationDelegate>
 
-@property (nonatomic) NSMutableDictionary<NSString *, id> *reflectObjects;
-@property (nonatomic) NSMutableDictionary<NSString *, id> *waitingObjects; // wait for bridge
+//@property (nonatomic) NSMutableDictionary<NSString *, id> *reflectObjects; 
+//@property (nonatomic) NSMutableDictionary<NSString *, id> *waitingObjects; // wait for bridge
 @property (nonatomic) NSMutableDictionary<NSString *, id> *bridgedBlocks;
-@property (nonatomic) NSMutableArray<RJBCommand *> *commands;
 
+@property (nonatomic) NSMutableArray<RJBCommand *> *commands;
 @property (nonatomic) NSMutableDictionary<NSString *, PluginInstance *> *plugins;
 
 @property (nonatomic, weak) WKWebView *webView;
@@ -46,8 +46,8 @@
         _delegate = delegate;
         _webView.navigationDelegate = self;
         
-        _reflectObjects = [NSMutableDictionary dictionary];
-        _waitingObjects = [NSMutableDictionary dictionary];
+//        _reflectObjects = [NSMutableDictionary dictionary];
+//        _waitingObjects = [NSMutableDictionary dictionary];
         _bridgedBlocks = [NSMutableDictionary dictionary];
         _commands = [NSMutableArray array];
         
@@ -173,8 +173,6 @@
     }
     
     for (RJBCommand *command in _commands) {
-//        [command execWithInstance:_reflectObjects[command.identifier] bridge:self];
-//        id instance = [[PluginLoader shared] instanceWithIdentifier:command.identifier bridge:self];
         [command execWithInstance:_plugins[command.identifier].instance bridge:self];
     }
     // TODO: 执行结束清空commands, 暂时先同步执行
@@ -220,33 +218,33 @@
 
 #pragma mark - Subscript
 
-- (id)objectForKeyedSubscript:(id)key {
-    if ([key isKindOfClass:[NSString class]] == NO) {
-        return nil;
-    }
-    return _reflectObjects[key];
-}
+//- (id)objectForKeyedSubscript:(id)key {
+//    if ([key isKindOfClass:[NSString class]] == NO) {
+//        return nil;
+//    }
+//    return _reflectObjects[key];
+//}
+//
+//- (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)aKey {
+//    if (![object conformsToProtocol:objc_getProtocol("PluginExport")] && ![object isKindOfClass:NSClassFromString(@"NSBlock")]) {
+//        Hybrid_LogError(@"Object should be a `Block` or an class instance confirms to `PluginExport`");
+//        return;
+//    }
+//    
+//    if (_injectJsFinished) {
+//        _reflectObjects[aKey] = object;
+//        [self bridgeObjectToJs:object name:(NSString *)aKey];
+//    } else {
+//        _waitingObjects[aKey] = object;
+//    }
+//}
 
-- (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)aKey {
-    if (![object conformsToProtocol:objc_getProtocol("PluginExport")] && ![object isKindOfClass:NSClassFromString(@"NSBlock")]) {
-        Hybrid_LogError(@"Object should be a `Block` or an class instance confirms to `PluginExport`");
-        return;
-    }
-    
-    if (_injectJsFinished) {
-        _reflectObjects[aKey] = object;
-        [self bridgeObjectToJs:object name:(NSString *)aKey];
-    } else {
-        _waitingObjects[aKey] = object;
-    }
-}
-
-- (void)register:(id)object forKey:(NSString *)key {
-    [self setObject:object forKeyedSubscript:key];
-}
-
-- (id)objectForKey:(NSString *)key {
-    return [self objectForKeyedSubscript:key];
-}
+//- (void)register:(id)object forKey:(NSString *)key {
+//    [self setObject:object forKeyedSubscript:key];
+//}
+//
+//- (id)objectForKey:(NSString *)key {
+//    return [self objectForKeyedSubscript:key];
+//}
 
 @end
