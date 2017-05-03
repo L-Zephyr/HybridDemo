@@ -166,7 +166,7 @@
     if (![_returnType isEqualToString:@"v"] && _callbackId != nil) {
         NSString *value = nil;
         if ([_returnType isEqualToString:@"@"]) {
-            id ret = nil;
+            id __weak ret = nil;
             [invocation getReturnValue:&ret];
             value = [NSString stringWithFormat:@"%@", ret];
         } else if ([_returnType isEqualToString:@"f"]) {
