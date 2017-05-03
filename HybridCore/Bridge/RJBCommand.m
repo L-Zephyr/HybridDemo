@@ -168,11 +168,7 @@
         if ([_returnType isEqualToString:@"@"]) {
             id ret = nil;
             [invocation getReturnValue:&ret];
-            if ([ret isKindOfClass:[NSString class]]) {
-                value = [NSString stringWithFormat:@"\"%@\"", (NSString *)ret];
-            } else if ([ret isKindOfClass:[NSNumber class]]) {
-                value = [NSString stringWithFormat:@"%@", (NSNumber *)ret];
-            }
+            value = [NSString stringWithFormat:@"%@", ret];
         } else if ([_returnType isEqualToString:@"f"]) {
             float ret = 0;
             [invocation getReturnValue:&ret];
@@ -206,7 +202,7 @@
         }
     }
     [value appendString:@"]"];
-    
+
     NSString *callbackJs = [NSString stringWithFormat:@"window.Hybrid.callback(\"%@\",%@);", callbackId, value];
     [bridge callJs:callbackJs completionHandler:nil];
 }

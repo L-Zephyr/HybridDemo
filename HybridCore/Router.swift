@@ -174,6 +174,7 @@ class Router: NSObject {
         }
         guard let webappInfo = Util.loadJsonObject(fromUrl: tempPath.appendingPathComponent(Util.Constant.webappInfoFile)) as? [String : String] else {
             LogError("更新包\(tempPath.lastPathComponent)中没有'\(Util.Constant.webappInfoFile)'文件")
+            removePackage(at: tempPath)
             return
         }
         
@@ -189,11 +190,22 @@ class Router: NSObject {
                 webapp.localPath = targetPath.path
                 webapp.version = version
                 ResourceManager.shared.saveWebapp(webapp)
+                LogVerbose("'\(route)'更新包应用成功, 当前版本: \(version)")
             } else {
                 LogError("资源包信息不全")
+                removePackage(at: tempPath)
             }
         } catch {
             LogError("Move director failed: \(error)")
+        }
+    }
+    
+    /// 删除指定位置的更新包
+    fileprivate func removePackage(at path: URL) {
+        do {
+            try FileManager.default.removeItem(at: path)
+        } catch {
+            LogError("删除文件失败: \(error)")
         }
     }
 }

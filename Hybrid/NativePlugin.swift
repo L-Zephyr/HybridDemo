@@ -9,29 +9,55 @@
 import UIKit
 
 @objc protocol NativePluginProtocol: PluginExport {
-    func showAlert(message: String)
-    
-    func doCallback(_ callback: RJBCallback)
-    
-    func add(_ a: Int, _ b: Int) -> Int
+    func sample1()
+    func sample2(_ param: String)
+    func sample3() -> String
+    func sample4(_ str1: String, _ str2: String) -> String
+    func sample5(_ a: Int, _ b: Float) -> String
+    func sample6(_ array: [Any], _ dic: [String : Any]) -> String
+    func sample7(_ callback: RJBCallback) -> String
 }
 
 class NativePlugin: NSObject, NativePluginProtocol {
     
     class func pluginName() -> String! {
-        return "alert"
+        return "plugin"
     }
     
-    func doCallback(_ callback: ([Any]?) -> Void) {
-        callback(["callback value"])
+    // 无参数，无返回值
+    func sample1() {
+        print("JS调用native.sample1")
     }
     
-    func showAlert(message: String) {
-        let alert = UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "ok", "")
-        alert.show()
+    // 有参数，无返回值
+    func sample2(_ param: String) {
+        print("JS调用native.sample2, 参数: \(param)")
     }
     
-    func add(_ a: Int, _ b: Int) -> Int {
-        return a + b
+    // 无参数，有返回值
+    func sample3() -> String {
+        return "native param"
+    }
+    
+    // 有参数，有返回值
+    func sample4(_ str1: String, _ str2: String) -> String {
+        return str1 + str2
+    }
+    
+    // int、float类型参数，有返回值
+    func sample5(_ a: Int, _ b: Float) -> String {
+        return "\(a)+\(b) is \(Float(a) + b)"
+    }
+    
+    // 数组、字典类型参数，有返回值
+    func sample6(_ array: [Any], _ dic: [String : Any]) -> String {
+        print("array: \(array)\ndic: \(dic)")
+        return "array.len = \(array.count), dic.len = \(dic.count)"
+    }
+    
+    // 闭包类型参数，有返回值
+    func sample7(_ callback: RJBCallback) -> String {
+        callback(["callback param"])
+        return "return value"
     }
 }

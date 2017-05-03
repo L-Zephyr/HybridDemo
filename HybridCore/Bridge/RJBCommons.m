@@ -37,8 +37,7 @@ enum {
 };
 
 NSString *ReflectJavascriptBridgeInjectedJS() {
-    return @ReflectJSCode(
-                          ;(function() {
+    return @ReflectJSCode(;(function() {
         'use strict';
         if (window.Hybrid) {
             return;
@@ -78,7 +77,7 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
         function callback(callbackId, returnValue) {
             if (responseCallbacks[callbackId]) {
                 responseCallbacks[callbackId](returnValue);
-                delete responseCallbacks[callbackId];
+                 delete responseCallbacks[callbackId];
             }
         }
         
@@ -138,8 +137,10 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
             // 接收返回值
             if (args.length > methodArgCount) {
                 command["callbackId"] = uniqueCallbackId;
-                responseCallbacks[uniqueCallbackId++] = lastArg;
+                responseCallbacks[uniqueCallbackId++] = args[args.length - 1];
+                console.log("保存返回闭包");
             }
+            console.log(command);
             
             commandQueue.push(command);
             sendReadyToNative();
