@@ -30,6 +30,7 @@
 		BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEC1EA7C15D009F664C /* WebViewController.swift */; };
 		BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEF1EAB5C59009F664C /* DownloadTask.swift */; };
 		BB679FF21EAE09B4009F664C /* WebappItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FF11EAE09B4009F664C /* WebappItem.swift */; };
+		BB70AE5C1EBE093700FD898A /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AE5B1EBE093700FD898A /* NativePlugin.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
@@ -37,10 +38,7 @@
 		BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15C51E94978500BBD5E8 /* WebView.swift */; };
 		BB92EABF1E10EBE3001AB56E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */; };
 		BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92EAC01E1219D1001AB56E /* Logger.swift */; };
-		BB98E7D31E038B120021D9E1 /* VersionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */; };
 		BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */; };
-		BBE29BA21E0AC4F7004F1C75 /* DBHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */; };
-		BBE29C131E0E759C004F1C75 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C121E0E759C004F1C75 /* UtilsTests.swift */; };
 		DC62629D43CF03E5AF473C60 /* Pods_Hybrid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72DD68026FA84DA37140D7 /* Pods_Hybrid.framework */; };
 		F32F7C94C058DB028081B6F1 /* Pods_HybridTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B8150592778DD3F750D1FC /* Pods_HybridTests.framework */; };
 /* End PBXBuildFile section */
@@ -92,6 +90,7 @@
 		BB679FEC1EA7C15D009F664C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BB679FEF1EAB5C59009F664C /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
 		BB679FF11EAE09B4009F664C /* WebappItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebappItem.swift; sourceTree = "<group>"; };
+		BB70AE5B1EBE093700FD898A /* NativePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlugin.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -103,10 +102,7 @@
 		BB7B15C51E94978500BBD5E8 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		BB92EAC01E1219D1001AB56E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManagerTests.swift; sourceTree = "<group>"; };
 		BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHelperTests.swift; sourceTree = "<group>"; };
-		BBE29C121E0E759C004F1C75 /* UtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		CD7AB05FBDC1989DEEBC6076 /* Pods-HybridTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HybridTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HybridTests/Pods-HybridTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,9 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */,
-				BB98E7D21E038B120021D9E1 /* VersionManagerTests.swift */,
-				BBE29BA11E0AC4F7004F1C75 /* DBHelperTests.swift */,
-				BBE29C121E0E759C004F1C75 /* UtilsTests.swift */,
+				BB70AE5B1EBE093700FD898A /* NativePlugin.swift */,
 				BB1DD2D41DFCE92B00B6C00E /* Info.plist */,
 			);
 			path = HybridTests;
@@ -560,10 +554,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB98E7D31E038B120021D9E1 /* VersionManagerTests.swift in Sources */,
 				BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */,
-				BBE29BA21E0AC4F7004F1C75 /* DBHelperTests.swift in Sources */,
-				BBE29C131E0E759C004F1C75 /* UtilsTests.swift in Sources */,
+				BB70AE5C1EBE093700FD898A /* NativePlugin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

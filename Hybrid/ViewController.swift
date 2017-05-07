@@ -19,7 +19,7 @@ class ViewController: UIViewController {
                 
         if let resUrl = Bundle.main.resourceURL {
             let url = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("route.json")
-            Router.shared.routeFileUrl = url.path
+            HybridConfig.routeFilePath = url.path
         }
 
         if let web = Router.shared.webView(routeUrl: "/main") {

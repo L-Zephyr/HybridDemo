@@ -8,9 +8,20 @@
 
 import UIKit
 
-class HybridConfig {
-    /// 资源包更新完毕立即生效, 默认为下次启动时生效
-    static var updateWhenFinishDownload: Bool = false
+public class HybridConfig {
+    /// 路由表文件路径，json文件
+    static var routeFilePath: String = "" {
+        didSet {
+            Router.shared.routeFilePath = routeFilePath
+        }
+    }
+    
+    /// 预先打包到App中的资源包路径
+    static var resourcePath: String = "" {
+        didSet {
+            ResourceManager.shared.resourcePath = resourcePath
+        }
+    }
     
     /// 日志等级
     static var logLevel: Logger.LoggerLevel = .Info {

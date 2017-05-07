@@ -13,10 +13,37 @@ internal class ResourceManager: NSObject {
     
     public static let shared = ResourceManager()
     
+    /// 预先打包到App中的资源包路径
+    public var resourcePath: String = "" {
+        didSet {
+            guard FileManager.default.fileExists(atPath: resourcePath) else {
+                LogWarning("资源目录不存在:\(resourcePath)")
+                return
+            }
+            guard let enumertor = FileManager.default.enumerator(at: URL(fileURLWithPath: resourcePath), includingPropertiesForKeys: [URLResourceKey.pathKey]) else {
+                LogWarning("无法遍历目录\(resourcePath)")
+                return
+            }
+            
+            for file in enumertor {
+                guard let fileUrl = file as? URL,
+                    let fileInfo = try? fileUrl.resourceValues(forKeys: [URLResourceKey.pathKey]),
+                    let path = fileInfo.path,
+                    path.lowercased().hasSuffix(".zip") else {
+                    continue
+                }
+                
+                
+            }
+        }
+    }
+    
+    /// 查询一个资源包信息
     public func webapp(withRoute url: String) -> WebappItem? {
         return selectWebapp(routeUrl: url)
     }
     
+    /// 保存资源包信息
     public func saveWebapp(_ webapp: WebappItem) {
         insert(webapp)
     }

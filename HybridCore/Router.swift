@@ -14,63 +14,24 @@ class Router: NSObject {
     
     public static let shared = Router()
     
-    /// 根据资源包的`download_url`获取`route_url`
-    ///
-    /// - Parameter downloadUrl: 资源包下载url
-    /// - Returns:               该资源包的的路由
-    public func routeUrl(with downloadUrl: URL) -> String? {
-        for (_, routeItem) in routeTable {
-            if let download = routeItem[Constant.DownloadUrl], downloadUrl.absoluteString == download {
-                return routeItem[Constant.RouteUrl]
-            }
-        }
-        return nil
-    }
-    
-    /// 根据路由URL获取资源包的下载URL
-    ///
-    /// - Parameter routeUrl: 路由URL字符串
-    /// - Returns:            资源包下载URL
-    public func downloadUrl(with routeUrl: String) -> URL? {
-        for (_, routeItem) in routeTable {
-            if let route = routeItem[Constant.RouteUrl], routeUrl == route, let download = routeItem[Constant.DownloadUrl] {
-                return URL(string: download)
-            }
-        }
-        return nil
-    }
-    
-    /// 获取指定资源包的版本
-    ///
-    /// - Parameter routeUrl: 资源包的路由URL
-    /// - Returns:            该资源包的版本号
-    public func version(for routeUrl: String) -> String? {
-        for (_, routeItem) in routeTable {
-            if let route = routeItem[Constant.RouteUrl], routeUrl == route, let version = routeItem[Constant.Version] {
-                return version
-            }
-        }
-        return nil
-    }
-    
     /// 设置路由表的本地路径
-    public var routeFileUrl: String = "" {
+    public var routeFilePath: String = "" {
         didSet {
-            applyUpdate()
+            applyUpdates()
             
-            if !FileManager.default.fileExists(atPath: routeFileUrl) {
-                LogError("Route file not exist at: \(routeFileUrl)")
+            if !FileManager.default.fileExists(atPath: routeFilePath) {
+                LogError("Route file not exist at: \(routeFilePath)")
                 routeTable = [:]
                 return
             }
             
-            if let routes = Util.loadJsonObject(fromUrl: URL(fileURLWithPath: routeFileUrl)) as? [[String : String]] {
+            if let routes = Util.loadJsonObject(fromUrl: URL(fileURLWithPath: routeFilePath)) as? [[String : String]] {
                 var table: [String : [String : String]] = [:]
                 for routeItem in routes {
                     if let routeUrl = routeItem[Constant.RouteUrl] { // 将route url作为key
                         table[routeUrl] = routeItem
                     } else {
-                        LogWarning("路由表:'\(routeFileUrl)'缺少'\(Constant.RouteUrl)'")
+                        LogWarning("路由表:'\(routeFilePath)'缺少'\(Constant.RouteUrl)'")
                     }
                 }
                 routeTable = table
@@ -116,6 +77,47 @@ class Router: NSObject {
         return nil
     }
     
+    // MARK: - Internal
+    
+    /// 根据资源包的`download_url`获取`route_url`
+    ///
+    /// - Parameter downloadUrl: 资源包下载url
+    /// - Returns:               该资源包的的路由
+    internal func routeUrl(with downloadUrl: URL) -> String? {
+        for (_, routeItem) in routeTable {
+            if let download = routeItem[Constant.DownloadUrl], downloadUrl.absoluteString == download {
+                return routeItem[Constant.RouteUrl]
+            }
+        }
+        return nil
+    }
+    
+    /// 根据路由URL获取资源包的下载URL
+    ///
+    /// - Parameter routeUrl: 路由URL字符串
+    /// - Returns:            资源包下载URL
+    internal func downloadUrl(with routeUrl: String) -> URL? {
+        for (_, routeItem) in routeTable {
+            if let route = routeItem[Constant.RouteUrl], routeUrl == route, let download = routeItem[Constant.DownloadUrl] {
+                return URL(string: download)
+            }
+        }
+        return nil
+    }
+    
+    /// 获取指定资源包的版本
+    ///
+    /// - Parameter routeUrl: 资源包的路由URL
+    /// - Returns:            该资源包的版本号
+    internal func version(for routeUrl: String) -> String? {
+        for (_, routeItem) in routeTable {
+            if let route = routeItem[Constant.RouteUrl], routeUrl == route, let version = routeItem[Constant.Version] {
+                return version
+            }
+        }
+        return nil
+    }
+    
     // MARK: - Private
     
     struct Constant {
@@ -148,7 +150,7 @@ class Router: NSObject {
     }
     
     /// 应用更新包
-    fileprivate func applyUpdate() {
+    fileprivate func applyUpdates() {
         guard let tempPath = Util.webappTempPath else {
             LogWarning("Can not access to 'Application Support/Hybrid/temp'")
             return
