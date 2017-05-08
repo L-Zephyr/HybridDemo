@@ -8,7 +8,6 @@
 
 import UIKit
 import GCDWebServer
-import ZipArchive
 
 class WebView: WKWebView {
 

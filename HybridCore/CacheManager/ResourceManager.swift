@@ -7,36 +7,11 @@
 //
 
 import UIKit
-import ZipArchive
+import objective_zip
 
 internal class ResourceManager: NSObject {
     
     public static let shared = ResourceManager()
-    
-    /// 预先打包到App中的资源包路径
-    public var resourcePath: String = "" {
-        didSet {
-            guard FileManager.default.fileExists(atPath: resourcePath) else {
-                LogWarning("资源目录不存在:\(resourcePath)")
-                return
-            }
-            guard let enumertor = FileManager.default.enumerator(at: URL(fileURLWithPath: resourcePath), includingPropertiesForKeys: [URLResourceKey.pathKey]) else {
-                LogWarning("无法遍历目录\(resourcePath)")
-                return
-            }
-            
-            for file in enumertor {
-                guard let fileUrl = file as? URL,
-                    let fileInfo = try? fileUrl.resourceValues(forKeys: [URLResourceKey.pathKey]),
-                    let path = fileInfo.path,
-                    path.lowercased().hasSuffix(".zip") else {
-                    continue
-                }
-                
-                
-            }
-        }
-    }
     
     /// 查询一个资源包信息
     public func webapp(withRoute url: String) -> WebappItem? {
@@ -79,6 +54,56 @@ internal class ResourceManager: NSObject {
         return nil
     }
     
+    /// 预先打包到App中的资源包路径
+    public var resourcePath: String = "" {
+        didSet {
+            guard FileManager.default.fileExists(atPath: resourcePath) else {
+                LogWarning("资源目录不存在:\(resourcePath)")
+                return
+            }
+            guard let enumerator = FileManager.default.enumerator(at: URL(fileURLWithPath: resourcePath), includingPropertiesForKeys: [URLResourceKey.pathKey]) else {
+                LogWarning("无法遍历目录\(resourcePath)")
+                return
+            }
+            
+            for file in enumerator {
+                guard let fileUrl = file as? URL,
+                    let fileInfo = try? fileUrl.resourceValues(forKeys: [URLResourceKey.pathKey]),
+                    let path = fileInfo.path,
+                    path.lowercased().hasSuffix(".zip") else {
+                        continue
+                }
+            }
+            
+            
+            let zip = OZZipFile(fileName: "", mode: .unzip)
+            if zip.locateFile(inZip: Util.Constant.webappInfoFile) {
+                let fileInfo = zip.getCurrentFileInZipInfo()
+                if let data = NSMutableData(length: Int(fileInfo.length)) {
+                    let read = zip.readCurrentFileInZip()
+                    read.readData(withBuffer: data)
+                    
+                    do {
+                        if let info = try JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as? [[String : String]] {
+                            // 读取压缩包中的信息文件
+                            for infoItem in info {
+                                if let routeUrl = infoItem[Router.Constant.RouteUrl] {
+                                    
+                                }
+                            }
+                        }
+                    } catch {
+                        
+                    }
+                    
+                    read.finishedReading()
+                }
+            } else {
+                LogWarning("资源包中没有\(Util.Constant.webappInfoFile)文件，该资源包包将被忽略")
+            }
+        }
+    }
+    
     override init() {
         super.init()
         initDatabase()
@@ -109,7 +134,7 @@ extension ResourceManager: URLSessionDownloadDelegate {
     }
 }
 
-// MARK: - Data Base
+// MARK: - Database
 
 internal extension ResourceManager {
     

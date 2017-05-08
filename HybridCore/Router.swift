@@ -120,7 +120,7 @@ class Router: NSObject {
     
     // MARK: - Private
     
-    struct Constant {
+    internal struct Constant {
         static let RouteUrl = "route_url"
         static let DownloadUrl = "download_url"
         static let Version = "version"

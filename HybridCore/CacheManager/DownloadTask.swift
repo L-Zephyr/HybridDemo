@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ZipArchive
 
 class DownloadTask: NSObject {
     
@@ -93,7 +92,6 @@ extension DownloadTask: URLSessionDownloadDelegate {
             return
         }
         
-        let zip = ZipArchive()
         let localUrl = webappPath.appendingPathComponent(routeUrl.md5())
                 
         // 已存在旧的资源包则先保存到临时文件夹, 下次启动时再更新
@@ -104,14 +102,14 @@ extension DownloadTask: URLSessionDownloadDelegate {
             }
             
             let targetPath = webappTempPath.appendingPathComponent(routeUrl.md5())
-            if zip.unzipOpenFile(location.path) && zip.unzipFile(to: targetPath.path, overWrite: true) {
+            if Util.unzip(from: location, to: targetPath) {
                 callback(localUrl, nil)
             } else {
                 LogError("Unzip file '\(location.path)' failed")
                 callback(nil, NSError(domain: "Unzip error", code: 6004, userInfo: nil))
             }
         } else {
-            if zip.unzipOpenFile(location.path) && zip.unzipFile(to: localUrl.path, overWrite: true) {
+            if Util.unzip(from: location, to: localUrl) {
                 // 将webapp储存到数据库
                 // FIXME: 插入数据库的时机和方式可以优化
                 let webapp = WebappItem()
