@@ -55,51 +55,41 @@ internal class ResourceManager: NSObject {
     }
     
     /// 预先打包到App中的资源包路径
-    public var resourcePath: String = "" {
+    public var resourcePreloadPath: String = "" {
         didSet {
-            guard FileManager.default.fileExists(atPath: resourcePath) else {
-                LogWarning("资源目录不存在:\(resourcePath)")
+            guard FileManager.default.fileExists(atPath: resourcePreloadPath) else {
+                LogWarning("资源目录不存在:\(resourcePreloadPath)")
                 return
             }
-            guard let enumerator = FileManager.default.enumerator(at: URL(fileURLWithPath: resourcePath), includingPropertiesForKeys: [URLResourceKey.pathKey]) else {
-                LogWarning("无法遍历目录\(resourcePath)")
+            guard let enumerator = FileManager.default.enumerator(at: URL(fileURLWithPath: resourcePreloadPath), includingPropertiesForKeys: [.pathKey]) else {
+                LogWarning("无法遍历目录\(resourcePreloadPath)")
                 return
             }
             
+            // 遍历预装的资源包目录
             for file in enumerator {
                 guard let fileUrl = file as? URL,
-                    let fileInfo = try? fileUrl.resourceValues(forKeys: [URLResourceKey.pathKey]),
-                    let path = fileInfo.path,
-                    path.lowercased().hasSuffix(".zip") else {
+                    let fileInfo = try? fileUrl.resourceValues(forKeys: [.pathKey]),
+                    let zipPath = fileInfo.path,
+                    zipPath.lowercased().hasSuffix(".zip") else {
                         continue
                 }
-            }
-            
-            
-            let zip = OZZipFile(fileName: "", mode: .unzip)
-            if zip.locateFile(inZip: Util.Constant.webappInfoFile) {
-                let fileInfo = zip.getCurrentFileInZipInfo()
-                if let data = NSMutableData(length: Int(fileInfo.length)) {
-                    let read = zip.readCurrentFileInZip()
-                    read.readData(withBuffer: data)
-                    
-                    do {
-                        if let info = try JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as? [[String : String]] {
-                            // 读取压缩包中的信息文件
-                            for infoItem in info {
-                                if let routeUrl = infoItem[Router.Constant.RouteUrl] {
-                                    
-                                }
-                            }
-                        }
-                    } catch {
-                        
-                    }
-                    
-                    read.finishedReading()
+                
+                guard let info = Util.loadJsonObject(fromZip: URL(fileURLWithPath: zipPath)) as? [String : String], let webappPath = Util.webappPath else {
+                    continue
                 }
-            } else {
-                LogWarning("资源包中没有\(Util.Constant.webappInfoFile)文件，该资源包包将被忽略")
+                
+                if let route = info[Router.Constant.RouteUrl], let version = info[Router.Constant.Version] {
+                    let targetPath = webappPath.appendingPathComponent(route.md5()) // 资源包安装路径
+                    
+                    if let webapp = self.webapp(withRoute: route) { // 资源包已存在
+                        if webapp.version < version { // 当前资源包版本较低则更新
+                            Util.unzip(from: URL(fileURLWithPath: zipPath), to: targetPath)
+                        }
+                    } else { // 资源保存不存在则直接解压到安装目录
+                        Util.unzip(from: URL(fileURLWithPath: zipPath), to: targetPath)
+                    }
+                }
             }
         }
     }

@@ -18,8 +18,9 @@ internal class Util {
     
     struct Constant {
         static let webappInfoFile = "webapp_info.json"
-        static let preloadInfoFile = "preload_info.json"
     }
+    
+    // MARK: - 获取文件夹路径
     
     /// 获取Application Support文件夹路径
     class var appSpportPath: URL? {
@@ -83,6 +84,8 @@ internal class Util {
         return NSTemporaryDirectory()
     }
     
+    // MARK: - 创建文件和文件夹
+    
     /// 创建文件夹
     ///
     /// - Parameter path: 文件夹路径
@@ -112,6 +115,8 @@ internal class Util {
         }
         return true
     }
+    
+    // MARK: - 读取
     
     /// 解压文件，覆盖目标路径的相同文件
     ///
@@ -164,6 +169,35 @@ internal class Util {
         return true
     }
     
+    /// 从资源包中读取json配置文件
+    class func loadJsonObject(fromZip zipPath: URL) -> Any? {
+        guard FileManager.default.fileExists(atPath: zipPath.path) else {
+            LogWarning("\(zipPath.path) 资源包不存在")
+            return nil
+        }
+        
+        let zipFile = OZZipFile(fileName: zipPath.path, mode: .unzip)
+        if zipFile.locateFile(inZip: Util.Constant.webappInfoFile) {
+            let fileInfo = zipFile.getCurrentFileInZipInfo()
+            let read = zipFile.readCurrentFileInZip()
+            if let data = NSMutableData(length: Int(fileInfo.length)) {
+                _ = read.readData(withBuffer: data)
+                zipFile.close()
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data as Data, options: .allowFragments)
+                    return json
+                } catch {
+                    LogError("从资源包'\(zipPath.path)'读取配置文件失败: \(error)")
+                    return nil
+                }
+            }
+        } else {
+            LogError("资源包'\(zipPath.path)'中没有’\(Util.Constant.webappInfoFile)‘文件")
+        }
+        
+        return nil
+    }
+    
     /// 读取一个json配置文件
     class func loadJsonObject(fromUrl url: URL?) -> Any? {
         guard let url = url, FileManager.default.fileExists(atPath: url.path) else {
@@ -179,6 +213,8 @@ internal class Util {
         
         return nil
     }
+    
+    // MARK: - 其他
     
     /// url是否指向一个文件夹
     class func isFolder(url: URL) -> Bool {
