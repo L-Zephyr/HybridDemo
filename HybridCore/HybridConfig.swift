@@ -17,9 +17,9 @@ public class HybridConfig {
     }
     
     /// 预先打包到App中的资源包路径
-    static var resourcePath: String = "" {
+    static var resourcePreloadPath: String = "" {
         didSet {
-            ResourceManager.shared.resourcePath = resourcePath
+            ResourceManager.shared.resourcePreloadPath = resourcePreloadPath
         }
     }
     

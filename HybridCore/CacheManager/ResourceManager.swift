@@ -82,12 +82,16 @@ internal class ResourceManager: NSObject {
                 if let route = info[Router.Constant.RouteUrl], let version = info[Router.Constant.Version] {
                     let targetPath = webappPath.appendingPathComponent(route.md5()) // 资源包安装路径
                     
-                    if let webapp = self.webapp(withRoute: route) { // 资源包已存在
-                        if webapp.version < version { // 当前资源包版本较低则更新
-                            Util.unzip(from: URL(fileURLWithPath: zipPath), to: targetPath)
+                    // 资源包已存在则判断版本
+                    if let webapp = self.webapp(withRoute: route) {
+                        // 当前资源包版本较低则更新
+                        if webapp.version < version && Util.unzip(from: URL(fileURLWithPath: zipPath), to: targetPath) {
+                           self.insert(WebappItem(routeUrl: route, localPath: targetPath.path, version: version))
                         }
-                    } else { // 资源保存不存在则直接解压到安装目录
-                        Util.unzip(from: URL(fileURLWithPath: zipPath), to: targetPath)
+                    }
+                    // 资源包不存在则直接解压到安装目录
+                    else if Util.unzip(from: URL(fileURLWithPath: zipPath), to: targetPath) {
+                        self.insert(WebappItem(routeUrl: route, localPath: targetPath.path, version: version))
                     }
                 }
             }
@@ -152,11 +156,10 @@ internal extension ResourceManager {
         query { (database) -> Bool in
             let createTable = "create table if not exists \(Table.Name)(" +
                 "\(Table.RouteUrl) text primary key, " +
-                "\(Table.ZipPath) text, " +
                 "\(Table.LocalPath) text, " +
                 "\(Table.Version) text);"
             if sqlite3_exec(database, createTable, nil, nil, nil) != SQLITE_OK {
-                LogError("Fail to create database table: \(String(cString: sqlite3_errmsg(database)))")
+                LogError("创建数据库表失败: \(String(cString: sqlite3_errmsg(database)))")
                 return false
             }
             
@@ -183,13 +186,11 @@ internal extension ResourceManager {
                     if let routeUrl = sqlite3_column_text(stat, 0) {
                         webapp?.routeUrl = String(cString: routeUrl)
                     }
-                    if let zipPath = sqlite3_column_text(stat, 1) {
-                        webapp?.zipPath = String(cString: zipPath)
-                    }
-                    if let localPath = sqlite3_column_text(stat, 2), let rootPath = Util.appSpportPath {
+
+                    if let localPath = sqlite3_column_text(stat, 1), let rootPath = Util.appSpportPath {
                         webapp?.localPath = rootPath.appendingPathComponent(String(cString: localPath)).path
                     }
-                    if let version = sqlite3_column_text(stat, 3) {
+                    if let version = sqlite3_column_text(stat, 2) {
                         webapp?.version = String(cString: version)
                     }
                     result = true
@@ -215,7 +216,7 @@ internal extension ResourceManager {
             guard let relativePath = item.localUrl.relatedTo(Util.appSpportPath)?.path else {
                 return false
             }
-            let sql = "insert or replace into \(Table.Name) values ('\(item.routeUrl)', '\(item.zipPath)', '\(relativePath)', '\(item.version)');"
+            let sql = "insert or replace into \(Table.Name) values ('\(item.routeUrl)', '\(relativePath)', '\(item.version)');"
             if sqlite3_exec(database, sql, nil, nil, nil) != SQLITE_OK {
                 LogError("Fail to insert into Table \(Table.Name): \(String(cString: sqlite3_errmsg(database)))")
                 return false

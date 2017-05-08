@@ -234,7 +234,6 @@ internal class Util {
 }
 
 internal extension URL {
-    
     /// 获取相对路径，只对本地文件URL有效
     ///
     /// - Parameter baseUrl: 基准URL
@@ -246,5 +245,24 @@ internal extension URL {
         
         let relatedPath = self.path.substring(from: baseUrl.path.endIndex)
         return URL(fileURLWithPath: relatedPath)
+    }
+}
+
+extension String {
+    /// 获取字符串的md5值
+    ///
+    /// - Returns: 字符串的md5
+    internal func md5() -> String {
+        let str = self.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
+        CC_MD5(str!, strLen, result)
+        let hash = NSMutableString()
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[i])
+        }
+        result.deinitialize()
+        return (hash as String)
     }
 }

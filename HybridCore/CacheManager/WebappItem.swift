@@ -8,14 +8,11 @@
 
 import UIKit
 
-internal class WebappItem: NSObject {
+internal struct WebappItem {
     
     /// 资源包的路由URL
     public var routeUrl: String = ""
-    
-    /// 资源包压缩包的位置
-    public var zipPath: String = ""
-    
+
     /// 解压后的本地保存位置
     public var localPath: String = ""
     

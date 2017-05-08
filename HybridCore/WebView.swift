@@ -19,7 +19,7 @@ class WebView: WKWebView {
         } else {
             // readAccessURL必须是文件夹，且包含文件URL
             if !Util.isFolder(url: readAccessURL) {
-                LogError("`readAccessURL` must reference to a foler url!")
+                LogError("'\(readAccessURL.path)'不是文件夹")
                 return nil
             }
             
@@ -27,11 +27,11 @@ class WebView: WKWebView {
             do {
                 try FileManager.default.getRelationship(&relationship, ofDirectoryAt: readAccessURL, toItemAt: URL)
             } catch {
-                LogError("Get file relation ship error: \(error)")
+                LogError("获取文件关系失败: \(error)")
             }
             
             if relationship == .other {
-                LogError("`readAccessURL` must contain the file `URL`")
+                LogError("'\(readAccessURL.path)'目录中必须包含'\(URL.path)'文件")
                 return nil
             }
             
@@ -71,15 +71,15 @@ class WebView: WKWebView {
     
     /// 通过URL加载资源
     ///
-    /// - Parameter url: 资源URL，支持网络资源和本地文件
+    /// - Parameter url: 资源URL，支持网络资源、本地文件和本地文件夹
     public func load(url: URL) {
         if url.isFileURL {
-             if Util.isFolder(url: url) { // 指向一个本地的文件夹
+             if Util.isFolder(url: url) { // 加载一个本地的文件夹
                 // 读取webapp_info.json文件
-                let infoUrl = url.appendingPathComponent("webapp_info.json")
+                let infoUrl = url.appendingPathComponent(Util.Constant.webappInfoFile)
                 
                 guard FileManager.default.fileExists(atPath: infoUrl.path) else {
-                    LogError("Profile file `webapp_info.json` not found in \(url.path)")
+                    LogError("目录'\(url.path)'中未找到配置文件`\(Util.Constant.webappInfoFile)`")
                     return
                 }
                 guard let profile = Util.loadJsonObject(fromUrl: infoUrl) as? [String : String] else {
@@ -87,11 +87,11 @@ class WebView: WKWebView {
                 }
                 
                 if let entrance = profile["entrance"] {
-                    LogVerbose("Local Web path: '\(url.path)'\nEntrance: '\(entrance)'")
+                    LogVerbose("加载本地资源包: '\(url.path)'\n入口文件: '\(entrance)'")
                     let entranceUrl = url.appendingPathComponent(entrance)
                     _ = loadFileURL(entranceUrl, allowingReadAccessTo: url)
                 } else {
-                    LogError("Entrance not found in file: '\(infoUrl.path)'")
+                    LogError("未指定入口文件: '\(infoUrl.path)'")
                 }
             } else { // 加载一个单独的本地文件
                 let request = URLRequest(url: url)

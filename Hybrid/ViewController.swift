@@ -16,6 +16,10 @@ class ViewController: UIViewController {
         
         // load local resouce
         TimeLogger.sharedLogger.startTimeLog()
+        
+        if let preload = Bundle.main.resourceURL?.appendingPathComponent("HybridResource") {
+            HybridConfig.resourcePreloadPath = preload.path
+        }
                 
         if let resUrl = Bundle.main.resourceURL {
             let url = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("route.json")

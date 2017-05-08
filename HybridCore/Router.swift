@@ -20,7 +20,7 @@ class Router: NSObject {
             applyUpdates()
             
             if !FileManager.default.fileExists(atPath: routeFilePath) {
-                LogError("Route file not exist at: \(routeFilePath)")
+                LogError("\(routeFilePath)路由表配置文件不存在")
                 routeTable = [:]
                 return
             }
@@ -171,7 +171,7 @@ class Router: NSObject {
     /// 将临时文件夹的资源包移动到目标文件夹中
     fileprivate func installPackage(at tempPath: URL) {
         guard let targetPath = Util.webappPath?.appendingPathComponent(tempPath.lastPathComponent) else {
-            LogError("Can not access to 'Application Support/Hybrid/webapp'")
+            LogError("无法访问'Application Support/Hybrid/webapp'")
             return
         }
         guard let webappInfo = Util.loadJsonObject(fromUrl: tempPath.appendingPathComponent(Util.Constant.webappInfoFile)) as? [String : String] else {
@@ -187,7 +187,7 @@ class Router: NSObject {
                 }
                 try FileManager.default.moveItem(at: tempPath, to: targetPath)
                 
-                let webapp = WebappItem()
+                var webapp = WebappItem()
                 webapp.routeUrl = route
                 webapp.localPath = targetPath.path
                 webapp.version = version
@@ -198,7 +198,7 @@ class Router: NSObject {
                 removePackage(at: tempPath)
             }
         } catch {
-            LogError("Move director failed: \(error)")
+            LogError("移动文件夹失败: \(error)")
         }
     }
     
