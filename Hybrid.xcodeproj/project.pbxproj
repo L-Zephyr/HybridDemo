@@ -17,8 +17,6 @@
 		BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C61DFCE92B00B6C00E /* LaunchScreen.storyboard */; };
 		BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */; };
 		BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */; };
-		BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */; };
-		BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2F81DFED79900B6C00E /* Util.swift */; };
 		BB2D56DC1E0047E000098738 /* HybridResource in Resources */ = {isa = PBXBuildFile; fileRef = BB2D56DB1E0047E000098738 /* HybridResource */; };
 		BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D56DD1E004CCB00098738 /* HybridConfig.swift */; };
 		BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */; };
@@ -31,6 +29,8 @@
 		BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEF1EAB5C59009F664C /* DownloadTask.swift */; };
 		BB679FF21EAE09B4009F664C /* WebappItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FF11EAE09B4009F664C /* WebappItem.swift */; };
 		BB70AE5C1EBE093700FD898A /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AE5B1EBE093700FD898A /* NativePlugin.swift */; };
+		BB70AED21EC07B3100FD898A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AED01EC07B3100FD898A /* String+Extension.swift */; };
+		BB70AED31EC07B3100FD898A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AED11EC07B3100FD898A /* Util.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
@@ -74,9 +74,6 @@
 		BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridTests.swift; sourceTree = "<group>"; };
 		BB1DD2D41DFCE92B00B6C00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLogger.swift; sourceTree = "<group>"; };
-		BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		BB1DD2F31DFD9B2B00B6C00E /* Hybrid-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hybrid-Bridging-Header.h"; sourceTree = "<group>"; };
-		BB1DD2F81DFED79900B6C00E /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		BB2D56DB1E0047E000098738 /* HybridResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HybridResource; sourceTree = "<group>"; };
 		BB2D56DD1E004CCB00098738 /* HybridConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HybridConfig.swift; sourceTree = "<group>"; };
 		BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginLoader.swift; sourceTree = "<group>"; };
@@ -91,6 +88,9 @@
 		BB679FEF1EAB5C59009F664C /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
 		BB679FF11EAE09B4009F664C /* WebappItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebappItem.swift; sourceTree = "<group>"; };
 		BB70AE5B1EBE093700FD898A /* NativePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlugin.swift; sourceTree = "<group>"; };
+		BB70AECF1EC07B3100FD898A /* Hybrid-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hybrid-Bridging-Header.h"; sourceTree = "<group>"; };
+		BB70AED01EC07B3100FD898A /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		BB70AED11EC07B3100FD898A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -204,8 +204,8 @@
 			children = (
 				BB7B15B21E94946F00BBD5E8 /* Bridge */,
 				BB37ABC51E96388100D9D7BA /* Plugin */,
-				BB1DD2F01DFD987B00B6C00E /* Utils */,
 				BB1DD2ED1DFD8D0C00B6C00E /* CacheManager */,
+				BB70AECE1EC07B3100FD898A /* Utils */,
 				BB7B15C51E94978500BBD5E8 /* WebView.swift */,
 				BB679FEC1EA7C15D009F664C /* WebViewController.swift */,
 				BB2D56DD1E004CCB00098738 /* HybridConfig.swift */,
@@ -233,16 +233,6 @@
 			path = CacheManager;
 			sourceTree = "<group>";
 		};
-		BB1DD2F01DFD987B00B6C00E /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				BB1DD2F31DFD9B2B00B6C00E /* Hybrid-Bridging-Header.h */,
-				BB1DD2F81DFED79900B6C00E /* Util.swift */,
-				BB1DD2F11DFD98BB00B6C00E /* String+Extension.swift */,
-			);
-			name = Utils;
-			sourceTree = "<group>";
-		};
 		BB37ABC51E96388100D9D7BA /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +251,16 @@
 				BB3AB3311E9A4FD900139919 /* NativePlugin.swift */,
 			);
 			name = Plugin;
+			sourceTree = "<group>";
+		};
+		BB70AECE1EC07B3100FD898A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BB70AECF1EC07B3100FD898A /* Hybrid-Bridging-Header.h */,
+				BB70AED01EC07B3100FD898A /* String+Extension.swift */,
+				BB70AED11EC07B3100FD898A /* Util.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		BB7B15B21E94946F00BBD5E8 /* Bridge */ = {
@@ -530,15 +530,15 @@
 				BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */,
 				BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */,
 				BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */,
-				BB1DD2F21DFD98BB00B6C00E /* String+Extension.swift in Sources */,
 				BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */,
 				BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */,
-				BB1DD2F91DFED79900B6C00E /* Util.swift in Sources */,
 				BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */,
 				BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */,
 				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,
 				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,
+				BB70AED21EC07B3100FD898A /* String+Extension.swift in Sources */,
 				BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */,
+				BB70AED31EC07B3100FD898A /* Util.swift in Sources */,
 				BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */,
 				BB37ABD11E96869500D9D7BA /* PluginInstance.m in Sources */,
 				BB3CFD9A1EA5E29B003DFF06 /* HybridNavigator.m in Sources */,
