@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RJBCommons.h"
 
-@interface PluginInstance : NSObject<NSCopying>
+@interface PluginInstance : NSObject
 
 /**
  插件的名字

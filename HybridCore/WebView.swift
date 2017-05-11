@@ -124,6 +124,5 @@ class WebView: WKWebView {
     // MARK: - Private
     
     fileprivate var bridge: ReflectJavascriptBridge?
-    
     fileprivate static let server: GCDWebServer = GCDWebServer()
 }

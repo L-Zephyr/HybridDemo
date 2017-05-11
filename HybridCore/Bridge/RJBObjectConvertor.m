@@ -116,7 +116,7 @@
     NSString *returnType = [[NSString stringWithUTF8String:sign.methodReturnType] substringToIndex:1];
     
     NSString *blockInfo = [NSString stringWithFormat:@"{__identifier: \"%@\", __className: \"NSBlock\"}", identifier];
-    NSString *jsBody = [NSString stringWithFormat:@"window.Hybrid.sendCommand(%@, null, %ld, Array.prototype.slice.call(arguments), \"%@\");", blockInfo, sign.numberOfArguments - 1, returnType];
+    NSString *jsBody = [NSString stringWithFormat:@"window.Hybrid.sendCommand(%@, null, %lu, Array.prototype.slice.call(arguments), \"%@\");", blockInfo, sign.numberOfArguments - 1, returnType];
     [_js appendString:jsBody];
     
     [_js appendString:@"}"];
@@ -165,7 +165,7 @@
 
 - (NSString *)jsMethodBodyWithName:(NSString *)methodName signature:(NSMethodSignature *)sign {
     NSString *retType = [[NSString stringWithUTF8String:sign.methodReturnType] substringToIndex:1];
-    return [NSString stringWithFormat:@"window.Hybrid.sendCommand(this, \"%@\", %ld,  Array.prototype.slice.call(arguments),'%@');", methodName, sign.numberOfArguments - 2, retType];
+    return [NSString stringWithFormat:@"window.Hybrid.sendCommand(this, \"%@\", %lu,  Array.prototype.slice.call(arguments),'%@');", methodName, sign.numberOfArguments - 2, retType];
 }
 
 /**

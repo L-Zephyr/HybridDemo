@@ -129,7 +129,6 @@
                 if (RJB_isClass(type)) {
                     NSData *jsonData = [argInfo[Data] dataUsingEncoding:NSUTF8StringEncoding];
                     id param = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
-                    // TODO: 区分array和dictionary
                     if (param) {
                         [invocation setArgument:&param atIndex:paramIndex];
                     } else {

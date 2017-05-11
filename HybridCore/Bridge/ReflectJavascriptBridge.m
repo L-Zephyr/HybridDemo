@@ -14,7 +14,7 @@
 #import "Hybrid-Swift.h"
 #import "PluginInstance.h"
 
-@interface ReflectJavascriptBridge() <UIWebViewDelegate, WKScriptMessageHandler, WKNavigationDelegate>
+@interface ReflectJavascriptBridge() <UIWebViewDelegate, WKNavigationDelegate>
 
 //@property (nonatomic) NSMutableDictionary<NSString *, id> *reflectObjects; 
 //@property (nonatomic) NSMutableDictionary<NSString *, id> *waitingObjects; // wait for bridge
@@ -206,15 +206,6 @@
     }];
 }
 
-- (void)dealloc {
-    
-}
-
-#pragma mark - WKScriptMessageHandler
-
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    
-}
 
 #pragma mark - Subscript
 

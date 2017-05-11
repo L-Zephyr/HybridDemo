@@ -23,9 +23,10 @@ internal class PluginLoader: NSObject {
             autoLoadPlugin()
         }
         
-        return basePlugins.map({ (instance) -> PluginInstance in
-            return instance.copy() as! PluginInstance
-        })
+//        return basePlugins.map({ (instance) -> PluginInstance in
+//            return instance.copy() as! PluginInstance
+//        })
+        return basePlugins
     }
     
     // MARK: - Private

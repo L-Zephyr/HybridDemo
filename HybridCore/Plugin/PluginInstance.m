@@ -41,7 +41,7 @@
                 invocation.selector = nameSel;
                 [invocation invoke];
                 
-                id ret = nil;
+                __weak id ret = nil;
                 [invocation getReturnValue:&ret];
                 _pluginName = (NSString *)ret;
             }
@@ -79,16 +79,6 @@
     }
     
     return _bridgedJs;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    PluginInstance *copy = [[[self class] allocWithZone:zone] init];
-    copy->_pluginName = [_pluginName copy];
-    copy->_pluginClass = _pluginClass;
-    copy->_instance = nil;
-    copy->_isInitialized = NO;
-    copy->_bridgedJs = [[self bridgedJs] copy];
-    return copy;
 }
 
 @end
