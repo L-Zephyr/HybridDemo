@@ -24,7 +24,7 @@ public class HybridConfig {
     }
     
     /// 日志等级
-    static var logLevel: Logger.LoggerLevel = .Info {
+    static var logLevel: Logger.LoggerLevel = .Warning {
         didSet {
             LogLevel = logLevel
         }

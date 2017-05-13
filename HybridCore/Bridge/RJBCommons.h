@@ -15,8 +15,6 @@
 
 #define Hybrid_LogVerbose(...) [Logger LogVerbose:[NSString stringWithFormat:__VA_ARGS__]];
 
-#define Hybrid_LogInfo(...) [Logger LogInfo:[NSString stringWithFormat:__VA_ARGS__]];
-
 #define Hybrid_LogWarning(...) [Logger LogWarning:[NSString stringWithFormat:__VA_ARGS__]];
 
 #define Hybrid_LogError(...) [Logger LogError:[NSString stringWithFormat:__VA_ARGS__]];

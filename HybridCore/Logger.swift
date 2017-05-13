@@ -11,9 +11,8 @@ import UIKit
 class Logger: NSObject {
     enum LoggerLevel: Int {
         case Verbose = 0
-        case Info = 1
-        case Warning = 2
-        case Error = 3
+        case Warning = 1
+        case Error = 2
     }
     
     public static var level: LoggerLevel = .Warning
@@ -21,12 +20,6 @@ class Logger: NSObject {
     public class func LogVerbose(_ log: String) {
         if LogLevel.rawValue <= LoggerLevel.Verbose.rawValue {
             printLog(level: .Verbose, log: log)
-        }
-    }
-    
-    public class func LogInfo(_ log: String) {
-        if LogLevel.rawValue <= LoggerLevel.Info.rawValue {
-            printLog(level: .Info, log: log)
         }
     }
     
@@ -63,10 +56,6 @@ internal var LogLevel: Logger.LoggerLevel {
 
 internal func LogVerbose(_ log: String) {
     Logger.LogVerbose(log)
-}
-
-internal func LogInfo(_ log: String) {
-    Logger.LogInfo(log)
 }
 
 internal func LogWarning(_ log: String) {

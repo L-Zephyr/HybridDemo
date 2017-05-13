@@ -69,16 +69,6 @@ internal class Util {
         return nil
     }
     
-    /// 获取'Application Support/Hybrid/preload'路径, 用于保存打包到App中的的资源包
-    class var webappPreloadPath: URL? {
-        if let url = appSpportPath?.appendingPathComponent("Hybrid").appendingPathComponent("preload") {
-            if Util.createDirectoryIfNotExist(withPath: url.path) {
-                return url
-            }
-        }
-        return nil
-    }
-    
     /// 获取临时文件夹
     class var tempPath: String {
         return NSTemporaryDirectory()
