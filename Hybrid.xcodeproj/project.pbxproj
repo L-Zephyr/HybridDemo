@@ -15,7 +15,6 @@
 		BB1DD2C51DFCE92B00B6C00E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C41DFCE92B00B6C00E /* Assets.xcassets */; };
 		BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C61DFCE92B00B6C00E /* LaunchScreen.storyboard */; };
 		BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */; };
-		BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */; };
 		BB2D56DC1E0047E000098738 /* HybridResource in Resources */ = {isa = PBXBuildFile; fileRef = BB2D56DB1E0047E000098738 /* HybridResource */; };
 		BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D56DD1E004CCB00098738 /* HybridConfig.swift */; };
 		BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */; };
@@ -70,7 +69,6 @@
 		BB1DD2CE1DFCE92B00B6C00E /* HybridTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HybridTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridTests.swift; sourceTree = "<group>"; };
 		BB1DD2D41DFCE92B00B6C00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLogger.swift; sourceTree = "<group>"; };
 		BB2D56DB1E0047E000098738 /* HybridResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HybridResource; sourceTree = "<group>"; };
 		BB2D56DD1E004CCB00098738 /* HybridConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HybridConfig.swift; sourceTree = "<group>"; };
 		BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginLoader.swift; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				BB3AB3331E9A4FE600139919 /* Plugin */,
-				BB1DD2E71DFCF3D100B6C00E /* Helper */,
 				BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */,
 				BB1DD2BF1DFCE92B00B6C00E /* ViewController.swift */,
 				BB1DD2C11DFCE92B00B6C00E /* Main.storyboard */,
@@ -200,14 +197,6 @@
 				BB92EAC01E1219D1001AB56E /* Logger.swift */,
 			);
 			path = HybridCore;
-			sourceTree = "<group>";
-		};
-		BB1DD2E71DFCF3D100B6C00E /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				BB1DD2E81DFCF3F100B6C00E /* TimeLogger.swift */,
-			);
-			name = Helper;
 			sourceTree = "<group>";
 		};
 		BB1DD2ED1DFD8D0C00B6C00E /* CacheManager */ = {
@@ -517,7 +506,6 @@
 				BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */,
 				BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */,
 				BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */,
-				BB1DD2E91DFCF3F100B6C00E /* TimeLogger.swift in Sources */,
 				BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */,
 				BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */,
 				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,

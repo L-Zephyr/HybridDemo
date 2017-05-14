@@ -14,10 +14,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        Router.shared.delegate = self
-        
-        TimeLogger.sharedLogger.startTimeLog()
-        
         if let preload = Bundle.main.resourceURL?.appendingPathComponent("HybridResource") {
             HybridConfig.resourcePreloadPath = preload.path
         }
@@ -39,8 +35,3 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: HybridRouterDelegate {
-    func viewController(for routeUrl: String, params: [String : String]) -> UIViewController? {
-        return nil
-    }
-}
