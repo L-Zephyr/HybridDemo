@@ -8,11 +8,18 @@
 
 import UIKit
 
-class Router: NSObject {
+@objc public protocol HybridRouterDelegate {
+    // 自定义路由
+    func viewController(for routeUrl: String, params: [String : String]) -> UIViewController?
+}
+
+public class Router: NSObject {
     
     // MARK: - Public
     
     public static let shared = Router()
+    
+    public weak var delegate: HybridRouterDelegate? = nil
     
     /// 设置路由表的本地路径
     public var routeFilePath: String = "" {
@@ -46,12 +53,14 @@ class Router: NSObject {
     ///
     /// - Parameter routeUrl: webapp的url，唯一标示一个Hybrid页面
     /// - Returns:            一个用于展示该页面的WebViewController实例
-    public func webViewController(routeUrl: String) -> WebViewController? {
+    public func webViewController(routeUrl: String) -> UIViewController? {
         return webViewController(routeUrl: routeUrl, params: [:])
     }
     
-    public func webViewController(routeUrl: String, params: [String : Any]) -> WebViewController? {
-        if let webView = webView(routeUrl: routeUrl, params: params) {
+    public func webViewController(routeUrl: String, params: [String : String]) -> UIViewController? {
+        if let delegate = delegate {
+            return delegate.viewController(for: routeUrl, params: params)
+        } else if let webView = webView(routeUrl: routeUrl, params: params) {
             return WebViewController(webView: webView)
         } else {
             return nil

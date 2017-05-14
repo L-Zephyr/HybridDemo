@@ -9,7 +9,7 @@
 import UIKit
 import GCDWebServer
 
-class WebView: WKWebView {
+public class WebView: WKWebView {
 
     // MARK: - Public
     
@@ -117,7 +117,7 @@ class WebView: WKWebView {
         bridge = ReflectJavascriptBridge(self)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

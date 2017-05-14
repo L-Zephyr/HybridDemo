@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Logger: NSObject {
+internal class Logger: NSObject {
     enum LoggerLevel: Int {
         case Verbose = 0
         case Warning = 1

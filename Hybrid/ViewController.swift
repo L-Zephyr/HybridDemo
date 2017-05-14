@@ -14,7 +14,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // load local resouce
+        Router.shared.delegate = self
+        
         TimeLogger.sharedLogger.startTimeLog()
         
         if let preload = Bundle.main.resourceURL?.appendingPathComponent("HybridResource") {
@@ -27,26 +28,19 @@ class ViewController: UIViewController {
         }
 
         if let web = Router.shared.webView(routeUrl: "/main") {
-            web.frame = CGRect(x: 0, y: 20, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            web.frame = CGRect(x: 0, y: 44, width: self.view.frame.size.width, height: self.view.frame.size.height - 44)
             self.view.addSubview(web)
         }
-        
-//        let remoteUrl = "http://localhost:3000/main2.html"
-//        web.load(url: remoteUrl)
-        
-//        if let resUrl = Bundle.main.resourceURL {
-//            let dirUrl = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("webapp")
-//            web.load(url: dirUrl)
-//        }
-        
-//        if let resUrl = Bundle.main.resourceURL {
-//            let dirUrl = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("webapp.zip")
-//            web.load(url: dirUrl)
-//        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+extension ViewController: HybridRouterDelegate {
+    func viewController(for routeUrl: String, params: [String : String]) -> UIViewController? {
+        return nil
     }
 }

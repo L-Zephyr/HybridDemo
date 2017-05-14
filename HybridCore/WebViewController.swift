@@ -8,18 +8,18 @@
 
 import UIKit
 
-class WebViewController: UIViewController {
+public class WebViewController: UIViewController {
     
     init(webView: WebView) {
         super.init(nibName: nil, bundle: nil)
         self.webView = webView
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         if let webView = webView {
@@ -28,7 +28,7 @@ class WebViewController: UIViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

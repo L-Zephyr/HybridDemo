@@ -16,7 +16,11 @@
 }
 
 - (void)push:(NSString *)url params:(NSDictionary *)params {
-    WebViewController *vc = [[Router shared] webViewControllerWithRouteUrl:url params:params];
+    UIViewController *vc = [[Router shared] webViewControllerWithRouteUrl:url params:params];
+    if (!vc) {
+        return;
+    }
+    
     UINavigationController *nv = [self currentNavigationController];
     if (nv) {
         [nv pushViewController:vc animated:YES];
@@ -26,7 +30,11 @@
 }
 
 - (void)present:(NSString *)url params:(NSDictionary *)params {
-    WebViewController *vc = [[Router shared] webViewControllerWithRouteUrl:url params:params];
+    UIViewController *vc = [[Router shared] webViewControllerWithRouteUrl:url params:params];
+    if (!vc) {
+        return;
+    }
+    
     UIViewController *currentVC = [self currentViewController];
     if (currentVC) {
         if (currentVC.navigationController) {

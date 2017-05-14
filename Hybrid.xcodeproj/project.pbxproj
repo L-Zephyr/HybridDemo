@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		BB11F1DA1E02843A006F26FD /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11F1D81E02843A006F26FD /* SecondViewController.swift */; };
 		BB11F1DB1E02843A006F26FD /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB11F1D91E02843A006F26FD /* SecondViewController.xib */; };
-		BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1828431E03D2380077F433 /* HTTPMock.swift */; };
 		BB1DD2BE1DFCE92B00B6C00E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */; };
 		BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2BF1DFCE92B00B6C00E /* ViewController.swift */; };
 		BB1DD2C31DFCE92B00B6C00E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C11DFCE92B00B6C00E /* Main.storyboard */; };
@@ -60,7 +59,6 @@
 		B8B8150592778DD3F750D1FC /* Pods_HybridTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HybridTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB11F1D81E02843A006F26FD /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		BB11F1D91E02843A006F26FD /* SecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
-		BB1828431E03D2380077F433 /* HTTPMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMock.swift; sourceTree = "<group>"; };
 		BB1828471E03F2D70077F433 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		BB1DD2BA1DFCE92B00B6C00E /* Hybrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hybrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,14 +124,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BB1828451E03D23F0077F433 /* HTTPMock */ = {
-			isa = PBXGroup;
-			children = (
-				BB1828431E03D2380077F433 /* HTTPMock.swift */,
-			);
-			name = HTTPMock;
-			sourceTree = "<group>";
-		};
 		BB1828461E03F2D70077F433 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +162,6 @@
 			children = (
 				BB3AB3331E9A4FE600139919 /* Plugin */,
 				BB1DD2E71DFCF3D100B6C00E /* Helper */,
-				BB1828451E03D23F0077F433 /* HTTPMock */,
 				BB1DD2BD1DFCE92B00B6C00E /* AppDelegate.swift */,
 				BB1DD2BF1DFCE92B00B6C00E /* ViewController.swift */,
 				BB1DD2C11DFCE92B00B6C00E /* Main.storyboard */,
@@ -532,7 +521,6 @@
 				BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */,
 				BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */,
 				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,
-				BB1828441E03D2380077F433 /* HTTPMock.swift in Sources */,
 				BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */,
 				BB70AED31EC07B3100FD898A /* Util.swift in Sources */,
 				BB1DD2C01DFCE92B00B6C00E /* ViewController.swift in Sources */,
