@@ -9,7 +9,7 @@
 import UIKit
 
 @objc public protocol HybridRouterDelegate {
-    // 自定义路由
+    // 实现该方法并返回一个UIViewController可以自定义路由，返回nil则走默认的路由流程
     func viewController(for routeUrl: String, params: [String : String]) -> UIViewController?
 }
 
@@ -58,8 +58,8 @@ public class Router: NSObject {
     }
     
     public func webViewController(routeUrl: String, params: [String : String]) -> UIViewController? {
-        if let delegate = delegate {
-            return delegate.viewController(for: routeUrl, params: params)
+        if let delegate = delegate, let vc = delegate.viewController(for: routeUrl, params: params) {
+            return vc
         } else if let webView = webView(routeUrl: routeUrl, params: params) {
             return WebViewController(webView: webView)
         } else {

@@ -24,6 +24,7 @@ class ViewController: UIViewController {
         }
 
         if let web = Router.shared.webView(routeUrl: "/main") {
+            web.delegate = self
             web.frame = CGRect(x: 0, y: 44, width: self.view.frame.size.width, height: self.view.frame.size.height - 44)
             self.view.addSubview(web)
         }
@@ -35,3 +36,10 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: WebViewDelegate {
+    func failView(in webView: WebView, error: NSError) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        view.backgroundColor = UIColor.red
+        return view
+    }
+}

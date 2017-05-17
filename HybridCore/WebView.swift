@@ -9,9 +9,16 @@
 import UIKit
 import GCDWebServer
 
+@objc public protocol WebViewDelegate {
+    // 提供一个失败状态的视图，在加载失败时该视图会覆盖在WebView之上
+    func failView(in webView: WebView, error: NSError) -> UIView?
+}
+
 public class WebView: WKWebView {
 
     // MARK: - Public
+    
+    public weak var delegate: WebViewDelegate? = nil
     
     public override func loadFileURL(_ URL: URL, allowingReadAccessTo readAccessURL: URL) -> WKNavigation? {
         if #available(iOS 9.0, *) {
@@ -64,7 +71,10 @@ public class WebView: WKWebView {
             ResourceManager.shared.downloadPackage(url: downloadUrl, success: { (localPath) in
                 self.load(url: localPath)
             }, failure: { (error) in
-                //TODO: 展示失败视图
+                if let delegate = self.delegate, let view = delegate.failView(in: self, error: error as NSError) {
+                    self.addSubview(view)
+                    view.center = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.height / 2)
+                }
             })
         }
     }

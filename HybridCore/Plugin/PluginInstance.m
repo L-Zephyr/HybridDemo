@@ -41,7 +41,7 @@
                 invocation.selector = nameSel;
                 [invocation invoke];
                 
-                __weak id ret = nil;
+                __unsafe_unretained id ret = nil;
                 [invocation getReturnValue:&ret];
                 _pluginName = (NSString *)ret;
             }
