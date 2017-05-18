@@ -81,6 +81,20 @@ class DownloadTask: NSObject {
         }
         completionBlocks.removeAll()
     }
+    
+    /// 校验资源包完整性
+    fileprivate func verifyPackage(_ path: URL) -> Bool {
+        if let key = HybridConfig.encryptionKey { // 如果启用验证
+            if let info = Util.loadJsonObject(fromZip: path) as? [String : String], let md5 = info[Router.Constant.MD5] {
+                return ValidationChecker.validateFile(path, with: md5, using: key)
+            } else {
+                LogError("资源包中缺少的MD5信息，校验失败")
+                return false
+            }
+        } else {
+            return true
+        }
+    }
 }
 
 // MARK: - URLSessionDownloadDelegate
@@ -92,9 +106,15 @@ extension DownloadTask: URLSessionDownloadDelegate {
             return
         }
         
+        guard verifyPackage(location) else {
+            LogWarning("\(downloadUrl.absoluteString)资源包完整性校验失败，可能已被篡改!")
+            callback(nil, NSError(domain: "资源包完整性校验失败，可能已被篡改", code: 6006, userInfo: nil))
+            return
+        }
+        
         let localUrl = webappPath.appendingPathComponent(routeUrl.md5())
                 
-        // 已存在旧的资源包则先保存到临时文件夹, 下次启动时再更新
+        // 已存在旧的资源包则先解压到临时文件夹, 下次启动时再更新
         if ResourceManager.shared.webapp(withRoute: routeUrl) != nil {
             guard let webappTempPath = Util.webappTempPath else {
                 callback(nil, NSError(domain: "无法访问 'Application Support/Hybrid/temp'", code: 6003, userInfo: nil))

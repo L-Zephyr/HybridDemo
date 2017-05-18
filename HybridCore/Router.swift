@@ -133,6 +133,7 @@ public class Router: NSObject {
         static let RouteUrl = "route_url"
         static let DownloadUrl = "download_url"
         static let Version = "version"
+        static let MD5 = "md5"
     }
     
     fileprivate var routeTable: [String : [String : String]] = [:]; // 路由表

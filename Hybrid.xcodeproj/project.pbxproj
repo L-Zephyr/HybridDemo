@@ -28,12 +28,12 @@
 		BB679FF21EAE09B4009F664C /* WebappItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FF11EAE09B4009F664C /* WebappItem.swift */; };
 		BB70AE5C1EBE093700FD898A /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AE5B1EBE093700FD898A /* NativePlugin.swift */; };
 		BB70AED31EC07B3100FD898A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AED11EC07B3100FD898A /* Util.swift */; };
+		BB70AEDD1ECC872300FD898A /* ValidationChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AEDC1ECC872300FD898A /* ValidationChecker.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
 		BB7B15C01E94946F00BBD5E8 /* RJBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B61E94946F00BBD5E8 /* RJBCommand.m */; };
 		BB7B15C11E94946F00BBD5E8 /* RJBCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B81E94946F00BBD5E8 /* RJBCommons.m */; };
 		BB7B15C21E94946F00BBD5E8 /* RJBObjectConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15BA1E94946F00BBD5E8 /* RJBObjectConvertor.m */; };
 		BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15C51E94978500BBD5E8 /* WebView.swift */; };
-		BB92EABF1E10EBE3001AB56E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */; };
 		BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92EAC01E1219D1001AB56E /* Logger.swift */; };
 		BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */; };
 		DC62629D43CF03E5AF473C60 /* Pods_Hybrid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72DD68026FA84DA37140D7 /* Pods_Hybrid.framework */; };
@@ -85,6 +85,7 @@
 		BB70AE5B1EBE093700FD898A /* NativePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlugin.swift; sourceTree = "<group>"; };
 		BB70AECF1EC07B3100FD898A /* Hybrid-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hybrid-Bridging-Header.h"; sourceTree = "<group>"; };
 		BB70AED11EC07B3100FD898A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		BB70AEDC1ECC872300FD898A /* ValidationChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationChecker.swift; sourceTree = "<group>"; };
 		BB7B15B31E94946F00BBD5E8 /* ReflectJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectJavascriptBridge.h; sourceTree = "<group>"; };
 		BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectJavascriptBridge.m; sourceTree = "<group>"; };
 		BB7B15B51E94946F00BBD5E8 /* RJBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RJBCommand.h; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB92EABF1E10EBE3001AB56E /* JavaScriptCore.framework in Frameworks */,
 				BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */,
 				DC62629D43CF03E5AF473C60 /* Pods_Hybrid.framework in Frameworks */,
 			);
@@ -234,6 +234,7 @@
 			children = (
 				BB70AECF1EC07B3100FD898A /* Hybrid-Bridging-Header.h */,
 				BB70AED11EC07B3100FD898A /* Util.swift */,
+				BB70AEDC1ECC872300FD898A /* ValidationChecker.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -507,6 +508,7 @@
 				BB62B22E1EA34BAE00927DD0 /* ResourceManager.swift in Sources */,
 				BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */,
 				BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */,
+				BB70AEDD1ECC872300FD898A /* ValidationChecker.swift in Sources */,
 				BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */,
 				BB3AB3321E9A4FD900139919 /* NativePlugin.swift in Sources */,
 				BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */,

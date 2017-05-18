@@ -1,17 +1,20 @@
 PODS:
+  - CryptoSwift (0.6.7)
   - GCDWebServer (3.3.3):
     - GCDWebServer/Core (= 3.3.3)
   - GCDWebServer/Core (3.3.3)
   - objective-zip (1.0.3)
 
 DEPENDENCIES:
+  - CryptoSwift
   - GCDWebServer (~> 3.0)
   - objective-zip (~> 1.0)
 
 SPEC CHECKSUMS:
+  CryptoSwift: 685ae257941e5447474348a2b545583e1a16b573
   GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
   objective-zip: 2f4eba2ed4a06ed74c7e6e4e7b80e6cacf212217
 
-PODFILE CHECKSUM: 515b981ffe82a72a139368dfeaf5318d7cd50bf2
+PODFILE CHECKSUM: fe59e8fbe8739a122364f5cb8543e7d416a3b15f
 
 COCOAPODS: 1.1.1
