@@ -23,7 +23,7 @@ public class HybridConfig {
         }
     }
     
-    /// 资源包MD5值的解密秘钥，若设置了该值则表明启用资源包防篡改校验，资源包中的webapp_info.json文件中需要带上DES加密后的MD5值
+    /// 资源包MD5值的解密秘钥，若设置了该值则表明启用资源包防篡改校验，路由表中的资源包信息中必须带上加密后的MD5值
     static var encryptionKey: String? = nil
     
     /// 日志等级

@@ -85,10 +85,10 @@ class DownloadTask: NSObject {
     /// 校验资源包完整性
     fileprivate func verifyPackage(_ path: URL) -> Bool {
         if let key = HybridConfig.encryptionKey { // 如果启用验证
-            if let info = Util.loadJsonObject(fromZip: path) as? [String : String], let md5 = info[Router.Constant.MD5] {
+            if let md5 = Router.shared.md5(for: routeUrl) {
                 return ValidationChecker.validateFile(path, with: md5, using: key)
             } else {
-                LogError("资源包中缺少的MD5信息，校验失败")
+                LogError("路由表中缺少资源包'\(routeUrl)'的MD5信息，校验失败")
                 return false
             }
         } else {

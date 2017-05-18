@@ -120,8 +120,21 @@ public class Router: NSObject {
     /// - Returns:            该资源包的版本号
     internal func version(for routeUrl: String) -> String? {
         for (_, routeItem) in routeTable {
-            if let route = routeItem[Constant.RouteUrl], routeUrl == route, let version = routeItem[Constant.Version] {
-                return version
+            if let route = routeItem[Constant.RouteUrl], routeUrl == route {
+                return routeItem[Constant.Version]
+            }
+        }
+        return nil
+    }
+    
+    /// 获取资源包的MD5
+    ///
+    /// - Parameter routeUrl: 资源包的路由URL
+    /// - Returns:            MD5值
+    internal func md5(for routeUrl: String) -> String? {
+        for (_, routeItem) in routeTable {
+            if let route = routeItem[Constant.RouteUrl], routeUrl == route {
+                return routeItem[Constant.MD5]
             }
         }
         return nil

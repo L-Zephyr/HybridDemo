@@ -1,7 +1,8 @@
 [{
 	"route_url" : "/main",
 	"download_url" : "http://localhost:3000/main.zip",
-	"version" : "20170216"
+	"version" : "20170216",
+    "md5" : "asdfadf"
 },
 {
     "route_url" : "/second",
