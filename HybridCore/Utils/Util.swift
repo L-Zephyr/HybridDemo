@@ -233,7 +233,10 @@ internal extension URL {
             return nil
         }
         
-        let relatedPath = self.path.substring(from: baseUrl.path.endIndex)
+        let fullPath = self.path.replacingOccurrences(of: "//", with: "/")
+        let basePath = baseUrl.path.replacingOccurrences(of: "//", with: "/")
+        
+        let relatedPath = fullPath.substring(from: basePath.endIndex)
         return URL(fileURLWithPath: relatedPath)
     }
 }

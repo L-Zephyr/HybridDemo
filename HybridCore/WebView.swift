@@ -44,15 +44,18 @@ public class WebView: WKWebView {
             
             // 启动HTTP Server
             let port: UInt = 8008
-            WebView.server.addGETHandler(forBasePath: "/", directoryPath: readAccessURL.path, indexFilename: nil, cacheAge: 3600, allowRangeRequests: true)
-            if !WebView.server.isRunning {
+            if !WebView.server.isRunning, let rootPath = Util.webappPath {
+                WebView.server.addGETHandler(forBasePath: "/", directoryPath: rootPath.path, indexFilename: nil, cacheAge: 3600, allowRangeRequests: true)
                 WebView.server.start(withPort: port, bonjourName: nil)
             }
             
-            let relatePath = URL.path.substring(from: readAccessURL.path.endIndex)
+            guard let relatedPath = URL.relatedTo(Util.webappPath)?.path else {
+                return nil
+            }
+            
             var urlConponment = URLComponents(string: "http://127.0.0.1")
             urlConponment?.port = Int(port)
-            urlConponment?.path = relatePath
+            urlConponment?.path = relatedPath
             if let url = urlConponment?.url {
                 return self.load(URLRequest(url: url))
             } else {
