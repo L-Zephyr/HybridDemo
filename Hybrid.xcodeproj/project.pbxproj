@@ -37,6 +37,7 @@
 		BBCFC21B1ED15566003F932E /* HTTPMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCFC21A1ED15566003F932E /* HTTPMock.swift */; };
 		BBCFC2251ED16938003F932E /* TestRes in Resources */ = {isa = PBXBuildFile; fileRef = BBCFC2241ED16938003F932E /* TestRes */; };
 		BBCFC2261ED16947003F932E /* TestRes in Resources */ = {isa = PBXBuildFile; fileRef = BBCFC2241ED16938003F932E /* TestRes */; };
+		BBCFC2281ED185C3003F932E /* UtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCFC2271ED185C3003F932E /* UtilTests.swift */; };
 		BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */; };
 		DC62629D43CF03E5AF473C60 /* Pods_Hybrid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72DD68026FA84DA37140D7 /* Pods_Hybrid.framework */; };
 		F32F7C94C058DB028081B6F1 /* Pods_HybridTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B8150592778DD3F750D1FC /* Pods_HybridTests.framework */; };
@@ -100,6 +101,7 @@
 		BB92EAC01E1219D1001AB56E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BBCFC21A1ED15566003F932E /* HTTPMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMock.swift; sourceTree = "<group>"; };
 		BBCFC2241ED16938003F932E /* TestRes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestRes; sourceTree = "<group>"; };
+		BBCFC2271ED185C3003F932E /* UtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilTests.swift; sourceTree = "<group>"; };
 		BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		CD7AB05FBDC1989DEEBC6076 /* Pods-HybridTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HybridTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HybridTests/Pods-HybridTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +184,7 @@
 				BBCFC2241ED16938003F932E /* TestRes */,
 				BBCFC21A1ED15566003F932E /* HTTPMock.swift */,
 				BB1DD2D21DFCE92B00B6C00E /* ResourceManagerTests.swift */,
+				BBCFC2271ED185C3003F932E /* UtilTests.swift */,
 				BB1DD2D41DFCE92B00B6C00E /* Info.plist */,
 			);
 			path = HybridTests;
@@ -535,6 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB1DD2D31DFCE92B00B6C00E /* ResourceManagerTests.swift in Sources */,
+				BBCFC2281ED185C3003F932E /* UtilTests.swift in Sources */,
 				BBCFC21B1ED15566003F932E /* HTTPMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
