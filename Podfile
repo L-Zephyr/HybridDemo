@@ -9,7 +9,6 @@ target 'Hybrid' do
   pod 'CryptoSwift'
 
   # Pods for Hybrid
-
   target 'HybridTests' do
     inherit! :search_paths
     # Pods for testing

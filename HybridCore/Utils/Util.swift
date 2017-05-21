@@ -236,26 +236,30 @@ internal extension URL {
         let fullPath = self.path.replacingOccurrences(of: "//", with: "/")
         let basePath = baseUrl.path.replacingOccurrences(of: "//", with: "/")
         
+        if basePath.endIndex >= fullPath.endIndex {
+            return nil
+        }
+        
         let relatedPath = fullPath.substring(from: basePath.endIndex)
         return URL(fileURLWithPath: relatedPath)
     }
 }
 
-extension String {
-    /// 获取字符串的md5值
-    ///
-    /// - Returns: 字符串的md5
-    internal func md5() -> String {
-        let str = self.cString(using: String.Encoding.utf8)
-        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
-        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
-        CC_MD5(str!, strLen, result)
-        let hash = NSMutableString()
-        for i in 0 ..< digestLen {
-            hash.appendFormat("%02x", result[i])
-        }
-        result.deinitialize()
-        return (hash as String)
-    }
-}
+//extension String {
+//    /// 获取字符串的md5值
+//    ///
+//    /// - Returns: 字符串的md5
+//    internal func md5() -> String {
+//        let str = self.cString(using: String.Encoding.utf8)
+//        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+//        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+//        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
+//        CC_MD5(str!, strLen, result)
+//        let hash = NSMutableString()
+//        for i in 0 ..< digestLen {
+//            hash.appendFormat("%02x", result[i])
+//        }
+//        result.deinitialize()
+//        return (hash as String)
+//    }
+//}

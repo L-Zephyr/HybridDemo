@@ -1,0 +1,6 @@
+[{
+	"route_url" : "/test",
+	"download_url" : "http://local/main",
+	"version" : "1.0",
+    "md5" : "asdfadf"
+}]

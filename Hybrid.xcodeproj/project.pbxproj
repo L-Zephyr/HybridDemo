@@ -14,7 +14,7 @@
 		BB1DD2C31DFCE92B00B6C00E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C11DFCE92B00B6C00E /* Main.storyboard */; };
 		BB1DD2C51DFCE92B00B6C00E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C41DFCE92B00B6C00E /* Assets.xcassets */; };
 		BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD2C61DFCE92B00B6C00E /* LaunchScreen.storyboard */; };
-		BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */; };
+		BB1DD2D31DFCE92B00B6C00E /* ResourceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD2D21DFCE92B00B6C00E /* ResourceManagerTests.swift */; };
 		BB2D56DC1E0047E000098738 /* HybridResource in Resources */ = {isa = PBXBuildFile; fileRef = BB2D56DB1E0047E000098738 /* HybridResource */; };
 		BB2D56DE1E004CCB00098738 /* HybridConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D56DD1E004CCB00098738 /* HybridConfig.swift */; };
 		BB37ABC91E96642B00D9D7BA /* PluginLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37ABC81E96642B00D9D7BA /* PluginLoader.swift */; };
@@ -26,7 +26,6 @@
 		BB679FED1EA7C15D009F664C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEC1EA7C15D009F664C /* WebViewController.swift */; };
 		BB679FF01EAB5C59009F664C /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FEF1EAB5C59009F664C /* DownloadTask.swift */; };
 		BB679FF21EAE09B4009F664C /* WebappItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB679FF11EAE09B4009F664C /* WebappItem.swift */; };
-		BB70AE5C1EBE093700FD898A /* NativePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AE5B1EBE093700FD898A /* NativePlugin.swift */; };
 		BB70AED31EC07B3100FD898A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AED11EC07B3100FD898A /* Util.swift */; };
 		BB70AEDD1ECC872300FD898A /* ValidationChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB70AEDC1ECC872300FD898A /* ValidationChecker.swift */; };
 		BB7B15BF1E94946F00BBD5E8 /* ReflectJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15B41E94946F00BBD5E8 /* ReflectJavascriptBridge.m */; };
@@ -35,6 +34,9 @@
 		BB7B15C21E94946F00BBD5E8 /* RJBObjectConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15BA1E94946F00BBD5E8 /* RJBObjectConvertor.m */; };
 		BB7B15C61E94978500BBD5E8 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7B15C51E94978500BBD5E8 /* WebView.swift */; };
 		BB92EAC11E1219D1001AB56E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92EAC01E1219D1001AB56E /* Logger.swift */; };
+		BBCFC21B1ED15566003F932E /* HTTPMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCFC21A1ED15566003F932E /* HTTPMock.swift */; };
+		BBCFC2251ED16938003F932E /* TestRes in Resources */ = {isa = PBXBuildFile; fileRef = BBCFC2241ED16938003F932E /* TestRes */; };
+		BBCFC2261ED16947003F932E /* TestRes in Resources */ = {isa = PBXBuildFile; fileRef = BBCFC2241ED16938003F932E /* TestRes */; };
 		BBE29B9E1E093335004F1C75 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */; };
 		DC62629D43CF03E5AF473C60 /* Pods_Hybrid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72DD68026FA84DA37140D7 /* Pods_Hybrid.framework */; };
 		F32F7C94C058DB028081B6F1 /* Pods_HybridTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B8150592778DD3F750D1FC /* Pods_HybridTests.framework */; };
@@ -67,7 +69,7 @@
 		BB1DD2C71DFCE92B00B6C00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB1DD2C91DFCE92B00B6C00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB1DD2CE1DFCE92B00B6C00E /* HybridTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HybridTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridTests.swift; sourceTree = "<group>"; };
+		BB1DD2D21DFCE92B00B6C00E /* ResourceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceManagerTests.swift; sourceTree = "<group>"; };
 		BB1DD2D41DFCE92B00B6C00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB2D56DB1E0047E000098738 /* HybridResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HybridResource; sourceTree = "<group>"; };
 		BB2D56DD1E004CCB00098738 /* HybridConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HybridConfig.swift; sourceTree = "<group>"; };
@@ -82,7 +84,6 @@
 		BB679FEC1EA7C15D009F664C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BB679FEF1EAB5C59009F664C /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
 		BB679FF11EAE09B4009F664C /* WebappItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebappItem.swift; sourceTree = "<group>"; };
-		BB70AE5B1EBE093700FD898A /* NativePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlugin.swift; sourceTree = "<group>"; };
 		BB70AECF1EC07B3100FD898A /* Hybrid-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hybrid-Bridging-Header.h"; sourceTree = "<group>"; };
 		BB70AED11EC07B3100FD898A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		BB70AEDC1ECC872300FD898A /* ValidationChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationChecker.swift; sourceTree = "<group>"; };
@@ -97,6 +98,8 @@
 		BB7B15C51E94978500BBD5E8 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		BB92EABE1E10EBE3001AB56E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		BB92EAC01E1219D1001AB56E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		BBCFC21A1ED15566003F932E /* HTTPMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMock.swift; sourceTree = "<group>"; };
+		BBCFC2241ED16938003F932E /* TestRes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestRes; sourceTree = "<group>"; };
 		BBE29B9D1E093335004F1C75 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		CD7AB05FBDC1989DEEBC6076 /* Pods-HybridTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HybridTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HybridTests/Pods-HybridTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,8 +179,9 @@
 		BB1DD2D11DFCE92B00B6C00E /* HybridTests */ = {
 			isa = PBXGroup;
 			children = (
-				BB1DD2D21DFCE92B00B6C00E /* HybridTests.swift */,
-				BB70AE5B1EBE093700FD898A /* NativePlugin.swift */,
+				BBCFC2241ED16938003F932E /* TestRes */,
+				BBCFC21A1ED15566003F932E /* HTTPMock.swift */,
+				BB1DD2D21DFCE92B00B6C00E /* ResourceManagerTests.swift */,
 				BB1DD2D41DFCE92B00B6C00E /* Info.plist */,
 			);
 			path = HybridTests;
@@ -359,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCFC2261ED16947003F932E /* TestRes in Resources */,
 				BB2D56DC1E0047E000098738 /* HybridResource in Resources */,
 				BB1DD2C81DFCE92B00B6C00E /* LaunchScreen.storyboard in Resources */,
 				BB1DD2C51DFCE92B00B6C00E /* Assets.xcassets in Resources */,
@@ -371,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCFC2251ED16938003F932E /* TestRes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,8 +534,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB1DD2D31DFCE92B00B6C00E /* HybridTests.swift in Sources */,
-				BB70AE5C1EBE093700FD898A /* NativePlugin.swift in Sources */,
+				BB1DD2D31DFCE92B00B6C00E /* ResourceManagerTests.swift in Sources */,
+				BBCFC21B1ED15566003F932E /* HTTPMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

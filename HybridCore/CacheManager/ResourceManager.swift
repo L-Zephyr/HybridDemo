@@ -8,6 +8,7 @@
 
 import UIKit
 import objective_zip
+import CryptoSwift
 
 internal class ResourceManager: NSObject {
     
@@ -19,8 +20,25 @@ internal class ResourceManager: NSObject {
     }
     
     /// 保存资源包信息
-    public func saveWebapp(_ webapp: WebappItem) {
-        insert(webapp)
+    @discardableResult public func saveWebapp(_ webapp: WebappItem) -> Bool {
+        return insert(webapp)
+    }
+    
+    /// 删除一个资源包
+    ///
+    /// - Parameter routeUrl: 资源包的路由URL
+    /// - Returns:            删除成功返回true，否则false
+    @discardableResult public func deleteWebapp(_ routeUrl: String) -> Bool {
+        if let webapp = webapp(withRoute: routeUrl), delete(routeUrl: routeUrl) {
+            do {
+                try FileManager.default.removeItem(at: webapp.localUrl)
+                return true
+            } catch {
+                LogError("资源包文件删除失败: \(error)")
+            }
+        }
+        
+        return false
     }
     
     /// 下载一个资源包
@@ -46,6 +64,7 @@ internal class ResourceManager: NSObject {
             return downloadingTask
         }
         
+        // 从路由表中查找路由URL
         if let routeUrl = Router.shared.routeUrl(with: url), let session = session {
             let task = DownloadTask.startDownloadTask(in: session, downloadUrl: url, routeUrl: routeUrl, completion: callback)
             downloadingTasks[url.absoluteString] = task
