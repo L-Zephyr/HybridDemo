@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CryptoSwift
 
 internal class ValidationChecker {
     
@@ -19,53 +18,64 @@ internal class ValidationChecker {
     ///   - key:         AES加密所用的Key
     /// - Returns:       校验成功返回true，失败返回false
     class func validateFile(_ path: URL, with encrypedMD5: String, using key: String) -> Bool {
-        do {
-            let fileData = try Data(contentsOf: path)
-            if let data = encrypedMD5.data(using: .utf8) {
-                let fileMD5 = try AES128Encrypt(data, key: key)
-                if fileMD5 == fileData.md5() {
-                    return true
-                }
-            }
-        } catch {
-            LogError("\(error)")
+        guard let fileMD5 = Util.fileMD5(path) else {
+            LogError("计算文件MD5值失败")
             return false
+        }
+        guard let decodedEncrypedMD5 = NSData(base64Encoded: encrypedMD5, options: .ignoreUnknownCharacters) else {
+            LogError("Base64 Decode失败")
+            return false
+        }
+        
+        // 解密得到的MD5和文件的MD5对比
+        if let decryptedMD5 = TripleDESDecrypt(decodedEncrypedMD5 as Data, key: key), fileMD5 == decryptedMD5 {
+            return true
         }
         
         return false
     }
     
-    /// 128位AES加密
+    /// 3DES解密
     ///
     /// - Parameters:
-    ///   - data:  待加密的数据
-    ///   - key:   加密所用的Key值
-    /// - Returns: 返回加密成功后的数据
-    /// - Throws:  加密失败抛出异常
-    private class func AES128Encrypt(_ data: Data, key: String) throws -> Data {
-        do {
-            let aes = try AES(key: key, iv: key, blockMode: .CBC, padding: PKCS7())
-            let encrypt = try aes.encrypt(data)
-            return Data(bytes: encrypt)
-        } catch {
-            throw error
+    ///   - data:  密文
+    ///   - key:   秘钥
+    /// - Returns: 解密后的明文
+    private class func TripleDESDecrypt(_ data: Data, key: String) -> Data? {
+        guard let keyData = key.data(using: .utf8, allowLossyConversion: false) else {
+            return nil
         }
-    }
-    
-    /// 128位AES解密
-    ///
-    /// - Parameters:
-    ///   - data:  待解密的数据
-    ///   - key:   解密所用的Key值
-    /// - Returns: 返回解密成功后的数据
-    /// - Throws:  解密失败抛出异常
-    private class func AES128Decrypt(_ data: Data, key: String) throws -> Data {
-        do {
-            let aes = try AES(key: key, iv: key, blockMode: .CBC, padding: PKCS7())
-            let decrypt = try aes.decrypt(data)
-            return Data(bytes: decrypt)
-        } catch {
-            throw error
+        
+        let keyBytes = keyData.withUnsafeBytes { (bytes) -> UnsafePointer<UInt8> in
+            return bytes
+        }
+        let dataBytes = data.withUnsafeBytes { (bytes) -> UnsafePointer<UInt8> in
+            return bytes
+        }
+        
+        var bufferData = Data(count: data.count + kCCBlockSize3DES)
+        let bufferPtr = bufferData.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
+            return bytes
+        }
+        var bytesDecrypted = Int(0)
+        
+        let status = CCCrypt(CCOperation(kCCDecrypt),
+                             CCAlgorithm(kCCAlgorithm3DES),
+                             CCOptions(kCCOptionECBMode),
+                             keyBytes,
+                             kCCKeySize3DES,
+                             nil,
+                             dataBytes,
+                             data.count,
+                             bufferPtr,
+                             bufferData.count,
+                             &bytesDecrypted)
+        
+        if Int32(status) == Int32(kCCSuccess) {
+            bufferData.count = bytesDecrypted
+            return bufferData
+        } else {
+            return nil
         }
     }
 }

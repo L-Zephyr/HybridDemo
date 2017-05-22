@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CryptoSwift
 
 class DownloadTask: NSObject {
     
@@ -107,8 +106,9 @@ extension DownloadTask: URLSessionDownloadDelegate {
             return
         }
         
+        // 资源包校验
         guard verifyPackage(location) else {
-            LogWarning("\(downloadUrl.absoluteString)资源包完整性校验失败，可能已被篡改!")
+            LogWarning("'\(downloadUrl.absoluteString)'资源包完整性校验失败，可能已被篡改!")
             callback(nil, NSError(domain: "资源包完整性校验失败，可能已被篡改", code: 6006, userInfo: nil))
             return
         }

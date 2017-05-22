@@ -14,10 +14,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+//        HybridConfig.encryptionKey = "divngefkdpqlcmfe"
+        
         if let preload = Bundle.main.resourceURL?.appendingPathComponent("HybridResource") {
             HybridConfig.resourcePreloadPath = preload.path
         }
-                
+        
         if let resUrl = Bundle.main.resourceURL {
             let url = resUrl.appendingPathComponent("HybridResource").appendingPathComponent("route.json")
             HybridConfig.routeFilePath = url.path

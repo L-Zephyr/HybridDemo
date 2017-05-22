@@ -221,6 +221,41 @@ internal class Util {
     class func isZip(url: URL) -> Bool {
         return url.isFileURL && url.lastPathComponent.hasSuffix(".zip")
     }
+    
+    /// 计算一个文件的md5
+    class func fileMD5(_ path: URL) -> Data? {
+        guard let fileHandle = try? FileHandle(forReadingFrom: path) else {
+            return nil
+        }
+        
+        let md5Ctx = UnsafeMutablePointer<CC_MD5_CTX>.allocate(capacity: MemoryLayout<CC_MD5_CTX>.size)
+        CC_MD5_Init(md5Ctx)
+        
+        // 分块读取避免内存占用过高
+        while true {
+            let data = fileHandle.readData(ofLength: 256)
+            if data.count == 0 {
+                break
+            }
+            
+            _ = data.withUnsafeBytes({ (bytes: UnsafePointer<Int32>) -> Int32 in
+                CC_MD5_Update(md5Ctx, bytes, CC_LONG(data.count))
+            })
+        }
+        
+        let digest = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(CC_MD5_DIGEST_LENGTH))
+        CC_MD5_Final(digest, md5Ctx)
+        
+        var hash = ""
+        for i in 0..<CC_MD5_DIGEST_LENGTH {
+            hash +=  String(format: "%02x", (digest[Int(i)]))
+        }
+        
+        md5Ctx.deinitialize()
+        digest.deinitialize()
+        
+        return hash.data(using: .utf8)
+    }
 }
 
 internal extension URL {
@@ -245,21 +280,21 @@ internal extension URL {
     }
 }
 
-//extension String {
-//    /// 获取字符串的md5值
-//    ///
-//    /// - Returns: 字符串的md5
-//    internal func md5() -> String {
-//        let str = self.cString(using: String.Encoding.utf8)
-//        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
-//        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-//        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
-//        CC_MD5(str!, strLen, result)
-//        let hash = NSMutableString()
-//        for i in 0 ..< digestLen {
-//            hash.appendFormat("%02x", result[i])
-//        }
-//        result.deinitialize()
-//        return (hash as String)
-//    }
-//}
+extension String {
+    /// 获取字符串的md5值
+    ///
+    /// - Returns: 字符串的md5
+    internal func md5() -> String {
+        let str = self.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
+        CC_MD5(str!, strLen, result)
+        let hash = NSMutableString()
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[i])
+        }
+        result.deinitialize()
+        return (hash as String)
+    }
+}

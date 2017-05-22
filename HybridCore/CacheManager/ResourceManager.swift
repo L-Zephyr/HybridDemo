@@ -8,7 +8,6 @@
 
 import UIKit
 import objective_zip
-import CryptoSwift
 
 internal class ResourceManager: NSObject {
     

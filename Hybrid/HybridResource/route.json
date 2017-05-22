@@ -1,11 +1,11 @@
 [{
 	"route_url" : "/main",
 	"download_url" : "http://localhost:3000/main.zip",
-	"version" : "20170219",
-    "md5" : "asdfadf"
+	"version" : "20170223",
+    "md5" : "NdovY4+uP+XzDxyzxpWmPwHNFqA2mdFKwHzKpGWz+Ag="
 },
 {
     "route_url" : "/second",
 	"download_url" : "http://localhost:3000/second.zip",
-	"version" : "20170204"
+	"version" : "20170205"
 }]

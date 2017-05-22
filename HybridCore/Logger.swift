@@ -38,7 +38,7 @@ internal class Logger: NSObject {
     // MARK: - Private
     
     private class func printLog(level: LoggerLevel, log: String) {
-        let levelNames = ["Verbose", "Info", "Warning", "Error"]
+        let levelNames = ["Verbose", "Warning", "Error"]
         print("[\(levelNames[level.rawValue])]: \(log)")
     }
 }

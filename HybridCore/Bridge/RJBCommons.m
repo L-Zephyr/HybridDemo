@@ -118,7 +118,7 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
                     actualArg["data"] = JSON.stringify(arg);
                 } else if (typeof arg === 'function') { // 闭包
                     actualArg["type"] = 3;
-                    actualArg["data"] = JSON.stringify(arg);
+                    actualArg["data"] = uniqueCallbackId;
                     responseCallbacks[uniqueCallbackId++] = arg;
                 }
                 argList.push(actualArg);
@@ -138,9 +138,7 @@ NSString *ReflectJavascriptBridgeInjectedJS() {
             if (args.length > methodArgCount) {
                 command["callbackId"] = uniqueCallbackId;
                 responseCallbacks[uniqueCallbackId++] = args[args.length - 1];
-                console.log("保存返回闭包");
             }
-            console.log(command);
             
             commandQueue.push(command);
             sendReadyToNative();
@@ -166,8 +164,11 @@ BOOL RJB_isUnsignedInteger(NSString *type) {
 }
 
 BOOL RJB_isFloat(NSString *type) {
-    NSString *floatEncoding = @"fd";
-    return type.length == 1 && [floatEncoding containsString:type];
+    return [type isEqualToString:@"f"];
+}
+
+BOOL RJB_isDouble(NSString *type) {
+    return [type isEqualToString:@"d"];
 }
 
 BOOL RJB_isClass(NSString *type) {

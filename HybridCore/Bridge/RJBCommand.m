@@ -111,6 +111,9 @@
                     long long param = [argInfo[Data] longLongValue];
                     [invocation setArgument:&param atIndex:paramIndex];
                 } else if (RJB_isFloat(type)) {
+                    float param = [argInfo[Data] doubleValue];
+                    [invocation setArgument:&param atIndex:paramIndex];
+                } else if (RJB_isDouble(type)) {
                     double param = [argInfo[Data] doubleValue];
                     [invocation setArgument:&param atIndex:paramIndex];
                 } else {

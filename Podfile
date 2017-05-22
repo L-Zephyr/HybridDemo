@@ -6,7 +6,6 @@ target 'Hybrid' do
   use_frameworks!
   pod 'GCDWebServer', '~> 3.0'
   pod 'objective-zip', '~> 1.0'
-  pod 'CryptoSwift'
 
   # Pods for Hybrid
   target 'HybridTests' do
