@@ -105,6 +105,7 @@ internal class ResourceManager: NSObject {
                         // 当前资源包版本较低则更新
                         if webapp.version < version && Util.unzip(from: URL(fileURLWithPath: zipPath), to: targetPath) {
                            self.insert(WebappItem(routeUrl: route, localPath: targetPath.path, version: version))
+                           LogVerbose("'\(route)'资源包更新成功，当前版本: \(version)")
                         }
                     }
                     // 资源包不存在则直接解压到安装目录

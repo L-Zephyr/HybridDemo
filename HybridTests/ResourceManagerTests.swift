@@ -7,10 +7,10 @@
 //
 
 import XCTest
-import CryptoSwift
 @testable import Hybrid
 
 let LocalFile = "http://local/main"
+let UnsafeLocalFile = "http://local/unsafe"
 let StubUrl = "/local/main"
 let TestZipVersion = "1.0"
 
@@ -22,13 +22,15 @@ class ResourceManagerTests: XCTestCase {
             XCTAssert(false, "获取路由表失败")
             return
         }
-        guard let resPath = Bundle.main.resourceURL?.appendingPathComponent("TestRes/test.zip") else {
+        guard let resPath = Bundle.main.resourceURL?.appendingPathComponent("TestRes/test.zip"), let unsafePath = Bundle.main.resourceURL?.appendingPathComponent("TestRes/unsafe.zip") else {
             XCTAssert(false, "获取mock资源失败")
             return
         }
         
         HybridConfig.routeFilePath = testRoute.path
+        
         HTTPMock.map(url: LocalFile, toLocalFile: resPath.path)
+        HTTPMock.map(url: UnsafeLocalFile, toLocalFile: unsafePath.path)
     }
     
     override func tearDown() {
@@ -36,7 +38,9 @@ class ResourceManagerTests: XCTestCase {
         super.tearDown()
         
         HTTPMock.removeMap(withUrl: LocalFile)
-        ResourceManager.shared.deleteWebapp("/test")
+        HTTPMock.removeMap(withUrl: UnsafeLocalFile)
+        
+        HybridConfig.encryptionKey = nil
     }
     
     // 数据库插入测试
@@ -143,6 +147,36 @@ class ResourceManagerTests: XCTestCase {
             XCTAssert(FileManager.default.fileExists(atPath: targetPath.path), "更新包为保存到临时目录中")
         }) { (error) in
             XCTAssert(false, "下载失败:\(error)")
+        }
+    }
+    
+    // 资源包校验测试, 正常资源包
+    func testVerifySafeDigest() {
+        guard let url = URL(string: LocalFile) else {
+            XCTAssert(false, "URL初始化失败")
+            return
+        }
+        
+        ResourceManager.shared.downloadPackage(url: url, success: { (desUrl) in
+            
+        }) { (error) in
+            XCTAssert(false, "下载错误")
+        }
+    }
+    
+    // 资源包检验测试, 被篡改资源包
+    func testVerifyUnsafeDigest() {
+        guard let url = URL(string: LocalFile) else {
+            XCTAssert(false, "URL初始化失败")
+            return
+        }
+        
+        HybridConfig.encryptionKey = "divngefkdpqlcmferfxef3fr"
+        
+        ResourceManager.shared.downloadPackage(url: url, success: { (desUrl) in
+            XCTAssert(false, "资源包校验出错")
+        }) { (error) in
+            XCTAssert((error as NSError).code == 6006, "下载失败")
         }
     }
 }

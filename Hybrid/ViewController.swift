@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        HybridConfig.encryptionKey = "divngefkdpqlcmfe"
+        HybridConfig.encryptionKey = "divngefkdpqlcmferfxef3fr"
         
         if let preload = Bundle.main.resourceURL?.appendingPathComponent("HybridResource") {
             HybridConfig.resourcePreloadPath = preload.path

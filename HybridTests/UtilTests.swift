@@ -31,7 +31,7 @@ class UtilTests: XCTestCase {
         if let jsonList = Util.loadJsonObject(fromUrl: jsonPath) as? [[String : String]], let json = jsonList.first {
             XCTAssert(json["route_url"] != nil && json["route_url"]! == "/test", "数据错误")
             XCTAssert(json["download_url"] != nil && json["download_url"]! == "http://local/main", "数据错误")
-            XCTAssert(json["version"] != nil && json["version"]! == "1.0", "数据错误")
+            XCTAssert(json["version"] != nil && json["version"]! == "1.1", "数据错误")
         } else {
             XCTAssert(false, "加载json文件失败")
         }
@@ -47,7 +47,7 @@ class UtilTests: XCTestCase {
         if let json = Util.loadJsonObject(fromZip: zipPath) as? [String : String] {
             XCTAssert(json["route_url"] != nil && json["route_url"]! == "/test", "数据错误")
             XCTAssert(json["entrance"] != nil && json["entrance"]! == "main.html", "数据错误")
-            XCTAssert(json["version"] != nil && json["version"]! == "1.0", "数据错误")
+            XCTAssert(json["version"] != nil && json["version"]! == "1.1", "数据错误")
         } else {
             XCTAssert(false, "加载json文件失败")
         }
